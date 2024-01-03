@@ -1,0 +1,342 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+		<TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
+		<!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
+		<!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
+		<OutputType>Exe</OutputType>
+		<RootNamespace>SportNow</RootNamespace>
+		<UseMaui>true</UseMaui>
+		<SingleProject>true</SingleProject>
+		<ImplicitUsings>enable</ImplicitUsings>
+
+		<!-- Display name -->
+		<ApplicationTitle>Ippon Karate</ApplicationTitle>
+
+		<!-- App Identifier -->
+		<ApplicationId>org.nksl.userapp</ApplicationId>
+		<ApplicationIdGuid>2dc29652-0b88-4207-b1a3-293d65980583</ApplicationIdGuid>
+
+		<!-- Versions -->
+		<ApplicationDisplayVersion>3.0</ApplicationDisplayVersion>
+		<ApplicationVersion>58</ApplicationVersion>
+
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'ios'">11.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'maccatalyst'">13.1</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'android'">21.0</SupportedOSPlatformVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</SupportedOSPlatformVersion>
+		<TargetPlatformMinVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'windows'">10.0.17763.0</TargetPlatformMinVersion>
+		<SupportedOSPlatformVersion Condition="$([MSBuild]::GetTargetPlatformIdentifier('$(TargetFramework)')) == 'tizen'">6.5</SupportedOSPlatformVersion>
+		<ReleaseVersion>58</ReleaseVersion>
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Debug|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignProvision>Ippon Provision Profile Development</CodesignProvision>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	  <MtouchDebug>true</MtouchDebug>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-ios|AnyCPU'">
+	  <CreatePackage>false</CreatePackage>
+	  <CodesignProvision>Ippon Provision Profile Development</CodesignProvision>
+	  <CodesignKey>iPhone Developer</CodesignKey>
+	</PropertyGroup>
+	<ItemGroup>
+		<!-- App Icon -->
+		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />-->
+		<MauiIcon Include="Resources\AppIcon\appicon.svg" Color="#000000" />
+
+		<!-- Splash Screen -->
+		<MauiSplashScreen Include="Resources\Splash\splash_ippon.svg" Color="#000000" />
+
+		<!-- Images -->
+		<MauiImage Include="Resources\Images\*" />
+		<MauiImage Update="Resources\Images\dotnet_bot.svg" BaseSize="168,208" />
+
+		<!-- Custom Fonts -->
+		<MauiFont Include="Resources\Fonts\*" />
+
+		<!-- Raw Assets (also remove the "Resources\Raw" prefix) -->
+		<MauiAsset Include="Resources\Raw\**" LogicalName="%(RecursiveDir)%(Filename)%(Extension)" />
+		<!--<MauiSplashScreen Include="Resources\Splash\splash.svg" />-->
+		<!--<MauiIcon Include="Resources\Splash\splash.svg">
+		  <ForegroundFile>Resources\AppIcon\appiconfg.svg</ForegroundFile>
+		  <Color>#512BD4</Color>
+		</MauiIcon>-->
+		<!--<MauiIcon Include="Resources\AppIcon\appicon.svg">
+		  <Color>#000000</Color>
+		</MauiIcon>-->
+		<MauiSplashScreen Include="Resources\Splash\splash_ippon.svg" BaseSize="300,300" />
+	</ItemGroup>
+
+	<ItemGroup>
+		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="7.0.0" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Plugin.DeviceOrientation" Version="1.0.7" />
+		<PackageReference Include="Syncfusion.Maui.Charts" Version="24.1.41" />
+		<PackageReference Include="SkiaSharp" Version="2.88.6" />
+		<PackageReference Include="Syncfusion.Maui.Core" Version="24.1.41" />
+		<PackageReference Include="Syncfusion.Maui.Expander" Version="24.1.41" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Remove="Custom Views\" />
+	  <None Remove="Model\" />
+	  <None Remove="Model\Charts\" />
+	  <None Remove="Services\" />
+	  <None Remove="Services\Data\" />
+	  <None Remove="Services\Data\JSON\" />
+	  <None Remove="Resources\Images\add_person.png" />
+	  <None Remove="Resources\Images\add.png" />
+	  <None Remove="Resources\Images\attendances.png" />
+	  <None Remove="Resources\Images\belt_1_dan_bloq.png" />
+	  <None Remove="Resources\Images\belt_1_dan.png" />
+	  <None Remove="Resources\Images\belt_1_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_1_kyu.png" />
+	  <None Remove="Resources\Images\belt_2_dan_bloq.png" />
+	  <None Remove="Resources\Images\belt_2_dan.png" />
+	  <None Remove="Resources\Images\belt_2_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_2_kyu.png" />
+	  <None Remove="Resources\Images\belt_3_dan_bloq.png" />
+	  <None Remove="Resources\Images\belt_3_dan.png" />
+	  <None Remove="Resources\Images\belt_3_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_3_kyu_kari_bloq.png" />
+	  <None Remove="Resources\Images\belt_3_kyu_kari.png" />
+	  <None Remove="Resources\Images\belt_3_kyu.png" />
+	  <None Remove="Resources\Images\belt_4_dan_bloq.png" />
+	  <None Remove="Resources\Images\belt_4_dan.png" />
+	  <None Remove="Resources\Images\belt_4_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_4_kyu_kari_bloq.png" />
+	  <None Remove="Resources\Images\belt_4_kyu_kari.png" />
+	  <None Remove="Resources\Images\belt_4_kyu.png" />
+	  <None Remove="Resources\Images\belt_5_dan_bloq.png" />
+	  <None Remove="Resources\Images\belt_5_dan.png" />
+	  <None Remove="Resources\Images\belt_5_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_5_kyu.png" />
+	  <None Remove="Resources\Images\belt_6_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_6_kyu_kari.png" />
+	  <None Remove="Resources\Images\belt_6_kyu.png" />
+	  <None Remove="Resources\Images\belt_7_kyu.png" />
+	  <None Remove="Resources\Images\belt_8_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_8_kyu_kari_bloq.png" />
+	  <None Remove="Resources\Images\belt_8_kyu_Kari.png" />
+	  <None Remove="Resources\Images\belt_8_kyu.png" />
+	  <None Remove="Resources\Images\belt_9_kyu_bloq.png" />
+	  <None Remove="Resources\Images\belt_9_kyu_kari.png" />
+	  <None Remove="Resources\Images\belt_9_kyu.png" />
+	  <None Remove="Resources\Images\belt_9_yu_kari_bloq.png" />
+	  <None Remove="Resources\Images\belt_10_kyu.png" />
+	  <None Remove="Resources\Images\boneco_karate.png" />
+	  <None Remove="Resources\Images\botaoaksl.png" />
+	  <None Remove="Resources\Images\botaoalmudarconta.png" />
+	  <None Remove="Resources\Images\botaoalterarpass.png" />
+	  <None Remove="Resources\Images\botaologinaluno.png" />
+	  <None Remove="Resources\Images\botaologininstrutor.png" />
+	  <None Remove="Resources\Images\cinto.png" />
+	  <None Remove="Resources\Images\classstats.png" />
+	  <None Remove="Resources\Images\confirmclasses.png" />
+	  <None Remove="Resources\Images\eventos.png" />
+	  <None Remove="Resources\Images\examinationprograms.png" />
+	  <None Remove="Resources\Images\fnkpikp.png" />
+	  <None Remove="Resources\Images\fotokarategis.png" />
+	  <None Remove="Resources\Images\fotomais12anos.png" />
+	  <None Remove="Resources\Images\fotomenos6anos.png" />
+	  <None Remove="Resources\Images\fotomenos12anos.png" />
+	  <None Remove="Resources\Images\fotomerchandisingaksl.png" />
+	  <None Remove="Resources\Images\fotoprotecoescintos.png" />
+	  <None Remove="Resources\Images\iconadicionarfoto.png" />
+	  <None Remove="Resources\Images\iconalunosafaltar.png" />
+	  <None Remove="Resources\Images\iconaprovarinscricoes.png" />
+	  <None Remove="Resources\Images\iconcalendario.png" />
+	  <None Remove="Resources\Images\iconcheck.png" />
+	  <None Remove="Resources\Images\iconconvocatoria.png" />
+	  <None Remove="Resources\Images\icondo.png" />
+	  <None Remove="Resources\Images\iconequipamentos.png" />
+	  <None Remove="Resources\Images\iconescolheraluno.png" />
+	  <None Remove="Resources\Images\iconescolherutilizador.png" />
+	  <None Remove="Resources\Images\iconexames.png" />
+	  <None Remove="Resources\Images\iconexpectativas.png" />
+	  <None Remove="Resources\Images\iconinativo.png" />
+	  <None Remove="Resources\Images\iconinfogreen.png" />
+	  <None Remove="Resources\Images\iconinfowhite.png" />
+	  <None Remove="Resources\Images\iconinsatisfeito.png" />
+	  <None Remove="Resources\Images\iconmedio.png" />
+	  <None Remove="Resources\Images\iconpassword.png" />
+	  <None Remove="Resources\Images\iconpresencas.png" />
+	  <None Remove="Resources\Images\iconquotasativas.png" />
+	  <None Remove="Resources\Images\iconquotasinativas.png" />
+	  <None Remove="Resources\Images\iconsatisfeito.png" />
+	  <None Remove="Resources\Images\iconshare.png" />
+	  <None Remove="Resources\Images\kimono.png" />
+	  <None Remove="Resources\Images\launchScreen.storyboard" />
+	  <None Remove="Resources\Images\loading.gif" />
+	  <None Remove="Resources\Images\logo_aksl_icon.png" />
+	  <None Remove="Resources\Images\logo_aksl_inactive.png" />
+	  <None Remove="Resources\Images\logo_aksl_round.png" />
+	  <None Remove="Resources\Images\logo_aksl.png" />
+	  <None Remove="Resources\Images\logo_fnkp_inactive.png" />
+	  <None Remove="Resources\Images\logo_fnkp_seguro.png" />
+	  <None Remove="Resources\Images\logo_fnkp.png" />
+	  <None Remove="Resources\Images\logo_ikp_inactive.png" />
+	  <None Remove="Resources\Images\logo_ikp.png" />
+	  <None Remove="Resources\Images\logo_nksl.png" />
+	  <None Remove="Resources\Images\logofnkpaksl.png" />
+	  <None Remove="Resources\Images\logombway.png" />
+	  <None Remove="Resources\Images\logomultibanco.png" />
+	  <None Remove="Resources\Images\medalha.png" />
+	  <None Remove="Resources\Images\mensalidades_alunos.png" />
+	  <None Remove="Resources\Images\monthfees.png" />
+	  <None Remove="Resources\Images\mygrades.png" />
+	  <None Remove="Resources\Images\perfil.png" />
+	  <None Remove="Resources\Images\premio_aluno_mes.png" />
+	  <None Remove="Resources\Images\premio_ippon_ouro.png" />
+	  <None Remove="Resources\Images\presencasicon.png" />
+	  <None Remove="Resources\Images\youtube.png" />
+	  <None Remove="Resources\Fonts\futura medium condensed bt.ttf" />
+	  <None Remove="Resources\AppIcon\appiconfg.svg" />
+	  <None Remove="Resources\Images\loading_ippon.gif" />
+	  <None Remove="Resources\Images\Splash\" />
+	  <None Remove="Resources\Images\Splash\logo_aksl_splash.png" />
+	  <None Remove="Resources\Images\Splash\logo_ippon_splash.png" />
+	  <None Remove="Resources\Splash\logo_ippon_splash.png" />
+	  <None Remove="Resources\Splash\appicon.svg" />
+	  <None Remove="Resources\Splash\splash_ippon.svg" />
+	  <None Remove="Resources\Images\transparent.png" />
+	  <None Remove="Resources\Images\green.png" />
+	  <None Remove="Resources\Images\yellow.png" />
+	  <None Remove="Resources\Images\blue.png" />
+	  <None Remove="Resources\.DS_Store" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Custom Views\" />
+	  <Folder Include="Model\" />
+	  <Folder Include="Model\Charts\" />
+	  <Folder Include="Services\" />
+	  <Folder Include="Services\Data\" />
+	  <Folder Include="Services\Data\JSON\" />
+	  <Folder Include="Resources\Images\Splash\" />
+	</ItemGroup>
+	<ItemGroup>
+	  <BundleResource Include="Resources\Images\add_person.png" />
+	  <BundleResource Include="Resources\Images\add.png" />
+	  <BundleResource Include="Resources\Images\attendances.png" />
+	  <BundleResource Include="Resources\Images\belt_1_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_1_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_1_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_1_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_2_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_2_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_2_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_2_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_3_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_3_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_3_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_4_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_4_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_4_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_4_kyu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_4_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_4_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_5_dan_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_5_dan.png" />
+	  <BundleResource Include="Resources\Images\belt_5_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_5_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_6_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_6_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_6_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_7_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_8_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_8_kyu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_8_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_8_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_9_kyu_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_9_kyu_kari.png" />
+	  <BundleResource Include="Resources\Images\belt_9_kyu.png" />
+	  <BundleResource Include="Resources\Images\belt_9_yu_kari_bloq.png" />
+	  <BundleResource Include="Resources\Images\belt_10_kyu.png" />
+	  <BundleResource Include="Resources\Images\boneco_karate.png" />
+	  <BundleResource Include="Resources\Images\botaoaksl.png" />
+	  <BundleResource Include="Resources\Images\botaoalmudarconta.png" />
+	  <BundleResource Include="Resources\Images\botaoalterarpass.png" />
+	  <BundleResource Include="Resources\Images\botaologinaluno.png" />
+	  <BundleResource Include="Resources\Images\botaologininstrutor.png" />
+	  <BundleResource Include="Resources\Images\cinto.png" />
+	  <BundleResource Include="Resources\Images\classstats.png" />
+	  <BundleResource Include="Resources\Images\confirmclasses.png" />
+	  <BundleResource Include="Resources\Images\eventos.png" />
+	  <BundleResource Include="Resources\Images\examinationprograms.png" />
+	  <BundleResource Include="Resources\Images\fnkpikp.png" />
+	  <BundleResource Include="Resources\Images\fotokarategis.png" />
+	  <BundleResource Include="Resources\Images\fotomais12anos.png" />
+	  <BundleResource Include="Resources\Images\fotomenos6anos.png" />
+	  <BundleResource Include="Resources\Images\fotomenos12anos.png" />
+	  <BundleResource Include="Resources\Images\fotomerchandisingaksl.png" />
+	  <BundleResource Include="Resources\Images\fotoprotecoescintos.png" />
+	  <BundleResource Include="Resources\Images\iconadicionarfoto.png" />
+	  <BundleResource Include="Resources\Images\iconalunosafaltar.png" />
+	  <BundleResource Include="Resources\Images\iconaprovarinscricoes.png" />
+	  <BundleResource Include="Resources\Images\iconcalendario.png" />
+	  <BundleResource Include="Resources\Images\iconcheck.png" />
+	  <BundleResource Include="Resources\Images\iconconvocatoria.png" />
+	  <BundleResource Include="Resources\Images\icondo.png" />
+	  <BundleResource Include="Resources\Images\iconequipamentos.png" />
+	  <BundleResource Include="Resources\Images\iconescolheraluno.png" />
+	  <BundleResource Include="Resources\Images\iconescolherutilizador.png" />
+	  <BundleResource Include="Resources\Images\iconexames.png" />
+	  <BundleResource Include="Resources\Images\iconexpectativas.png" />
+	  <BundleResource Include="Resources\Images\iconinativo.png" />
+	  <BundleResource Include="Resources\Images\iconinfogreen.png" />
+	  <BundleResource Include="Resources\Images\iconinfowhite.png" />
+	  <BundleResource Include="Resources\Images\iconinsatisfeito.png" />
+	  <BundleResource Include="Resources\Images\iconmedio.png" />
+	  <BundleResource Include="Resources\Images\iconpassword.png" />
+	  <BundleResource Include="Resources\Images\iconpresencas.png" />
+	  <BundleResource Include="Resources\Images\iconquotasativas.png" />
+	  <BundleResource Include="Resources\Images\iconquotasinativas.png" />
+	  <BundleResource Include="Resources\Images\iconsatisfeito.png" />
+	  <BundleResource Include="Resources\Images\iconshare.png" />
+	  <BundleResource Include="Resources\Images\kimono.png" />
+	  <BundleResource Include="Resources\Images\loading_old.gif" />
+	  <BundleResource Include="Resources\Images\logo_aksl_icon.png" />
+	  <BundleResource Include="Resources\Images\logo_aksl_inactive.png" />
+	  <BundleResource Include="Resources\Images\logo_aksl_round.png" />
+	  <BundleResource Include="Resources\Images\logo_aksl.png" />
+	  <BundleResource Include="Resources\Images\logo_fnkp_inactive.png" />
+	  <BundleResource Include="Resources\Images\logo_fnkp_seguro.png" />
+	  <BundleResource Include="Resources\Images\logo_fnkp.png" />
+	  <BundleResource Include="Resources\Images\logo_ikp_inactive.png" />
+	  <BundleResource Include="Resources\Images\logo_ikp.png" />
+	  <BundleResource Include="Resources\Images\logo_nksl.png" />
+	  <BundleResource Include="Resources\Images\logofnkpaksl.png" />
+	  <BundleResource Include="Resources\Images\logombway.png" />
+	  <BundleResource Include="Resources\Images\logomultibanco.png" />
+	  <BundleResource Include="Resources\Images\medalha.png" />
+	  <BundleResource Include="Resources\Images\mensalidades_alunos.png" />
+	  <BundleResource Include="Resources\Images\monthfees.png" />
+	  <BundleResource Include="Resources\Images\mygrades.png" />
+	  <BundleResource Include="Resources\Images\perfil.png" />
+	  <BundleResource Include="Resources\Images\premio_aluno_mes.png" />
+	  <BundleResource Include="Resources\Images\premio_ippon_ouro.png" />
+	  <BundleResource Include="Resources\Images\presencasicon.png" />
+	  <BundleResource Include="Resources\Images\youtube.png" />
+	  <BundleResource Include="Resources\Fonts\futura medium condensed bt.ttf" />
+	  <BundleResource Include="Resources\AppIcon\appiconfg.svg" />
+	  <BundleResource Include="Resources\Images\loading_o.gif" />
+	  <BundleResource Include="Resources\Images\loading.gif" />
+	  <BundleResource Include="Resources\Images\transparent.png" />
+	  <BundleResource Include="Resources\Images\green.png" />
+	  <BundleResource Include="Resources\Images\yellow.png" />
+	  <BundleResource Include="Resources\Images\blue.png" />
+	  <BundleResource Include="Resources\.DS_Store" />
+	</ItemGroup>
+	<ItemGroup>
+	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Views\Competition\CompeticoesPageCS.cs" />
+	</ItemGroup>
+</Project>
