@@ -6,7 +6,7 @@ using SportNow.Services.Data.JSON;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using SportNow.Views.Profile;
-
+using SportNow.CustomViews;
 
 namespace SportNow.Views
 {
@@ -29,7 +29,7 @@ namespace SportNow.Views
 
 		private Microsoft.Maui.Controls.Grid gridInactiveFee, gridActiveFee;
 
-		Button activateButton;
+		RoundButton activateButton;
 
 
 		public void initLayout()
@@ -81,7 +81,7 @@ namespace SportNow.Views
 		}
 
 		public void createInactiveFeeLayout() {
-			gridInactiveFee = new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+			gridInactiveFee = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 10 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
 			gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
 			gridInactiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -93,7 +93,8 @@ namespace SportNow.Views
 
 			Label feeYearLabel = new Label
 			{
-				Text = DateTime.Now.ToString("yyyy"),
+                FontFamily = "futuracondensedmedium",
+                Text = DateTime.Now.ToString("yyyy"),
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -115,7 +116,8 @@ namespace SportNow.Views
 
 			Label feeInactiveLabel = new Label
 			{
-				Text = "Quotas Inativas",
+                FontFamily = "futuracondensedmedium",
+                Text = "Quotas Inativas",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.Red,
@@ -125,35 +127,19 @@ namespace SportNow.Views
 
 			Label feeInactiveCommentLabel = new Label
 			{
-				Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e poderá não ter acesso a seguro desportivo em caso de lesão (caso treine num dojo sem seguro desportivo).",
+                FontFamily = "futuracondensedmedium",
+                Text = "Atenção: Com as quotas inativas o aluno não poderá participar em eventos e poderá não ter acesso a seguro desportivo em caso de lesão (caso treine num dojo sem seguro desportivo).",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
 				FontSize = 20
 			};
 
-			activateButton = new Button
-			{
-				Text = "ATIVAR",
-				BackgroundColor = Color.FromRgb(96, 182, 89),
-				TextColor = Colors.White,
-				WidthRequest = 100,
-				HeightRequest = 50
-			};
-			activateButton.Clicked += OnActivateButtonClicked;
 
+            activateButton = new RoundButton("ATIVAR", App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            activateButton.button.Clicked += OnActivateButtonClicked;
 
-			Frame frame_activateButton = new Frame {
-				BorderColor = Color.FromRgb(96, 182, 89),
-				WidthRequest = 100,
-				HeightRequest = 50,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
-				Padding = 0 };
-
-			frame_activateButton.Content = activateButton;
-
-			gridInactiveFee.Add(feeYearLabel, 0, 0);
+            gridInactiveFee.Add(feeYearLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
 
 			gridInactiveFee.Add(fnkpLogoFee, 0, 1);
@@ -165,19 +151,19 @@ namespace SportNow.Views
 			gridInactiveFee.Add(feeInactiveCommentLabel, 0, 3);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeInactiveCommentLabel, 2);
 
-			gridInactiveFee.Add(frame_activateButton, 0, 5);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(frame_activateButton, 2);
+			gridInactiveFee.Add(activateButton, 0, 5);
+			Microsoft.Maui.Controls.Grid.SetColumnSpan(activateButton, 2);
 
 
 			absoluteLayout.Add(gridInactiveFee);
-            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridInactiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 110 * App.screenHeightAdapter));
 
 		}
 
 
 		public void createActiveFeeLayout()
 		{
-			gridActiveFee = new Microsoft.Maui.Controls.Grid { Padding = 30, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
+			gridActiveFee = new Microsoft.Maui.Controls.Grid { Padding = 30, RowSpacing = 10 * App.screenHeightAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
 			gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = 100 });
 			gridActiveFee.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -188,7 +174,8 @@ namespace SportNow.Views
 
 			Label feeYearLabel = new Label
 			{
-				Text = DateTime.Now.ToString("yyyy"),
+                FontFamily = "futuracondensedmedium",
+                Text = DateTime.Now.ToString("yyyy"),
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -211,7 +198,8 @@ namespace SportNow.Views
 
 			Label feeActiveLabel = new Label
 			{
-				Text = "Quotas Ativas",
+                FontFamily = "futuracondensedmedium",
+                Text = "Quotas Ativas",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Color.FromRgb(96, 182, 89),
@@ -221,7 +209,8 @@ namespace SportNow.Views
 
 			Label feeActiveDueDateLabel = new Label
 			{
-				Text = "Válida até 31-12-"+DateTime.Now.ToString("yyyy"),
+                FontFamily = "futuracondensedmedium",
+                Text = "Válida até 31-12-"+DateTime.Now.ToString("yyyy"),
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -231,7 +220,7 @@ namespace SportNow.Views
 
 
 			gridActiveFee.Add(feeYearLabel, 0, 0);
-			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeYearLabel, 2);
+			Grid.SetColumnSpan(feeYearLabel, 2);
 
 			gridActiveFee.Add(fnkpLogoFee, 0, 1);
 			gridActiveFee.Add(akslLogoFee, 1, 1);
@@ -243,7 +232,7 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(feeActiveDueDateLabel, 2);
 
 			absoluteLayout.Add(gridActiveFee);
-            absoluteLayout.SetLayoutBounds(gridActiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 10 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridActiveFee, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 110 * App.screenHeightAdapter));
 
 		}
 

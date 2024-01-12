@@ -36,8 +36,10 @@ namespace SportNow.Views
 		private List<Competition> proximasCompeticoes;
 		private List<Examination_Session> proximasSessoesExame;
 
+		Label calendarLabel;
 
-		public void initLayout()
+
+        public void initLayout()
 		{
 			Title = "COMPETIÇÕES";
 
@@ -64,7 +66,13 @@ namespace SportNow.Views
 			CleanProximosEventosCollectionView();
 			CleanProximasCompeticoesCollectionView();
 			CleanProximasSessoesExameCollectionView();
-		}
+
+            if (calendarLabel != null)
+            {
+                absoluteLayout.Remove(calendarLabel);
+                calendarLabel = null;
+            }
+        }
 
 		public async void initSpecificLayout()
 		{
@@ -354,10 +362,10 @@ namespace SportNow.Views
 
 		public async void CreateCalendarioLink()
 		{
-			Label dateLabel = new Label { FontFamily = "futuracondensedmedium", Text = "Faz aqui download do CALENDÁRIO completo", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 13 * App.screenWidthAdapter, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.NoWrap };
+			Label calendarLabel = new Label { FontFamily = "futuracondensedmedium", Text = "Faz aqui download do CALENDÁRIO completo", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 13 * App.screenWidthAdapter, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.NoWrap };
 
-			var dateLabel_tap = new TapGestureRecognizer();
-			dateLabel_tap.Tapped += async (s, e) =>
+			var calendarLabel_tap = new TapGestureRecognizer();
+            calendarLabel_tap.Tapped += async (s, e) =>
 			{
 				try
 				{
@@ -372,11 +380,11 @@ namespace SportNow.Views
 				 //  Do your work here.
 				 //
 			};
-			dateLabel.GestureRecognizers.Add(dateLabel_tap);
+            calendarLabel.GestureRecognizers.Add(calendarLabel_tap);
 
 
-			absoluteLayout.Add(dateLabel);
-            absoluteLayout.SetLayoutBounds(dateLabel, new Rect(0, App.screenHeight - 195 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
+			absoluteLayout.Add(calendarLabel);
+            absoluteLayout.SetLayoutBounds(calendarLabel, new Rect(0, App.screenHeight - 195 * App.screenHeightAdapter, App.screenWidth, 20 * App.screenHeightAdapter));
 		}
 
 		public AllEventsPageCS()

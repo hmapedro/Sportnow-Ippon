@@ -130,7 +130,7 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(stack, new Rect(0, 0, App.screenWidth, App.screenHeight));
 
             absoluteLayout.Add(loading);
-            absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 50, (App.screenHeight / 2) - 100, 100, 100));
+            absoluteLayout.SetLayoutBounds(loading, new Rect((App.screenWidth / 2) - 50 * App.screenWidthAdapter, (App.screenHeight / 2) - 100 * App.screenHeightAdapter - 50 * App.screenWidthAdapter, 100 * App.screenWidthAdapter, 100 * App.screenWidthAdapter));
         }
 
         public void hideActivityIndicator()

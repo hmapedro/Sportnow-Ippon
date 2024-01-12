@@ -7,6 +7,7 @@
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>1</integer>
+		<integer>2</integer>
 	</array>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
@@ -30,7 +31,7 @@
 	<key>UILaunchStoryboardName</key>
 	<string>MauiSplash</string>
 	<key>MinimumOSVersion</key>
-	<string>11.0</string>
+	<string>10.0</string>
 	<key>UIMainStoryboardFile</key>
 	<string>launchscreen</string>
 </dict>

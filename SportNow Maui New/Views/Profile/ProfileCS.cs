@@ -98,7 +98,7 @@ namespace SportNow.Views.Profile
 
 			var toolbarItem = new ToolbarItem
 			{
-				Text = "Logout"
+                IconImageSource = "exit.png",
 			};
 			toolbarItem.Clicked += OnLogoutButtonClicked;
 			ToolbarItems.Add(toolbarItem);
@@ -160,18 +160,20 @@ namespace SportNow.Views.Profile
             if (exists)
             {
 
-				memberPhotoImage.Source = new UriImageSource
+				/*memberPhotoImage.Source = new UriImageSource
 				{
 					Uri = new Uri(Constants.images_URL + App.member.id + "_photo"),
 					CachingEnabled = false,
 					CacheValidity = new TimeSpan(0, 0, 0, 1)
-				};
-			}
+				};*/
+				memberPhotoImage.Source = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";// Constants.images_URL + App.member.id + "_photo";
+            }
             else
             {
                 memberPhotoImage.Source = "iconadicionarfoto.png";
             }
 
+			memberPhotoImage.Source = Constants.images_URL + App.member.id + "_photo";
             var memberPhotoImage_tap = new TapGestureRecognizer();
             memberPhotoImage_tap.Tapped += memberPhotoImageTappedAsync;
             memberPhotoImage.GestureRecognizers.Add(memberPhotoImage_tap);
