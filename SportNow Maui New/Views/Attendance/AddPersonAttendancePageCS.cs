@@ -3,6 +3,7 @@ using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
+using System.Collections.ObjectModel;
 
 namespace SportNow.Views
 {
@@ -29,9 +30,12 @@ namespace SportNow.Views
 		Class_Schedule class_Schedule;
 		List<Member> students;
 
-		//private List<Member> members;
+        //private List<Member> members;
 
-		public void initLayout()
+        ObservableCollection<Member> studends_filtered;
+        FormValueEdit searchEntry;
+
+        public void initLayout()
 		{
 			Title = "ESCOLHER ALUNO";
 		}
@@ -114,7 +118,9 @@ namespace SportNow.Views
 
 				Debug.Print("DojoPicker selectedItem = " + dojoPicker.SelectedItem.ToString());
 				students = await GetStudentsDojo(dojoPicker.SelectedItem.ToString());
-				absoluteLayout.Remove(collectionViewStudents);
+                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+
+                absoluteLayout.Remove(collectionViewStudents);
 				collectionViewStudents = null;
 				CreateStudentsColletion();
 
@@ -126,14 +132,42 @@ namespace SportNow.Views
 			absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 		}
 
-		public void CreateStudentsColletion()
+
+        public void CreateSearchEntry()
+        {
+            searchEntry = new FormValueEdit("", Keyboard.Text, 45);
+            searchEntry.entry.Placeholder = "Pesquisa...";
+            searchEntry.entry.TextChanged += onSearchTextChange;
+            absoluteLayout.Add(searchEntry);
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+        }
+
+        async void onSearchTextChange(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SelectStudentPageCS.onSearchTextChange");
+            if (searchEntry.entry.Text == "")
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students);
+
+            }
+            else
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+            }
+
+            collectionViewStudents.ItemsSource = null;
+            collectionViewStudents.ItemsSource = studends_filtered;
+        }
+
+        public void CreateStudentsColletion()
 		{
 			Debug.Print("AddPersonAttendancePageCS.CreateStudentsColletion");
 			//COLLECTION GRADUACOES
 			collectionViewStudents = new CollectionView
 			{
 				SelectionMode = SelectionMode.Single,
-				ItemsSource = students,
+				ItemsSource = studends_filtered,
 				ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 10, HorizontalItemSpacing = 5, },
 				EmptyView = new ContentView
 				{

@@ -2,7 +2,7 @@
 using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using SportNow.CustomViews;
-
+using System.Collections.ObjectModel;
 
 namespace SportNow.Views.Profile
 {
@@ -26,9 +26,13 @@ namespace SportNow.Views.Profile
 
 		private CollectionView collectionViewMembers, collectionViewStudents;
 
-		//private List<Member> members;
+        ObservableCollection<Member> studends_filtered;
 
-		public void initLayout()
+        FormValueEdit searchEntry;
+
+        //private List<Member> members;
+
+        public void initLayout()
 		{
 			Debug.Print("SelectStudentPageCS.initLayout");
 			Title = "ESCOLHER ALUNO";
@@ -70,7 +74,9 @@ namespace SportNow.Views.Profile
 
 			App.member.students = await GetMemberStudents();
 
-			CreateStudentsColletion();
+			CreateSearchEntry();
+
+            CreateStudentsColletion();
 
 			if (App.original_member.id != App.member.id)
 			{
@@ -83,7 +89,34 @@ namespace SportNow.Views.Profile
 			}
 		}
 
-		public void CreateStudentsColletion()
+        public void CreateSearchEntry()
+        {
+            searchEntry = new FormValueEdit("", Keyboard.Text, 45);
+            searchEntry.entry.Placeholder = "Pesquisa...";
+            searchEntry.entry.TextChanged += onSearchTextChange;
+            absoluteLayout.Add(searchEntry);
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+        }
+
+        async void onSearchTextChange(object sender, EventArgs e)
+        {
+            Debug.WriteLine("SelectStudentPageCS.onSearchTextChange");
+            if (searchEntry.entry.Text == "")
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students);
+
+            }
+            else
+            {
+                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+            }
+
+            collectionViewStudents.ItemsSource = null;
+            collectionViewStudents.ItemsSource = studends_filtered;
+        }
+
+        public void CreateStudentsColletion()
 		{
 			
 
@@ -92,7 +125,7 @@ namespace SportNow.Views.Profile
 			collectionViewStudents = new CollectionView
 			{
 				SelectionMode = SelectionMode.Single,
-				ItemsSource = App.member.students,
+				ItemsSource = studends_filtered,
 				ItemsLayout = new GridItemsLayout(1, ItemsLayoutOrientation.Vertical) { VerticalItemSpacing = 10, HorizontalItemSpacing = 5, },
 				EmptyView = new ContentView
 				{
@@ -100,7 +133,7 @@ namespace SportNow.Views.Profile
 					{
 						Children =
 							{
-								new Label { FontFamily = "futuracondensedmedium", Text = "Não tem membros associados.", HorizontalTextAlignment = TextAlignment.Start, TextColor = Colors.White, FontSize = App.itemTitleFontSize },
+								new Label { FontFamily = "futuracondensedmedium", Text = "Não tem membros associados.", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.White, FontSize = App.itemTitleFontSize },
 							}
 					}
 				}
@@ -142,12 +175,12 @@ namespace SportNow.Views.Profile
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 110 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 120 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 230 * App.screenHeightAdapter));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 120 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 180 * App.screenHeightAdapter));
             }
 
 		}

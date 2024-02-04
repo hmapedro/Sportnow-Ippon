@@ -160,20 +160,20 @@ namespace SportNow.Views.Profile
             if (exists)
             {
 
-				/*memberPhotoImage.Source = new UriImageSource
+				memberPhotoImage.Source = new UriImageSource
 				{
 					Uri = new Uri(Constants.images_URL + App.member.id + "_photo"),
 					CachingEnabled = false,
 					CacheValidity = new TimeSpan(0, 0, 0, 1)
-				};*/
-				memberPhotoImage.Source = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";// Constants.images_URL + App.member.id + "_photo";
+				};
+				//memberPhotoImage.Source = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";// Constants.images_URL + App.member.id + "_photo";
             }
             else
             {
                 memberPhotoImage.Source = "iconadicionarfoto.png";
             }
 
-			memberPhotoImage.Source = Constants.images_URL + App.member.id + "_photo";
+			//memberPhotoImage.Source = Constants.images_URL + App.member.id + "_photo";
             var memberPhotoImage_tap = new TapGestureRecognizer();
             memberPhotoImage_tap.Tapped += memberPhotoImageTappedAsync;
             memberPhotoImage.GestureRecognizers.Add(memberPhotoImage_tap);
@@ -1077,13 +1077,13 @@ namespace SportNow.Views.Profile
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
                 if (DeviceInfo.Platform != DevicePlatform.iOS)
                 {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
+                    memberPhotoImage.Rotation = 90;
+                    stream = RotateBitmap(stream_aux, 90);
                 }
                 else
                 {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
+                    memberPhotoImage.Rotation = 0;
+                    stream = RotateBitmap(stream_aux, 0);
                 }
 
                 MemberManager memberManager = new MemberManager();

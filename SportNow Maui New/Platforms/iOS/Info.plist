@@ -31,8 +31,10 @@
 	<key>UILaunchStoryboardName</key>
 	<string>MauiSplash</string>
 	<key>MinimumOSVersion</key>
-	<string>10.0</string>
+	<string>11.0</string>
 	<key>UIMainStoryboardFile</key>
 	<string>launchscreen</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Necessitamos de utilizar a Camera para recolher a fotografia do teu perfil de sócio.</string>
 </dict>
 </plist>

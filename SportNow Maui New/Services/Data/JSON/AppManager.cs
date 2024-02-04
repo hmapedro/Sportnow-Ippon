@@ -52,7 +52,7 @@ namespace SportNow.Services.Data.JSON
 			}
 			catch (Exception e)
 			{
-				Debug.WriteLine("http request error");
+				Debug.WriteLine("http request error - "+e.Message);
 				Debug.Print(e.StackTrace);
 				return null;
 			}

@@ -59,13 +59,13 @@ namespace SportNow.Views
             showActivityIndicator();
             presencasabsoluteLayout = new AbsoluteLayout
 			{
-				Margin = new Thickness(5)
+				Margin = new Thickness(0)
 			};
 
 			await CreatePresencasOptionButtonsAsync();
 
 			absoluteLayout.Add(presencasabsoluteLayout);
-            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 20 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 250 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 275 * App.screenHeightAdapter));
 			hideActivityIndicator();
 		}
 
@@ -78,7 +78,7 @@ namespace SportNow.Views
 			var buttonWidth = (width) / 2;
 
 
-			marcarAulaButton = new OptionButton("MARCAR AULAS", "confirmclasses.png", buttonWidth, 100 * App.screenHeightAdapter);
+			marcarAulaButton = new OptionButton("MARCAR AULAS", "confirmclasses.png", buttonWidth, 80 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var marcarAulaButton_tap = new TapGestureRecognizer();
 			marcarAulaButton_tap.Tapped += (s, e) =>
@@ -88,7 +88,7 @@ namespace SportNow.Views
 			};
 			marcarAulaButton.GestureRecognizers.Add(marcarAulaButton_tap);
 
-			estatisticasButton = new OptionButton("ESTATÍSTICAS", "classstats.png", buttonWidth, 100 * App.screenHeightAdapter);
+			estatisticasButton = new OptionButton("ESTATÍSTICAS", "classstats.png", buttonWidth, 80 * App.screenHeightAdapter);
 			var estatisticasButton_tap = new TapGestureRecognizer();
 			estatisticasButton_tap.Tapped += (s, e) =>
 			{
@@ -96,7 +96,7 @@ namespace SportNow.Views
 			};
 			estatisticasButton.GestureRecognizers.Add(estatisticasButton_tap);
 
-			presencasButton = new OptionButton("PRESENÇAS", "attendances.png", buttonWidth, 100 * App.screenHeightAdapter);
+			presencasButton = new OptionButton("PRESENÇAS", "attendances.png", buttonWidth, 80 * App.screenHeightAdapter);
 			//minhasGraduacoesButton.button.Clicked += OnMinhasGraduacoesButtonClicked;
 			var presencasButton_tap = new TapGestureRecognizer();
 			presencasButton_tap.Tapped += (s, e) =>
@@ -105,7 +105,7 @@ namespace SportNow.Views
 			};
 			presencasButton.GestureRecognizers.Add(presencasButton_tap);
 
-			mensalidadesButton = new OptionButton("MENSALIDADES INSTRUTOR", "mensalidades_alunos.png", buttonWidth, 100 * App.screenHeightAdapter);
+			mensalidadesButton = new OptionButton("MENSALIDADES INSTRUTOR", "mensalidades_alunos.png", buttonWidth, 80 * App.screenHeightAdapter);
 			var mensalidadesButton_tap = new TapGestureRecognizer();
 			mensalidadesButton_tap.Tapped += (s, e) =>
 			{
@@ -113,7 +113,7 @@ namespace SportNow.Views
 			};
 			mensalidadesButton.GestureRecognizers.Add(mensalidadesButton_tap);
 
-			mensalidadesStudentButton = new OptionButton("MENSALIDADES", "monthfees.png", buttonWidth, 100 * App.screenHeightAdapter);
+			mensalidadesStudentButton = new OptionButton("MENSALIDADES", "monthfees.png", buttonWidth, 80 * App.screenHeightAdapter);
 			var mensalidadesStudentButton_tap = new TapGestureRecognizer();
 			mensalidadesStudentButton_tap.Tapped += (s, e) =>
 			{
@@ -130,17 +130,17 @@ namespace SportNow.Views
 			{
 				if (monthFeeStudentCount != "0")
 				{
-
-					stackPresencasButtons = new Microsoft.Maui.Controls.StackLayout
+                    Debug.Print("AQUIIIIIIII");
+                    stackPresencasButtons = new Microsoft.Maui.Controls.StackLayout
 					{
-						//WidthRequest = 370,
-						Margin = new Thickness(0),
-						Spacing = 20 * App.screenHeightAdapter,
-						Orientation = StackOrientation.Vertical,
-						HorizontalOptions = LayoutOptions.FillAndExpand,
-						VerticalOptions = LayoutOptions.FillAndExpand,
-						HeightRequest = 550 * App.screenHeightAdapter,
-						Children =
+                        Spacing = 20 * App.screenHeightAdapter,
+                        Orientation = StackOrientation.Vertical,
+                        //VerticalAlignment = LayoutAlignment.Start,
+                        //HorizontalOptions = LayoutOptions.FillAndExpand,
+                        //VerticalOptions = LayoutOptions.FillAndExpand,
+                        HeightRequest = 450 * App.screenHeightAdapter,
+                        MaximumHeightRequest = 450 * App.screenHeightAdapter,
+                        Children =
 							{
 								presencasButton,
 								marcarAulaButton,
@@ -149,7 +149,7 @@ namespace SportNow.Views
 								mensalidadesStudentButton,
 							}
 					};
-					stackPresencasButtons.Add(presencasButton);
+					//stackPresencasButtons.Add(presencasButton);
 
                 }
 				else
@@ -218,7 +218,7 @@ namespace SportNow.Views
 			}
 
 			presencasabsoluteLayout.Add(stackPresencasButtons);
-            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 0, App.screenWidth / 2, 550 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 10 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
 
 
             Label personalClassesLabel = new Label

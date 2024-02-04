@@ -108,7 +108,7 @@ namespace SportNow.Views
 				return;
 			}
 			CreateTitle();
-			CreateClassProgramButton();
+			//CreateClassProgramButton();
             CompleteClass_Attendances();
 
 			attendanceCollection = new AttendanceCollection();
@@ -230,15 +230,17 @@ namespace SportNow.Views
                         CornerRadius = 5 * (float)App.screenHeightAdapter,
                     },
                     Stroke = App.topColor,
-                    Padding = new Thickness(2, 2, 2, 2),
+                    Padding = new Thickness(0, 0, 0, 0),
 					HeightRequest = 30,
 					VerticalOptions = LayoutOptions.Center,
                     BackgroundColor = Colors.Transparent,
                 };
-                Image participationImagem = new Image { Aspect = Aspect.AspectFill, BackgroundColor = Colors.Transparent }; //, HeightRequest = 60, WidthRequest = 60
+                attendanceStatus_Frame.SetBinding(Border.BackgroundColorProperty, "color");
+
+                /*Image participationImagem = new Image { Aspect = Aspect.AspectFill, BackgroundColor = Colors.Transparent }; //, HeightRequest = 60, WidthRequest = 60
                 participationImagem.SetBinding(Image.SourceProperty, "colorImage");
 
-				attendanceStatus_Frame.Content = participationImagem;
+				attendanceStatus_Frame.Content = participationImagem;*/
 
 				itemabsoluteLayout.Add(attendanceStatus_Frame);
 				itemabsoluteLayout.SetLayoutBounds(attendanceStatus_Frame, new Rect(App.screenWidth - (35 * App.screenHeightAdapter), 0, 30 * App.screenHeightAdapter, 30 * App.screenHeightAdapter));
@@ -246,7 +248,7 @@ namespace SportNow.Views
 				return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(class_attendanceCollectionView);
-			absoluteLayout.SetLayoutBounds(class_attendanceCollectionView, new Rect(0, 150 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 360 * App.screenHeightAdapter));
+			absoluteLayout.SetLayoutBounds(class_attendanceCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 310 * App.screenHeightAdapter));
 
 			gridCount = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
 			gridCount.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
