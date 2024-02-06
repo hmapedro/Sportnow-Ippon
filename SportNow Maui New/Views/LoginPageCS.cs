@@ -2,8 +2,7 @@
 using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using SportNow.CustomViews;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
+
 using SportNow.Views.Profile;
 
 using Microsoft.Maui.Controls;

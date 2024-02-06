@@ -130,7 +130,6 @@ namespace SportNow.Views
 			{
 				if (monthFeeStudentCount != "0")
 				{
-                    Debug.Print("AQUIIIIIIII");
                     stackPresencasButtons = new Microsoft.Maui.Controls.StackLayout
 					{
                         Spacing = 20 * App.screenHeightAdapter,
@@ -149,7 +148,6 @@ namespace SportNow.Views
 								mensalidadesStudentButton,
 							}
 					};
-					//stackPresencasButtons.Add(presencasButton);
 
                 }
 				else
@@ -218,7 +216,7 @@ namespace SportNow.Views
 			}
 
 			presencasabsoluteLayout.Add(stackPresencasButtons);
-            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 10 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 20 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
 
 
             Label personalClassesLabel = new Label

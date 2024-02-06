@@ -65,18 +65,19 @@ namespace SportNow.Views
 			absoluteLayout.Add(titleLabel);
             absoluteLayout.SetLayoutBounds(titleLabel, new Rect(0,0, App.screenWidth, 40 * App.screenHeightAdapter));
 
-			CreateDojoPicker();
+			_ = await CreateDojoPicker();
+            CreateSearchEntry();
 
-			students = await GetStudentsDojo(class_Schedule.dojo);
+            App.member.students = await GetStudentsDojo(class_Schedule.dojo);
 
-			
+            studends_filtered = new ObservableCollection<Member>(App.member.students);
 
-			CreateStudentsColletion();
+            CreateStudentsColletion();
 
 			hideActivityIndicator();
 		}
 
-		public async void CreateDojoPicker()
+		public async Task<int> CreateDojoPicker()
 		{
 			List<string> dojoList = new List<string>();
 			List<Dojo> dojos = await GetAllDojos();
@@ -103,7 +104,7 @@ namespace SportNow.Views
                 Title = "",
 				TitleColor = Colors.White,
 				BackgroundColor = Colors.Transparent,
-				TextColor = Color.FromRgb(246, 220, 178),
+				TextColor = App.topColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = App.titleFontSize
 
@@ -117,12 +118,16 @@ namespace SportNow.Views
 				showActivityIndicator();
 
 				Debug.Print("DojoPicker selectedItem = " + dojoPicker.SelectedItem.ToString());
-				students = await GetStudentsDojo(dojoPicker.SelectedItem.ToString());
-                studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
+				App.member.students = await GetStudentsDojo(dojoPicker.SelectedItem.ToString());
+				onSearchTextChange(null, null);
+
+
+                //studends_filtered = new ObservableCollection<Member>(App.member.students.Where(i => i.nickname.ToLower().Contains(searchEntry.entry.Text.ToLower())));
 
                 absoluteLayout.Remove(collectionViewStudents);
 				collectionViewStudents = null;
-				CreateStudentsColletion();
+
+                CreateStudentsColletion();
 
 				hideActivityIndicator();
 
@@ -130,6 +135,8 @@ namespace SportNow.Views
 
 			absoluteLayout.Add(dojoPicker);
 			absoluteLayout.SetLayoutBounds(dojoPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+
+			return 1;
 		}
 
 
@@ -139,7 +146,7 @@ namespace SportNow.Views
             searchEntry.entry.Placeholder = "Pesquisa...";
             searchEntry.entry.TextChanged += onSearchTextChange;
             absoluteLayout.Add(searchEntry);
-            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(searchEntry, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
         }
 
@@ -216,7 +223,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(collectionViewStudents);
-            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - (190 * App.screenHeightAdapter))));
+            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 160 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - (260 * App.screenHeightAdapter))));
 		}
 
 		public AddPersonAttendancePageCS(Class_Schedule class_Schedule)

@@ -98,12 +98,14 @@ namespace SportNow.Views
 				}
 			}
 
-			Frame quotasFrame = new Frame
+			Border quotasFrame = new Border
 			{
-				CornerRadius = 5,
-				IsClippedToBounds = true,
-				BorderColor = Color.FromRgb(182, 145, 89),
-				BackgroundColor = Colors.Transparent,
+                StrokeShape = new RoundRectangle
+                {
+                    CornerRadius = 5 * (float)App.screenHeightAdapter,
+                },
+                Stroke = Color.FromRgb(182, 145, 89),
+                BackgroundColor = Colors.Transparent,
 				Padding = new Thickness(2, 2, 2, 2),
 				HeightRequest = 120*App.screenHeightAdapter,
 				VerticalOptions = LayoutOptions.Center,
@@ -195,15 +197,6 @@ namespace SportNow.Views
 					}
 				}
 			};
-
-			GradientBrush gradient = new LinearGradientBrush
-			{
-				StartPoint = new Point(0, 0),
-				EndPoint = new Point(1, 1),
-			};
-
-			gradient.GradientStops.Add(new GradientStop(Color.FromRgb(180, 143, 86), Convert.ToSingle(0)));
-			gradient.GradientStops.Add(new GradientStop(Color.FromRgb(246, 220, 178), Convert.ToSingle(0.5)));
 
 			collectionViewPastQuotas.SelectionChanged += OncollectionViewFeeSelectionChangedAsync;
 

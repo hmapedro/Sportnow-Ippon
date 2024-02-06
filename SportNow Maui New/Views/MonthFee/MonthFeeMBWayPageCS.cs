@@ -55,7 +55,8 @@ namespace SportNow.Views
 
 			Label eventParticipationNameLabel = new Label
 			{
-				Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + payments[0].value + "€ confirma os dados indicados em baixo.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para efetuares o pagamento da tua " + monthFee.name + " - " + payments[0].value + "€ confirma os dados indicados em baixo.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -79,7 +80,8 @@ namespace SportNow.Views
 
             Label phoneNumberLabel = new Label
 			{
-				Text = "Confirma o teu número de telefone",
+                FontFamily = "futuracondensedmedium",
+                Text = "Confirma o teu número de telefone",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -104,7 +106,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
 
 

@@ -73,8 +73,9 @@ namespace SportNow.Views.Profile
 			absoluteLayout.SetLayoutBounds(titleLabel, new Rect(0, 0, App.screenWidth, 60 * App.screenHeightAdapter));
 
 			App.member.students = await GetMemberStudents();
+            studends_filtered = new ObservableCollection<Member>(App.member.students);
 
-			CreateSearchEntry();
+            CreateSearchEntry();
 
             CreateStudentsColletion();
 
@@ -175,12 +176,12 @@ namespace SportNow.Views.Profile
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 120 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 230 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 280 * App.screenHeightAdapter));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 120 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 180 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
             }
 
 		}

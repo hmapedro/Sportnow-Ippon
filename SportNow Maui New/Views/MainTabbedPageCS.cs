@@ -3,6 +3,8 @@ using SportNow.Model;
 using SportNow.Services.Data.JSON;
 using SportNow.Views.Profile;
 using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
+using Microsoft.Maui.Graphics;
+using Microsoft.Maui.Controls;
 //using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
 
 namespace SportNow.Views
@@ -216,6 +218,7 @@ namespace SportNow.Views
             Children.Add(new EquipamentTypePageCS() { Title = "EQUIPAMENTOS", IconImageSource = "kimono.png" });
             CurrentPage = Children[2];
             Title = "PRINCIPAL";
+            this.BarTextColor = Colors.Red;//App.normalTextColor;//FromRgb(75, 75, 75);
             CurrentPageChanged += CurrentPageHasChanged;
 
             return 1;
