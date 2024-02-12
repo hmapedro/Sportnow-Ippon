@@ -15,13 +15,14 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
+
 			base.OnAppearing();
 			//CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
 
 			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-			Constants.ScreenWidth = mainDisplayInfo.Width;
-			Constants.ScreenHeight = mainDisplayInfo.Height;
-			Debug.Print("AQUI Login - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
+			App.screenWidth = mainDisplayInfo.Width;
+			App.screenHeight = mainDisplayInfo.Height;
+			Debug.Print("AQUI Login - ScreenWidth = " + App.screenWidth + " ScreenHeight = " + App.screenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
 
 			App.AdaptScreen();
 			this.initSpecificLayout();	
@@ -68,7 +69,7 @@ namespace SportNow.Views
 				TextColor = Colors.White,
 				FontSize = 30 * App.screenHeightAdapter,
 				HorizontalOptions = LayoutOptions.Center,
-				WidthRequest = (Constants.ScreenWidth / DeviceDisplay.MainDisplayInfo.Density)-20,
+				WidthRequest = (App.screenWidth / DeviceDisplay.MainDisplayInfo.Density)-20,
 				HorizontalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium",
                 //BackgroundColor = Color.FromRgb(255, 0, 0)

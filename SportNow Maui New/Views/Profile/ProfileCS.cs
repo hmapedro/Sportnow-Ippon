@@ -15,7 +15,8 @@ namespace SportNow.Views.Profile
 
 		protected async override void OnAppearing()
 		{
-			var result = await GetCurrentFees(App.member);
+            base.OnAppearing();
+            var result = await GetCurrentFees(App.member);
 
 			if (quotaImage == null)
 			{
@@ -1083,7 +1084,7 @@ namespace SportNow.Views.Profile
                 else
                 {
                     memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
+                    stream = RotateBitmap(stream_aux, 90);
                 }
 
                 MemberManager memberManager = new MemberManager();

@@ -9,8 +9,9 @@ namespace SportNow.Views
 	public class AttendanceOptionsPageCS : DefaultPage
 	{
 
-		protected override void OnAppearing()
+		protected async override void OnAppearing()
 		{
+            base.OnAppearing();
 			initSpecificLayout();
 		}
 
@@ -215,8 +216,11 @@ namespace SportNow.Views
 				}
 			}
 
-			presencasabsoluteLayout.Add(stackPresencasButtons);
-            presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 20 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
+			if (stackPresencasButtons != null)
+			{
+                presencasabsoluteLayout.Add(stackPresencasButtons);
+                presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 20 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
+            }
 
 
             Label personalClassesLabel = new Label

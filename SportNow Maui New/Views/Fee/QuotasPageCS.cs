@@ -15,7 +15,8 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-			initSpecificLayout();
+            base.OnAppearing();
+            initSpecificLayout();
 		}
 
 		protected override void OnDisappearing()

@@ -17,6 +17,7 @@ using SportNow.CustomViews;
 using SportNow.Views.Personal;
 using System.Xml;
 using Microsoft.Maui.Controls.Shapes;
+using System.Runtime.CompilerServices;
 
 namespace SportNow.Views
 {
@@ -25,21 +26,22 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-            Debug.WriteLine("MainPageCS.OnAppearing 1");
-            var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+			
+            Debug.WriteLine("MainPageCS.OnAppearing");
 
-			Constants.ScreenWidth = mainDisplayInfo.Width;
-			Constants.ScreenHeight = mainDisplayInfo.Height;
-			//Debug.Print("AQUI 1 - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
+            App.AdaptScreen();
+            base.OnAppearing();
 
-			Constants.ScreenWidth = Application.Current.MainPage.Width;
-			Constants.ScreenHeight = Application.Current.MainPage.Height;
-			//Debug.Print("AQUI 0 - ScreenWidth = " + Constants.ScreenWidth + " ScreenHeight = " + Constants.ScreenHeight);
+            //showActivityIndicator();
+            initSpecificLayout();
+            //hideActivityIndicator();
 
-			App.AdaptScreen();
+            //await Task.Delay(100);
+            //loading.IsAnimationPlaying = false;
+            //await Task.Delay(100);
+            //loading.IsAnimationPlaying = true;
 
-			initSpecificLayout();
-		}
+        }
 
 		protected override void OnDisappearing()
 		{
@@ -156,10 +158,14 @@ namespace SportNow.Views
 
 
 		public async void initSpecificLayout()
-		{
-			showActivityIndicator();
-
-			var textWelcome = "";
+        {
+			
+			//await Task.Delay(1000);
+           /* Image loading1 = new Image() { Source = "loading.gif", IsAnimationPlaying = true };
+            absoluteLayout.Add(loading1);
+            absoluteLayout.SetLayoutBounds(loading1, new Rect((App.screenWidth / 2) - 80 * App.screenWidthAdapter, (App.screenHeight / 2) - 140 * App.screenHeightAdapter, 160 * App.screenWidthAdapter, 80 * App.screenHeightAdapter));
+		   */
+            var textWelcome = "";
 
 			textWelcome = "Olá " + App.member.nickname;
 
@@ -194,14 +200,14 @@ namespace SportNow.Views
 			}
 
 
-			createImportantClasses();
+			_ = await createImportantClasses();
 
-			createImportantEvents();
+			_ = await createImportantEvents();
 
 			Debug.Print("App.member.students_count = " + App.member.students_count);
 			if (App.member.students_count > 0)
 			{
-				createImportantTeacherClasses();
+				_ = await createImportantTeacherClasses();
 			}
 
             if (App.member.students_count == 0)
@@ -209,11 +215,11 @@ namespace SportNow.Views
                 createPersonalClasses();
             }
 
-            createCurrentFee();
+            _ = await createCurrentFee();
 
 			//createVersion();
 
-			hideActivityIndicator();
+			//hideActivityIndicator();
 		}
 
 		public async void createPersonalClasses()
@@ -240,15 +246,15 @@ namespace SportNow.Views
         }
             
 
-        public async void createImportantTeacherClasses()
+        public async Task<int> createImportantTeacherClasses()
 		{
 			DateTime currentTime = DateTime.Now.Date;
 			DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
 
 			string firstDay = currentTime.ToString("yyyy-MM-dd");
 			string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
-
-			teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
+            showActivityIndicator();
+            teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
 			CompleteTeacherClass_Schedules();
 
 			//AULAS LABEL
@@ -265,6 +271,8 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesLabel, new Rect(0, teacherClassesY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateTeacherClassesColletion();
+			hideActivityIndicator();
+			return 1;
 		}
 
 		public void CompleteTeacherClass_Schedules()
@@ -383,9 +391,10 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(teacherClassesCollectionView, new Rect(0, teacherClassesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async void createImportantClasses()
+		public async Task<int> createImportantClasses()
 		{
-			int result = await getClass_DetailData();
+            showActivityIndicator();
+            int result = await getClass_DetailData();
 
 			//AULAS LABEL
 			attendanceLabel = new Label
@@ -402,6 +411,8 @@ namespace SportNow.Views
 			scheduleCollection = new ScheduleCollection();
 			scheduleCollection.Items = importantClass_Schedule;
 			createClassesCollection();
+			hideActivityIndicator();
+			return 1;
 		}
 
 		public async Task<int> getClass_DetailData()
@@ -542,9 +553,10 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(importantClassesCollectionView, new Rect(0, classesY + (30 * App.screenHeightAdapter), App.screenWidth, App.ItemHeight + (10 * App.screenHeightAdapter)));
 		}
 
-		public async void createImportantEvents()
+		public async Task<int> createImportantEvents()
 		{
-			importantEvents = await GetImportantEvents();
+            showActivityIndicator();
+            importantEvents = await GetImportantEvents();
 
 			foreach (Event event_i in importantEvents)
 			{
@@ -583,6 +595,8 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(eventsLabel, new Rect(0, eventsY, App.screenWidth, 30 * App.screenHeightAdapter));
 
 			CreateProximosEventosColletion();
+			hideActivityIndicator();
+			return 1;
 		}
 
 		public void CreateProximosEventosColletion()
@@ -721,10 +735,10 @@ namespace SportNow.Views
             absoluteLayout.SetLayoutBounds(famousQuoteLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 90 * App.screenHeightAdapter));
 		}
 
-		public async void createCurrentFee()
+		public async Task<int> createCurrentFee()
 		{
-
-			if (App.member.currentFee == null)
+            showActivityIndicator();
+            if (App.member.currentFee == null)
 			{
 				//Debug.Print("Current Fee NULL não devia acontecer!");
 				var result = await GetCurrentFees(App.member);
@@ -738,7 +752,8 @@ namespace SportNow.Views
 				{
 					hasQuotaPayed = true;
 					createFamousQuote();
-					return;
+					hideActivityIndicator();
+					return 1;
 				}
 			}
 
@@ -772,6 +787,8 @@ namespace SportNow.Views
 				absoluteLayout.Add(currentFeeLabel);
                 absoluteLayout.SetLayoutBounds(currentFeeLabel, new Rect(0, feesOrQuoteY, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
+			hideActivityIndicator();
+			return 1;
 		}
 
         public async void createDelayedMonthFee()

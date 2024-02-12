@@ -203,8 +203,9 @@
 	  <None Remove="Resources\Images\blue.png" />
 	  <None Remove="Resources\.DS_Store" />
 	  <None Remove="Resources\Images\Spinner-1s-200px %282%29.gif" />
-	  <None Remove="Resources\Images\loading.gif" />
 	  <None Remove="Resources\Images\exit.png" />
+	  <None Remove="Resources\Images\Spinner-1s-201px.gif" />
+	  <None Remove="Resources\Images\loading.gif" />
 	</ItemGroup>
 	<ItemGroup>
 	  <Folder Include="Custom Views\" />
@@ -330,8 +331,9 @@
 	  <BundleResource Include="Resources\Images\blue.png" />
 	  <BundleResource Include="Resources\.DS_Store" />
 	  <BundleResource Include="Resources\Images\loading.gif" />
-	  <BundleResource Include="Resources\Images\loading.gif" />
 	  <BundleResource Include="Resources\Images\exit.png" />
+	  <BundleResource Include="Resources\Images\loading.gif" />
+	  <BundleResource Include="Resources\Images\loading.gif" />
 	</ItemGroup>
 	<ItemGroup>
 	  <InterfaceDefinition Include="Resources\Images\launchscreen.storyboard" />

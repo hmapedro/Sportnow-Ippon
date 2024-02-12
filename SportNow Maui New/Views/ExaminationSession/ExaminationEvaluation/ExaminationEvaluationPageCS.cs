@@ -21,15 +21,27 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-			CrossDeviceOrientation.Current.UnlockOrientation();
+            base.OnAppearing();
+            //CrossDeviceOrientation.Current.UnlockOrientation();
 
+#if ANDROID
+            var currentActivity = ActivityStateManager.Default.GetCurrentActivity();
+            if (currentActivity is not null)
+            {
+                currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Unknown;
+
+            }
+#elif IOS
+            this.LockOrientation(DisplayOrientation.Unknown);
+#endif
 			await initSpecificLayout();
-			AdaptScreen();
+
+            AdaptScreen();
 		}
 		//during page close setting back to portrait
 		protected override void OnDisappearing()
 		{
-			CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
+			//CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
 		}
 
 		private CollectionView collectionViewExaminationSessionCall;
@@ -102,7 +114,8 @@ namespace SportNow.Views
 
 				Label memberNameLabel = new Label
 				{
-					BackgroundColor = Colors.Transparent,
+                    FontFamily = "futuracondensedmedium",
+                    BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
 					FontSize = App.titleFontSize,
@@ -112,7 +125,8 @@ namespace SportNow.Views
 
 				Label evaluationLabel = new Label
 				{
-					BackgroundColor = Colors.Transparent,
+                    FontFamily = "futuracondensedmedium",
+                    BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Center,
 					FontSize = App.titleFontSize,
@@ -161,7 +175,8 @@ namespace SportNow.Views
 					{
 						Label technicTypeLabel = new Label
 						{
-							BackgroundColor = Colors.Transparent,
+                            FontFamily = "futuracondensedmedium",
+                            BackgroundColor = Colors.Transparent,
 							VerticalTextAlignment = TextAlignment.Center,
 							HorizontalTextAlignment = TextAlignment.Start,
 							FontSize = App.itemTitleFontSize,
@@ -177,7 +192,8 @@ namespace SportNow.Views
 					}
 					Label technicNameLabel = new Label
 					{
-						BackgroundColor = Colors.Transparent,
+                        FontFamily = "futuracondensedmedium",
+                        BackgroundColor = Colors.Transparent,
 						VerticalTextAlignment = TextAlignment.Center,
 						HorizontalTextAlignment = TextAlignment.Start,
 						FontSize = App.itemTitleFontSize,
@@ -266,7 +282,7 @@ namespace SportNow.Views
 			scrollView = new ScrollView
 			{
 				//BackgroundColor = Colors.Green,
-				Content = absoluteLayout,
+				//Content = absoluteLayout,
 				Orientation = ScrollOrientation.Vertical,
 				WidthRequest = screenwidth * numberExaminationsToShow,
 				HeightRequest = screenheight,
@@ -278,8 +294,9 @@ namespace SportNow.Views
 			
 			scrollView.Content = absoluteLayoutExamination;
 
-			absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 0, App.screenWidth* numberExaminationsToShow, App.screenHeight));
+            absoluteLayout.Remove(scrollView);
+            absoluteLayout.Add(scrollView);
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth* numberExaminationsToShow, App.screenHeight));
 
 
 			Content = scrollView;
@@ -434,8 +451,8 @@ namespace SportNow.Views
 
 			//this.initSpecificLayout();
 
-
-			CrossDeviceOrientation.Current.OrientationChanged += (sender, args) =>
+			DeviceDisplay.Current.MainDisplayInfoChanged += (sender, args) =>
+            //CrossDeviceOrientation.Current.OrientationChanged += (sender, args) =>
 			{
 				AdaptScreen();
 			};
@@ -444,13 +461,13 @@ namespace SportNow.Views
 		public async void AdaptScreen()
 		{
 			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-			Debug.Print("Orientation = " + CrossDeviceOrientation.Current.CurrentOrientation);
+			Debug.Print("Orientation = " + DeviceDisplay.Current.MainDisplayInfo.Orientation);
 			Debug.Print("Height = " + (mainDisplayInfo.Height / mainDisplayInfo.Density) + " Width = " + (mainDisplayInfo.Width / mainDisplayInfo.Density));
-			if (CrossDeviceOrientation.Current.CurrentOrientation.ToString() == "Portrait")
+			if (DeviceDisplay.Current.MainDisplayInfo.Orientation.ToString() == "Portrait")
 			{
 				numberExaminationsToShow = 1;
 				screenwidth = (mainDisplayInfo.Width - 20) / mainDisplayInfo.Density;
-				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density;
+				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density - 100 * App.screenHeightAdapter;
 				sizeAdapter = screenwidth / 400.0;
 				Debug.Print("sizeAdapter =" + sizeAdapter);
 				if (scrollView != null)
@@ -460,7 +477,11 @@ namespace SportNow.Views
 					{
 						absoluteLayout.Remove(scrollView);
 						absoluteLayout = null;
-					}
+                        absoluteLayout = new AbsoluteLayout
+                        {
+                            Margin = new Thickness(5 * App.screenWidthAdapter)
+                        };
+                    }
 
                     absoluteLayoutExamination = null;
 					scrollView = null;
@@ -472,21 +493,10 @@ namespace SportNow.Views
 			{
 				currentExaminationIndex = 0;
 				numberExaminationsToShow = examination_results.Count;
-				Debug.Print("numberExaminationsToShow =" + numberExaminationsToShow);
-				/*double screenwidth_aux = ((mainDisplayInfo.Width - 80) / mainDisplayInfo.Density) / numberExaminationsToShow;
-				double screenheight_aux = mainDisplayInfo.Height / mainDisplayInfo.Density;
 
-				if (screenheight_aux > screenwidth_aux)
-				{
-					screenwidth = screenheight_aux;
-					screenheight = screenwidth_aux;
-				}*/
-
-				screenwidth = ((mainDisplayInfo.Width-80) / mainDisplayInfo.Density) / numberExaminationsToShow;
-				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density;
-				Debug.Print("screenwidth =" + screenwidth);
+				screenwidth = ((mainDisplayInfo.Width-(80 * App.screenWidthAdapter)) / mainDisplayInfo.Density) / numberExaminationsToShow;
+				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density - 100 * App.screenHeightAdapter;
 				sizeAdapter = screenwidth / 400.0;
-				Debug.Print("sizeAdapter =" + sizeAdapter);
 				if (scrollView != null)
 				{
 					Content = null;
@@ -494,7 +504,11 @@ namespace SportNow.Views
                     {
 						absoluteLayout.Remove(scrollView);
 						absoluteLayout = null;
-					}
+                        absoluteLayout = new AbsoluteLayout
+                        {
+                            Margin = new Thickness(5 * App.screenWidthAdapter)
+                        };
+                    }
                     absoluteLayoutExamination = null;
 					scrollView = null;
 					initLayout();

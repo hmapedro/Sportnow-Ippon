@@ -12,8 +12,9 @@ namespace SportNow.Views
 	public class DoPageCS : DefaultPage
 	{
 
-		protected override void OnAppearing()
+		protected async override void OnAppearing()
 		{
+            base.OnAppearing();
             this.CleanScreen();
             Debug.Print("DoPageCS.OnAppearing BEGIN!");
             initSpecificLayout();
@@ -96,7 +97,7 @@ namespace SportNow.Views
             pastEventParticipations = await GetPastEventParticipations();
 			pastCompetitionParticipations = await GetPastCompetitionParticipations();
 
-			CreateStackButtons();
+			
             if (premiosrelativeLayout == null)
             {
                 CreatePremios();
@@ -115,6 +116,7 @@ namespace SportNow.Views
             {
                 CreateParticipacoesCompeticoesColletion();
             }
+            CreateStackButtons();
             Debug.Print("DoPageCS.initSpecificLayout 2");
             activateLastSelectedTab();
 
@@ -189,10 +191,10 @@ namespace SportNow.Views
 			absoluteLayout.Add(stackButtons);
             absoluteLayout.SetLayoutBounds(stackButtons, new Rect(0, 0, App.screenWidth, 60 * App.screenHeightAdapter));
 			
-			graduacoesButton.activate();
+			/*graduacoesButton.activate();
 			palmaresButton.deactivate();
 			participacoesEventosButton.deactivate();
-			premiosButton.deactivate();
+			premiosButton.deactivate();*/
 		}
 
 		public void CreatePremios() {
@@ -724,13 +726,13 @@ namespace SportNow.Views
 			palmaresButton.deactivate();
 			participacoesEventosButton.deactivate();
 
-			absoluteLayout.Add(graduacoesrelativeLayout);
-			absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
-
+			absoluteLayout.Remove(graduacoesrelativeLayout);
+            absoluteLayout.Add(graduacoesrelativeLayout);
+            absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
 			absoluteLayout.Remove(premiosrelativeLayout);
-			absoluteLayout.Remove(palmaresrelativeLayout);
-			absoluteLayout.Remove(collectionViewParticipacoesEventos);
-		}
+            absoluteLayout.Remove(palmaresrelativeLayout);
+            absoluteLayout.Remove(collectionViewParticipacoesEventos);
+        }
 
 		async void OnPalmaresButtonClicked(object sender, EventArgs e)
 		{

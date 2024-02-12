@@ -124,7 +124,7 @@ namespace SportNow.Views
 
 		public void CreateMonthSelector()
 		{
-			var width = Constants.ScreenWidth;
+			var width = App.screenWidth;
 			var buttonWidth = (width - 50) / 3;
 
 			//DateTime currentTime = DateTime.Now;

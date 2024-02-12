@@ -364,12 +364,13 @@ namespace SportNow.Views
 				{
 					Source = "iconexames.png",
 					HorizontalOptions = LayoutOptions.Start,
-					HeightRequest = 60 * App.screenHeightAdapter,
+					HeightRequest = 50 * App.screenHeightAdapter,
 				};
 
 				Label examinadorLabel = new Label
 				{
-					Text = "Examinador",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "Examinador",
 					TextColor = Colors.White,
 					FontSize = App.titleFontSize,
 					VerticalTextAlignment = TextAlignment.Center,

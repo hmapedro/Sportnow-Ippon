@@ -10,14 +10,6 @@ namespace SportNow.Views.Profile
     public class ApproveRegistrationPageCS : DefaultPage
     {
 
-		protected async override void OnAppearing()
-		{
-		}
-
-
-		protected async override void OnDisappearing()
-		{	
-		}
 
         private CollectionView collectionViewMembers;
 		List<Member> members_To_Approve;

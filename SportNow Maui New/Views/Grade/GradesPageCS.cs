@@ -82,7 +82,7 @@ namespace SportNow.Views
 
 		public void CreateOptionButtons()
 		{
-			var width = Constants.ScreenWidth;
+			var width = App.screenWidth;
 			var buttonWidth = (width) / 3;
 
 

@@ -43,7 +43,7 @@ namespace SportNow
             rootWindowScene.RequestGeometryUpdate(new UIWindowSceneGeometryPreferencesIOS(uiInterfaceOrientationMask),
             error =>
             {
-                Debug.Print("Error while attempting to lock orientation: {Error}", error.LocalizedDescription);
+                //Debug.Print("Error while attempting to lock orientation: {Error}", error.ToString());
             });
             
             rootViewController.SetNeedsUpdateOfSupportedInterfaceOrientations();
@@ -52,7 +52,7 @@ namespace SportNow
 
         partial void LockPortrait()
         {
-            Debug.Print("LockPortrait");
+            Debug.Print("DeviceOrientationService.LockPortrait");
             if (UIDevice.CurrentDevice.CheckSystemVersion(16, 0))
             {
                 _applicationDelegate.CurrentLockedOrientation = UIInterfaceOrientationMask.Portrait;
@@ -67,7 +67,7 @@ namespace SportNow
 
         partial void LockLandscape()
         {
-            
+            Debug.Print("DeviceOrientationService.LockLandscape");
             if (UIDevice.CurrentDevice.CheckSystemVersion(16, 0))
             {
                 _applicationDelegate.CurrentLockedOrientation = UIInterfaceOrientationMask.LandscapeRight;

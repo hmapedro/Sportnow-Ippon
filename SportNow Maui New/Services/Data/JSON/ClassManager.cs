@@ -318,7 +318,7 @@ namespace SportNow.Services.Data.JSON
 				if (response.IsSuccessStatusCode)
 				{
 					string content = await response.Content.ReadAsStringAsync();
-					Debug.WriteLine("content=" + content);
+					Debug.WriteLine("GetAllClass_Schedules - content=" + content);
 					class_schedules = JsonConvert.DeserializeObject<List<Class_Schedule>>(content);
 				}
 				return class_schedules;

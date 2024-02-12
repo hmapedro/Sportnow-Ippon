@@ -8,7 +8,7 @@ using System.Diagnostics;
 using SportNow.CustomViews;
 using SportNow.ViewModel;
 using System.Collections.ObjectModel;
-
+using Microsoft.Maui.Controls.Shapes;
 
 namespace SportNow.Views
 {
@@ -17,6 +17,7 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
+			base.OnAppearing();
 			//competition_participation = App.competition_participation;
 			initSpecificLayout();
 
@@ -41,7 +42,7 @@ namespace SportNow.Views
 
 		private ExaminationCollection examinationCollection;
 
-		Button doExaminationButton;
+		RegisterButton doExaminationButton;
 
 		Label examinationSessionNameLabel;
 		Label nameTitleLabel;
@@ -89,7 +90,8 @@ namespace SportNow.Views
 
 			examinationSessionNameLabel = new Label
 			{
-				Text = examination_session.name,
+                FontFamily = "futuracondensedmedium",
+                Text = examination_session.name,
 				BackgroundColor = Colors.Transparent,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
@@ -105,7 +107,8 @@ namespace SportNow.Views
             {
 				nameTitleLabel = new Label
 				{
-					Text = "NOME",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "NOME",
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
@@ -115,11 +118,12 @@ namespace SportNow.Views
 				};
 
 				absoluteLayout.Add(nameTitleLabel);
-                absoluteLayout.SetLayoutBounds(examinationSessionNameLabel, new Rect(0, 50 * App.screenHeightAdapter, (App.screenWidth / 3 * 2) - 10 * App.screenHeightAdapter, 40 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(nameTitleLabel, new Rect(0, 50 * App.screenHeightAdapter, (App.screenWidth / 3 * 2) - 10 * App.screenHeightAdapter, 40 * App.screenHeightAdapter));
 
 				categoryTitleLabel = new Label
 				{
-					Text = "EXAME PARA",
+                    FontFamily = "futuracondensedmedium",
+                    Text = "EXAME PARA",
 					BackgroundColor = Colors.Transparent,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
@@ -143,7 +147,7 @@ namespace SportNow.Views
 					{
 						Children =
 			{
-				new Label { Text = "Ainda não foi criada convocatória para esta Sessão de Exames.", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.Red, FontSize = 20 },
+				new Label { Text = "Ainda não foi criada convocatória para esta Sessão de Exames.", FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.Red, FontSize = 20 },
 			}
 					}
 				}
@@ -161,16 +165,18 @@ namespace SportNow.Views
 					Margin = new Thickness(3)
 				};
 
-				Label nameLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, TextColor = Colors.White, LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, TextColor = Colors.White, LineBreakMode = LineBreakMode.WordWrap };
                 nameLabel.SetBinding(Label.TextProperty, "membername");
 				nameLabel.SetBinding(Label.TextColorProperty, "selectedColor");
 
-				Frame nameFrame = new Frame
+				Border nameFrame = new Border
 				{
-					BorderColor = Color.FromRgb(246, 220, 178),
-					BackgroundColor = Colors.Transparent,
-					CornerRadius = 10,
-					IsClippedToBounds = true,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    BackgroundColor = Colors.Transparent,
 					Padding = new Thickness(5, 0, 0, 0)
 				};
 				nameFrame.Content = nameLabel;
@@ -178,54 +184,37 @@ namespace SportNow.Views
 				itemabsoluteLayout.Add(nameFrame);
 	            itemabsoluteLayout.SetLayoutBounds(nameFrame, new Rect(0, 0, (App.screenWidth / 3 * 2) - 10 * App.screenHeightAdapter, 40 * App.screenHeightAdapter));
 
-				Label categoryLabel = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formValueFontSize, TextColor = Colors.White, LineBreakMode = LineBreakMode.WordWrap };
+				Label categoryLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.formValueFontSize, TextColor = Colors.White, LineBreakMode = LineBreakMode.WordWrap };
 				categoryLabel.SetBinding(Label.TextProperty, "gradeLabel");
 				categoryLabel.SetBinding(Label.TextColorProperty, "selectedColor");
 
-				Frame categoryFrame = new Frame
+                Border categoryFrame = new Border
 				{
-					BorderColor = Color.FromRgb(246, 220, 178),
-					BackgroundColor = Colors.Transparent,
-					CornerRadius = 10,
-					IsClippedToBounds = true,
+                    StrokeShape = new RoundRectangle
+                    {
+                        CornerRadius = 5 * (float)App.screenHeightAdapter,
+                    },
+                    Stroke = App.topColor,
+                    BackgroundColor = Colors.Transparent,
 					Padding = new Thickness(5, 0, 0, 0)
 				};
 				categoryFrame.Content = categoryLabel;
 
 				itemabsoluteLayout.Add(categoryFrame);
-				itemabsoluteLayout.SetLayoutBounds(nameFrame, new Rect((App.screenWidth / 3 * 2), 0, (App.screenWidth / 3) - 10 * App.screenHeightAdapter, 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(categoryFrame, new Rect((App.screenWidth / 3 * 2), 0, (App.screenWidth / 3) - 10 * App.screenHeightAdapter, 40 * App.screenHeightAdapter));
 
 				return itemabsoluteLayout;
 			});
 
 			absoluteLayout.Add(collectionViewExaminationSessionCall);
-            absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 270 * App.screenHeightAdapter));
 
-			doExaminationButton = new Button
-			{
-				Text = "FAZER EXAME",
-				BackgroundColor = Color.FromRgb(96, 182, 89),
-				TextColor = Colors.White,
-				FontSize = App.itemTitleFontSize,
-				WidthRequest = 100,
-				HeightRequest = 50
-			};
+            doExaminationButton = new RegisterButton("FAZER EXAME", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+            doExaminationButton.button.Clicked += doExaminationButtonClicked;
 
-			Frame frame_doExaminationButton = new Frame
-			{
-				BorderColor = Color.FromRgb(96, 182, 89),
-				WidthRequest = 100,
-				HeightRequest = 50,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
-				Padding = 0
-			};
 
-			frame_doExaminationButton.Content = doExaminationButton;
-			doExaminationButton.Clicked += doExaminationButtonClicked;
-
-			absoluteLayout.Add(frame_doExaminationButton);
-            absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.Add(doExaminationButton);
+            absoluteLayout.SetLayoutBounds(doExaminationButton, new Rect(0, App.screenHeight - 155 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 		}
 
 		public ExaminationEvaluationCallPageCS(Examination_Session examination_session)

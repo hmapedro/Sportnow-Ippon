@@ -13,6 +13,9 @@ namespace SportNow.Views
     {
 
         public async void initSpecificLayout(string actiontype, string actionid) {
+
+            //App.AdaptScreen();
+
             On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetIsSwipePagingEnabled(false);
             On<Microsoft.Maui.Controls.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
             NavigationPage.SetBackButtonTitle(this, "");
@@ -31,12 +34,11 @@ namespace SportNow.Views
 
             //On<Xamarin.Forms.PlatformConfiguration.Android>().SetToolbarPlacement(ToolbarPlacement.Bottom);
 
-            this.UnselectedTabColor = App.normalTextColor;
             this.BackgroundColor = App.backgroundColor;
             this.BarBackgroundColor = App.backgroundColor;
             this.BarTextColor = App.normalTextColor;//FromRgb(75, 75, 75); ;
             this.SelectedTabColor = App.topColor;
-            
+            this.UnselectedTabColor = App.normalTextColor;
 
             //public static double ScreenWidth; = Application.Current.MainPage.Width;
             //public static double ScreenHeight; = Application.Current.MainPage.Height;
@@ -218,7 +220,7 @@ namespace SportNow.Views
             Children.Add(new EquipamentTypePageCS() { Title = "EQUIPAMENTOS", IconImageSource = "kimono.png" });
             CurrentPage = Children[2];
             Title = "PRINCIPAL";
-            this.BarTextColor = Colors.Red;//App.normalTextColor;//FromRgb(75, 75, 75);
+            //this.BarTextColor = Colors.Red;//App.normalTextColor;//FromRgb(75, 75, 75);
             CurrentPageChanged += CurrentPageHasChanged;
 
             return 1;

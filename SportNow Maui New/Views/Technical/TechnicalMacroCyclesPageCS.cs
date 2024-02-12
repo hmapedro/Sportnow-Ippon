@@ -205,7 +205,7 @@ namespace SportNow.Views.Technical
         public void CreateMacroCycleSelector()
         {
             Debug.Print("TechnicalManageCycles.CreateMacroCycleSelector");
-            var width = Constants.ScreenWidth;
+            var width = App.screenWidth;
             var buttonWidth = (width - 50) / 3;
 
             Button previousWeekButton = new Button();

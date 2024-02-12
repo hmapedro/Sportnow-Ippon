@@ -79,7 +79,7 @@ namespace SportNow.Views
 
 		public void CreateWeekSelector(string firstDayWeek, string lastdayLastWeek)
 		{
-			var width = Constants.ScreenWidth;
+			var width = App.screenWidth;
 			var buttonWidth = (width - 50) / 3;
 
 			DateTime currentTime = DateTime.Now;

@@ -11,11 +11,6 @@ namespace SportNow.Views.Profile
     public class NewMemberPageCS : DefaultPage
     {
 
-        protected async override void OnAppearing()
-        {
-        }
-
-
         protected async override void OnDisappearing()
         {
 /*            if (changeMember == false)
