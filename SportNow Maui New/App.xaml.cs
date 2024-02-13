@@ -44,8 +44,8 @@ namespace SportNow
          public static Color normalTextColor = Colors.White;
         public static Color oppositeTextColor = Colors.Black;
 
-        public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
-        public static double screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density - 10 * App.screenWidthAdapter);
+        public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
+        public static double screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density - 20 * App.screenWidthAdapter);
 
         private DeviceOrientationService _deviceOrientationService;
         private string _orientationLockState = "Unlocked";
@@ -276,10 +276,15 @@ namespace SportNow
             double fontresize = 0;
             if (Application.Current.MainPage.Width > Application.Current.MainPage.Height)
             {
-                App.screenHeight = Application.Current.MainPage.Width;
-                App.screenWidth = Application.Current.MainPage.Height;
+
+                //App.screenHeight = Application.Current.MainPage.Width;
+                //App.screenWidth = Application.Current.MainPage.Height;
                 App.screenHeightAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 850;
                 App.screenWidthAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 400;
+
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenHeightAdapter; 
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+
                 App.ItemWidth = (int)(120 * App.screenHeightAdapter);
                 App.ItemHeight = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
                 fontresize = screenHeightAdapter;
@@ -291,10 +296,13 @@ namespace SportNow
             }
             else
             {
-                App.screenHeight = Application.Current.MainPage.Height;
-                App.screenWidth = Application.Current.MainPage.Width;
+                //App.screenHeight = Application.Current.MainPage.Height;
+                //App.screenWidth = Application.Current.MainPage.Width;
                 App.screenWidthAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 400;
                 App.screenHeightAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 850;
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenHeightAdapter;
+
                 App.ItemWidth = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
                 App.ItemHeight = (int)(120 * App.screenHeightAdapter);
                 fontresize = screenWidthAdapter;

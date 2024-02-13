@@ -98,7 +98,6 @@ namespace SportNow.Views
 			payButton = new RegisterButton("PAGAR", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             payButton.button.Clicked += OnPayButtonClicked;
 
-
 			absoluteLayout.Add(payButton);
             absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
