@@ -41,36 +41,36 @@ namespace SportNow.CustomViews
         public void createFormEntry(string text, string placeholder, Keyboard keyboard, double width)
         {
 
-            this.BackgroundColor = App.backgroundColor;
+            this.BackgroundColor = Colors.Transparent;// App.backgroundColor;
             StrokeShape = new RoundRectangle
             {
                 CornerRadius = 5 * (float)App.screenHeightAdapter,
             };
             Stroke = App.topColor;
 
-            this.Padding = new Thickness(2,2,2,2);
+            this.Padding = new Thickness(0,0,0,0);
             
             this.HeightRequest = 45 * App.screenHeightAdapter;
 
             //USERNAME ENTRY
             entry = new Entry
             {
-                //Text = "tete@hotmail.com",
                 Text = text,
+                HorizontalOptions = LayoutOptions.Start,
                 TextColor = App.normalTextColor,
                 BackgroundColor = App.backgroundColor,
+                FontSize = App.formValueFontSize,
                 Placeholder = placeholder,
                 PlaceholderColor = Colors.Gray,
-                HorizontalOptions = LayoutOptions.Start,
-                FontSize = App.formValueFontSize,
                 Keyboard = keyboard,
                 FontFamily = "futuracondensedmedium",
-                
+                ClearButtonVisibility = ClearButtonVisibility.WhileEditing,
             };
 
             if (width != 0)
             {
-                entry.WidthRequest = width;
+                entry.WidthRequest = width-5*App.screenWidthAdapter;
+                this.WidthRequest = width;
             }
             this.Content = entry;
 

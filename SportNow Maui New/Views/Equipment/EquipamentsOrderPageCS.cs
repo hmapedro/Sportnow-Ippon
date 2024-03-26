@@ -11,8 +11,9 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			//initSpecificLayout();
-		}
+            base.OnAppearing();
+            //initSpecificLayout();
+        }
 
 		Equipment equipment;
 

@@ -6,11 +6,30 @@ using Microsoft.Maui.Controls.PlatformConfiguration.AndroidSpecific;
 using Microsoft.Maui.Graphics;
 using Microsoft.Maui.Controls;
 //using Xamarin.Forms.PlatformConfiguration.AndroidSpecific;
+#if IOS
+using Microsoft.Maui.Controls.Handlers.Compatibility;
+using Microsoft.Maui.Platform;
+#endif
 
 namespace SportNow.Views
 {
     public class MainTabbedPageCS : Microsoft.Maui.Controls.TabbedPage
     {
+
+        protected override void OnHandlerChanging(HandlerChangingEventArgs args)
+        {
+            base.OnHandlerChanging(args);
+
+#if IOS
+            if (args.NewHandler is TabbedRenderer renderer)
+            {
+                if (renderer.TabBar is not null)
+                {
+                    renderer.TabBar.TintColor = App.normalTextColor.ToPlatform();
+                }
+            }
+#endif
+        }
 
         public async void initSpecificLayout(string actiontype, string actionid) {
 
@@ -36,9 +55,9 @@ namespace SportNow.Views
 
             this.BackgroundColor = App.backgroundColor;
             this.BarBackgroundColor = App.backgroundColor;
-            this.BarTextColor = App.normalTextColor;//FromRgb(75, 75, 75); ;
+            this.BarTextColor = App.topColor;// App.normalTextColor;//FromRgb(75, 75, 75);
             this.SelectedTabColor = App.topColor;
-            this.UnselectedTabColor = App.normalTextColor;
+            this.UnselectedTabColor = App.bottomColor; // App.bottomColor;
 
             //public static double ScreenWidth; = Application.Current.MainPage.Width;
             //public static double ScreenHeight; = Application.Current.MainPage.Height;

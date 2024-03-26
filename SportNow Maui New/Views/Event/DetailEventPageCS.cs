@@ -11,7 +11,7 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			Debug.Print("DetailEventPageCS - OnAppearing");
+            base.OnAppearing();
 			refreshEventStatus();
 			
 		}

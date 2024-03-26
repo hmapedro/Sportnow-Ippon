@@ -13,7 +13,8 @@ namespace SportNow.Views.Personal
 	{
 		protected override void OnAppearing()
 		{
-		}
+            base.OnAppearing();
+        }
 
 		protected override void OnDisappearing()
 		{

@@ -9,6 +9,7 @@ namespace SportNow.Views.Profile
     {
         protected override void OnAppearing()
         {
+            base.OnAppearing();
             App.AdaptScreen();
             initSpecificLayout();
         }

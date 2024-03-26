@@ -109,17 +109,16 @@ namespace SportNow.Views.Profile
 
 		public async void initSpecificLayout()
 		{
+			Debug.Print("ProfileCS.initSpecificLayout begin");
             LogManager logManager = new LogManager();
             await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
 
-			scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical };
+            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter };
 
-			absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 310 * App.screenHeightAdapter));
+            absoluteLayout.Add(scrollView);
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 325 * App.screenHeightAdapter));
 
-			int countStudents = App.original_member.students_count;
-
-			CreatePhoto();			
+            CreatePhoto();			
 			CreateGraduacao();
 			CreateStackButtons();
 			CreateGridGeral();
@@ -132,9 +131,14 @@ namespace SportNow.Views.Profile
 			gridMorada.IsVisible = false;
 			gridEncEducacao.IsVisible = false;*/
 			OnGeralButtonClicked(null, null);
-		}
+            Debug.Print("ProfileCS.initSpecificLayout end");
 
-		public void CreatePhoto()
+            //absoluteLayout.Add(memberPhotoImage);
+            //absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect((App.screenWidth / 2) - (90 * App.screenHeightAdapter), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
+
+        }
+
+        public void CreatePhoto()
 		{
             //memberPhotoImage = new RoundImage();
 
@@ -160,14 +164,12 @@ namespace SportNow.Views.Profile
 
             if (exists)
             {
-
-				memberPhotoImage.Source = new UriImageSource
+                Debug.Print("IMAGE = " + Constants.images_URL + App.member.id + "_photo");
+                memberPhotoImage.Source = new UriImageSource
 				{
 					Uri = new Uri(Constants.images_URL + App.member.id + "_photo"),
 					CachingEnabled = false,
-					CacheValidity = new TimeSpan(0, 0, 0, 1)
 				};
-				//memberPhotoImage.Source = "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png";// Constants.images_URL + App.member.id + "_photo";
             }
             else
             {
@@ -182,6 +184,7 @@ namespace SportNow.Views.Profile
 
 			absoluteLayout.Add(memberPhotoImage);
             absoluteLayout.SetLayoutBounds(memberPhotoImage, new Rect((App.screenWidth/2) - (90 * App.screenHeightAdapter), 0, 180 * App.screenHeightAdapter, 180 * App.screenHeightAdapter));
+			
         }
 
 		public async void CreateQuotaButton()
@@ -302,8 +305,8 @@ namespace SportNow.Views.Profile
                 Text = Constants.grades[App.member.grade],
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
-				TextColor = Colors.White,
-				LineBreakMode = LineBreakMode.NoWrap,
+                TextColor = App.normalTextColor,
+                LineBreakMode = LineBreakMode.NoWrap,
 				FontSize = App.itemTitleFontSize
 			};
 			absoluteLayout.Add(gradeLabel);
@@ -523,7 +526,7 @@ namespace SportNow.Views.Profile
 
 		public void CreateGridGeral() {
 
-			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter };
+			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter };
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -583,7 +586,7 @@ namespace SportNow.Views.Profile
 		public void CreateGridIdentificacao()
 		{
 
-			gridIdentificacao = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
+			gridIdentificacao = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenHeightAdapter };
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridIdentificacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -625,7 +628,7 @@ namespace SportNow.Views.Profile
 		public void CreateGridMorada()
 		{
 
-			gridMorada = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
+			gridMorada = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenHeightAdapter };
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMorada.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -683,7 +686,7 @@ namespace SportNow.Views.Profile
 		public void CreateGridEncEducacao()
 		{
 
-			gridEncEducacao = new Microsoft.Maui.Controls.Grid { Padding = 10, RowSpacing = 5 * App.screenHeightAdapter };
+			gridEncEducacao = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenHeightAdapter };
 			gridEncEducacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEncEducacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridEncEducacao.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -760,7 +763,7 @@ namespace SportNow.Views.Profile
 
 		async void OnGeralButtonClicked(object sender, EventArgs e)
 		{
-			Debug.WriteLine("OnLoginButtonClicked");
+			Debug.WriteLine("OnGeralButtonClicked");
 			geralButton.activate();
 			identificacaoButton.deactivate();
 			moradaButton.deactivate();
@@ -1078,8 +1081,8 @@ namespace SportNow.Views.Profile
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
                 if (DeviceInfo.Platform != DevicePlatform.iOS)
                 {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
+                    memberPhotoImage.Rotation = 0;
+                    stream = RotateBitmap(stream_aux, 0);
                 }
                 else
                 {
@@ -1103,9 +1106,17 @@ namespace SportNow.Views.Profile
                 Stream localstream = await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                memberPhotoImage.Rotation = 90;
-                stream = RotateBitmap(stream_aux, 90);
-                
+                if (DeviceInfo.Platform == DevicePlatform.iOS)
+                {
+                    memberPhotoImage.Rotation = 0;
+                    stream = RotateBitmap(stream_aux, 0);
+                }
+                else
+                {
+                    memberPhotoImage.Rotation = 90;
+                    stream = RotateBitmap(stream_aux, 90);
+                }
+
                 MemberManager memberManager = new MemberManager();
                 memberManager.Upload_Member_Photo(stream);
             }

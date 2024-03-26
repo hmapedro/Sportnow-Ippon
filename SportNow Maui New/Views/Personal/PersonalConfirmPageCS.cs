@@ -12,7 +12,8 @@ namespace SportNow.Views.Personal
 	{
 		protected override void OnAppearing()
 		{
-			initSpecificLayout();
+            base.OnAppearing();
+            initSpecificLayout();
 		}
 
 		protected override void OnDisappearing()

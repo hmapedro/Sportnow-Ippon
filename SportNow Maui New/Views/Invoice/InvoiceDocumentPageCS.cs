@@ -1,135 +1,115 @@
 ﻿
-using Microsoft.Maui;
 using SportNow.Model;
-using SportNow.Services.Data.JSON;
+using Syncfusion.Maui.PdfViewer;
 using System.Diagnostics;
-
 
 namespace SportNow.Views
 {
-	public class InvoiceDocumentPageCS : DefaultPage
-	{
+    public class InvoiceDocumentPageCS : DefaultPage
+    {
 
-		private Microsoft.Maui.Controls.StackLayout stackLayout;
+        private Microsoft.Maui.Controls.StackLayout stackLayout;
 
-		private Microsoft.Maui.Controls.Grid gridGrade;
+        private Microsoft.Maui.Controls.Grid gridGrade;
 
-		public List<MainMenuItem> MainMenuItems { get; set; }
+        public List<MainMenuItem> MainMenuItems { get; set; }
 
-		private Payment payment;
+        string invoiceid;
 
-		public void initLayout()
-		{
-			Title = "Fatura";
+        public void initLayout()
+        {
+            Title = "Fatura";
 
-			var toolbarItem = new ToolbarItem
-			{
-				//Text = "Logout",
-				IconImageSource = "iconshare.png",
-			
-			};
-			toolbarItem.Clicked += OnShareButtonClicked;
-			ToolbarItems.Add(toolbarItem);
+            var toolbarItem = new ToolbarItem
+            {
+                //Text = "Logout",
+                IconImageSource = "iconshare.png",
 
-		}
+            };
+            toolbarItem.Clicked += OnShareButtonClicked;
+            ToolbarItems.Add(toolbarItem);
 
-
-		public void initSpecificLayout()
-		{
-
-			gridGrade= new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
-			gridGrade.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star});
-			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
-
-			var browser = new WebView
-			{
-				BackgroundColor = App.backgroundColor,
-                HeightRequest = App.screenHeight,
-				WidthRequest = App.screenWidth,
-				VerticalOptions = LayoutOptions.FillAndExpand,
-				HorizontalOptions = LayoutOptions.Fill,
-			};
-
-			browser.Navigating += OnNavigating;
-			browser.Navigated += OnNavigated;
+        }
 
 
-			var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + payment.invoiceid;
-			var androidUrl = "https://docs.google.com/gview?url=" + pdfUrl + "&embedded=true";
-			Debug.Print("pdfUrl=" + pdfUrl);
-			Debug.Print("androidUrl="+androidUrl);
-            browser.Source = pdfUrl;
 
-            /*if (DeviceInfo.Platform != DevicePlatform.iOS)
-			{
-				browser.Source = pdfUrl;
-			}
-			else if (DeviceInfo.Platform == DevicePlatform.Android)
-			{
-				browser.Source = new UrlWebViewSource() { Url = androidUrl };
-			}
+        /* Unmerged change from project 'NK Sangalhos (net8.0-ios)'
+        Before:
+                public void initSpecificLayout()
+        After:
+                public void initSpecificLayoutAsync()
+        */
 
-			if (browser.Source == null)
-			{
-				Debug.Print("browser.Source = null");
-			}
-			else {
-				Debug.Print("browser.Source != null");
-			}*/
+        /* Unmerged change from project 'NK Sangalhos (net8.0-maccatalyst)'
+        Before:
+                public void initSpecificLayout()
+        After:
+                public void initSpecificLayoutAsync()
+        */
+        public async Task initSpecificLayoutAsync()
+        {
 
-			gridGrade.Add(browser, 0, 0);
+            gridGrade = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+            gridGrade.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
+            gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
 
-			absoluteLayout.Add(gridGrade);
-            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight));
+            var pdfUrl = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + this.invoiceid;
 
-			/*Image diplomaImage = new Image
-			{
-				Source = new UriImageSource
-				{
-					Uri = new Uri("https://www.nksl.org/services/PDF/create_PDF_diploma_ByID.php?exameid=" + examination.id),
-					CachingEnabled = false,
-					CacheValidity = new TimeSpan(5, 0, 0, 0)
-				}
-			};*/
+            Debug.Print("pdfUrl = "+ pdfUrl);
 
-			}
+            SfPdfViewer browser1 = new SfPdfViewer();
 
-		public InvoiceDocumentPageCS(Payment payment)
-		{
-			this.payment = payment;
-			this.initLayout();
-			this.initSpecificLayout();
-			//CreateDiploma(member, examination);
+            HttpClient httpClient = new HttpClient();
 
-			
-		}
+            showActivityIndicator();
+            HttpResponseMessage response = await httpClient.GetAsync(pdfUrl);
+            Stream PdfDocumentStream = await response.Content.ReadAsStreamAsync();
+            hideActivityIndicator();
 
-		public void OnNavigating(object sender, WebNavigatingEventArgs e)
-		{
-			showActivityIndicator();
+            browser1.DocumentSource = PdfDocumentStream;
+            browser1.WidthRequest = App.screenWidth;
+            browser1.HeightRequest = App.screenHeight - 100 * App.screenHeightAdapter;
+
+            gridGrade.Add(browser1, 0, 0);
+            absoluteLayout.Add(gridGrade);
+            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+        }
+
+        public InvoiceDocumentPageCS(Payment payment)
+        {
+            Debug.Print("payment.invoiceid = " + payment.invoiceid);
+            this.invoiceid = payment.invoiceid;
+            this.initLayout();
+            this.initSpecificLayoutAsync();
+            //CreateDiploma(member, examination);
 
 
-		}
+        }
 
-		public void OnNavigated(object sender, WebNavigatedEventArgs e)
-		{
+        public InvoiceDocumentPageCS(string invoiceid)
+        {
+            Debug.Print("invoiceid = " + invoiceid);
+            this.invoiceid = invoiceid;
+            this.initLayout();
+            this.initSpecificLayoutAsync();
+            //CreateDiploma(member, examination);
 
-			hideActivityIndicator();
 
-		}
+        }
 
-		async void OnShareButtonClicked(object sender, EventArgs e)
-		{
-			Debug.WriteLine("OnShareButtonClicked");
-			await Share.RequestAsync(new ShareTextRequest
-			{
-				//Uri = "https://plataforma.nksl.org/diploma_1.jpg",
-				Uri = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + payment.invoiceid,
-				Title = "Partilha Fatura"
-			});
-		}
 
-	}
+        async void OnShareButtonClicked(object sender, EventArgs e)
+        {
+            Debug.WriteLine("OnShareButtonClicked");
+            await Share.RequestAsync(new ShareTextRequest
+            {
+                //Uri = "https://plataforma.nksl.org/diploma_1.jpg",
+                Uri = Constants.RestUrl_Get_Invoice_byID + "?invoiceid=" + invoiceid,
+                Title = "Partilha Fatura"
+            });
+        }
+
+    }
 
 
 }

@@ -283,7 +283,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<int> GetMemberStudents_Count(string memberid)
 		{
-			Debug.WriteLine("MemberManager.GetMemberStudents_Count");
+			Debug.WriteLine("MemberManager.GetMemberStudents_Count - "+ Constants.RestUrl_Get_Member_Students_Count + "?userid=" + memberid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_Get_Member_Students_Count + "?userid=" + memberid));
 			try
 			{

@@ -11,7 +11,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			refreshCompetitionStatus(competition);
+            base.OnAppearing();
+            refreshCompetitionStatus(competition);
 			/*competition_participation = App.competition_participation;
 
 			if (competition_participation != null) { 

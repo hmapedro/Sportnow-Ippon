@@ -233,7 +233,7 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					Debug.Print("GetCompetitionParticipation_Payment content" + content);
+					Debug.Print("GetCompetitionParticipation_Payment content = " + content);
 
                     payments = JsonConvert.DeserializeObject<List<Payment>>(content);
 				}

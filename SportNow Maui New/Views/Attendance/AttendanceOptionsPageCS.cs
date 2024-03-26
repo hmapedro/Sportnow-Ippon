@@ -66,7 +66,7 @@ namespace SportNow.Views
 			await CreatePresencasOptionButtonsAsync();
 
 			absoluteLayout.Add(presencasabsoluteLayout);
-            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 275 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(presencasabsoluteLayout, new Rect(0, 0 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
 			hideActivityIndicator();
 		}
 
@@ -232,15 +232,15 @@ namespace SportNow.Views
                 FontSize = App.itemTitleFontSize,
                 FontFamily = "futuracondensedmedium",
             };
-			absoluteLayout.Add(personalClassesLabel);
-            absoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 265 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            presencasabsoluteLayout.Add(personalClassesLabel);
+            presencasabsoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 265 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
             personalClassesButton = new RoundButton("SABER MAIS!", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             personalClassesButton.button.BackgroundColor = App.topColor;
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 
-            absoluteLayout.Add(personalClassesButton);
-            absoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 230 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            presencasabsoluteLayout.Add(personalClassesButton);
+            presencasabsoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 230 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
 			/*BoxView separator1 = new BoxView()
             {

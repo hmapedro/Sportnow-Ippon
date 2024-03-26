@@ -14,7 +14,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			if (App.isToPop == true)
+            base.OnAppearing();
+            if (App.isToPop == true)
 			{
 				App.isToPop = false;
 				Navigation.PopAsync();

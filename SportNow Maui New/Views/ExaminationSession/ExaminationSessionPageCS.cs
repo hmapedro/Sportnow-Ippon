@@ -17,8 +17,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-
-			refreshExaminationStatus(examination_session.id);
+            base.OnAppearing();
+            refreshExaminationStatus(examination_session.id);
 		}
 
 		protected override void OnDisappearing()

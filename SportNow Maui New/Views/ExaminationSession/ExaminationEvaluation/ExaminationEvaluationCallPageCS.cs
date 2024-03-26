@@ -146,9 +146,9 @@ namespace SportNow.Views
 					Content = new Microsoft.Maui.Controls.StackLayout
 					{
 						Children =
-			{
-				new Label { Text = "Ainda não foi criada convocatória para esta Sessão de Exames.", FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.Red, FontSize = 20 },
-			}
+						{
+							new Label { Text = "Ainda não foi criada convocatória para esta Sessão de Exames.", FontFamily = "futuracondensedmedium", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.Red, FontSize = 20 },
+						}
 					}
 				}
 			};

@@ -81,11 +81,8 @@ namespace SportNow.CustomViews
 
             entry = new Entry
             {
-
-                //Padding = new Thickness(5,0,5,0),
                 Text = Text,
                 HorizontalTextAlignment = TextAlignment.Start,
-                //VerticalTextAlignment = TextAlignment.Center,
                 TextColor = App.normalTextColor,
                 BackgroundColor = App.backgroundColor,
                 FontSize = App.formValueFontSize,

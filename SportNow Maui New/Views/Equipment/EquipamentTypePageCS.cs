@@ -13,7 +13,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			initSpecificLayout();
+            base.OnAppearing();
+            initSpecificLayout();
 		}
 
 		protected override void OnDisappearing()
@@ -114,11 +115,11 @@ namespace SportNow.Views
 			{
 				//WidthRequest = 370,
 				Margin = new Thickness(0),
-				Spacing = 50,
+				Spacing = 50 * App.screenHeightAdapter,
 				Orientation = StackOrientation.Vertical,
 				HorizontalOptions = LayoutOptions.FillAndExpand,
 				VerticalOptions = LayoutOptions.FillAndExpand,
-				HeightRequest = 350,
+				HeightRequest = 400 * App.screenHeightAdapter,
 				Children =
 				{
 					karategiButton,

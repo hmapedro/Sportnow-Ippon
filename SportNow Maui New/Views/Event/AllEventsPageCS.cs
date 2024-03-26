@@ -12,6 +12,7 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
+            base.OnAppearing();
 			initSpecificLayout();
 		}
 

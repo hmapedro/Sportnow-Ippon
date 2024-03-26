@@ -26,7 +26,7 @@ namespace SportNow.Views
 
 		protected async override void OnAppearing()
 		{
-			
+            base.OnAppearing();
             Debug.WriteLine("MainPageCS.OnAppearing");
 
             App.AdaptScreen();
@@ -181,7 +181,29 @@ namespace SportNow.Views
 			absoluteLayout.Add(usernameLabel);
 			absoluteLayout.SetLayoutBounds(usernameLabel, new Rect(App.screenWidth - 310 * App.screenWidthAdapter, 2 * App.screenHeightAdapter, 300 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
 
-			if (App.member.students_count > 0)
+            showActivityIndicator();
+
+            DateTime currentTime = DateTime.Now.Date;
+            DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
+
+            string firstDay = currentTime.ToString("yyyy-MM-dd");
+            string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
+
+            int result = await getClass_DetailData();
+
+            teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
+            
+            importantEvents = await GetImportantEvents();
+
+            
+            if (App.member.currentFee == null)
+            {
+                //Debug.Print("Current Fee NULL não devia acontecer!");
+                var result1 = await GetCurrentFees(App.member);
+            }
+
+            hideActivityIndicator();
+            if (App.member.students_count > 0)
             {
 				teacherClassesY = (int) (40 * App.screenHeightAdapter);
 				classesY = (int) ((teacherClassesY + App.ItemHeight ) + (50 * App.screenHeightAdapter));
@@ -248,13 +270,6 @@ namespace SportNow.Views
 
         public async Task<int> createImportantTeacherClasses()
 		{
-			DateTime currentTime = DateTime.Now.Date;
-			DateTime currentTime_add7 = DateTime.Now.AddDays(7).Date;
-
-			string firstDay = currentTime.ToString("yyyy-MM-dd");
-			string lastday = currentTime_add7.AddDays(6).ToString("yyyy-MM-dd");
-            showActivityIndicator();
-            teacherClass_Schedules = await GetAllClass_Schedules(firstDay, lastday);
 			CompleteTeacherClass_Schedules();
 
 			//AULAS LABEL
@@ -393,9 +408,6 @@ namespace SportNow.Views
 
 		public async Task<int> createImportantClasses()
 		{
-            showActivityIndicator();
-            int result = await getClass_DetailData();
-
 			//AULAS LABEL
 			attendanceLabel = new Label
 			{
@@ -555,9 +567,6 @@ namespace SportNow.Views
 
 		public async Task<int> createImportantEvents()
 		{
-            showActivityIndicator();
-            importantEvents = await GetImportantEvents();
-
 			foreach (Event event_i in importantEvents)
 			{
 				if ((event_i.imagemNome == "") | (event_i.imagemNome is null))
@@ -737,13 +746,6 @@ namespace SportNow.Views
 
 		public async Task<int> createCurrentFee()
 		{
-            showActivityIndicator();
-            if (App.member.currentFee == null)
-			{
-				//Debug.Print("Current Fee NULL não devia acontecer!");
-				var result = await GetCurrentFees(App.member);
-			}
-
 			bool hasQuotaPayed = false;
 
 			if (App.member.currentFee != null)

@@ -15,7 +15,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			initSpecificLayout();
+            base.OnAppearing();
+            initSpecificLayout();
 		}
 
 		public void CleanScreen()

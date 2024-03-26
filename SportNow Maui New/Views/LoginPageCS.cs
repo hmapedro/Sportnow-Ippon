@@ -17,12 +17,13 @@ namespace SportNow.Views
 		{
 
 			base.OnAppearing();
-			//CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
+			
+            //CrossDeviceOrientation.Current.LockOrientation(DeviceOrientations.Portrait);
 
-			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
-			App.screenWidth = mainDisplayInfo.Width;
-			App.screenHeight = mainDisplayInfo.Height;
-			Debug.Print("AQUI Login - ScreenWidth = " + App.screenWidth + " ScreenHeight = " + App.screenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
+            //			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
+            //			App.screenWidth = mainDisplayInfo.Width;
+            //			App.screenHeight = mainDisplayInfo.Height;
+            //Debug.Print("AQUI Login - ScreenWidth = " + App.screenWidth + " ScreenHeight = " + App.screenHeight + "mainDisplayInfo.Density = " + mainDisplayInfo.Density);
 
 			App.AdaptScreen();
 			this.initSpecificLayout();	
@@ -50,24 +51,24 @@ namespace SportNow.Views
 		public void initSpecificLayout()
 		{
 
-			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 10 };
+			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 0 };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 40 });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star}); //GridLength.Auto 
+            gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 10 * App.screenWidthAdapter}); //GridLength.Auto 
 
 
 			welcomeLabel = new Label
 			{
 				Text = "BEM VINDO",
 				TextColor = Colors.White,
-				FontSize = 30 * App.screenHeightAdapter,
+				FontSize = App.bigTitleFontSize,
 				HorizontalOptions = LayoutOptions.Center,
 				WidthRequest = (App.screenWidth / DeviceDisplay.MainDisplayInfo.Density)-20,
 				HorizontalTextAlignment = TextAlignment.Center,
@@ -218,15 +219,6 @@ namespace SportNow.Views
             absoluteLayout.Add(currentVersionLabel);
             absoluteLayout.SetLayoutBounds(currentVersionLabel, new Rect(0, App.screenHeight - 150 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
-            BoxView separator = new BoxView()
-            {
-                HeightRequest = 10,
-                BackgroundColor = Color.FromRgb(255, 0, 0),
-                Color = Color.FromRgb(255, 0, 0),
-            };
-
-            //absoluteLayout.Add(separator);
-            //absoluteLayout.SetLayoutBounds(separator, new Rect(0, App.screenHeight - 100 * App.screenHeightAdapter, App.screenWidth, 10 * App.screenHeightAdapter));
         }
 
 

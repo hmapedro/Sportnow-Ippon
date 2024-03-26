@@ -8,6 +8,7 @@ namespace SportNow.Views.Profile
 
 		protected async override void OnAppearing()
 		{
+
             base.OnAppearing();
             initLayout();
 			initSpecificLayout();

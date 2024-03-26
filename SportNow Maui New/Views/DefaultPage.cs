@@ -4,6 +4,7 @@ using Plugin.DeviceOrientation.Abstractions;
 using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;
+using SportNow.CustomViews;
 
 #if ANDROID
 using Android.Content;
@@ -21,7 +22,11 @@ namespace SportNow.Views
         Border border;
         Frame background_frame;
         bool isRunning;
+#if ANDROID
         public Image loading;
+#elif IOS
+        GifImage loading;
+#endif
 
         private DeviceOrientationService _deviceOrientationService;
         private string _orientationLockState = "Unlocked";
@@ -43,16 +48,15 @@ namespace SportNow.Views
             if (currentActivity is not null)
             {
                 currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Portrait;
-
             }
-#elif IOS
-            this.LockOrientation(DisplayOrientation.Portrait);
-#endif
 
             await Task.Delay(100);
             loading.IsAnimationPlaying = false;
             await Task.Delay(100);
             loading.IsAnimationPlaying = true;
+#elif IOS
+            this.LockOrientation(DisplayOrientation.Portrait);
+#endif
         }
 
         public void LockOrientation(DisplayOrientation? orientation)
@@ -115,7 +119,6 @@ namespace SportNow.Views
 
 		public void initBaseLayout()
 		{
-            
 			this.BackgroundColor = App.backgroundColor;
 
             absoluteLayout = new AbsoluteLayout
@@ -130,11 +133,11 @@ namespace SportNow.Views
             if (Application.Current.MainPage != null)
             {
                 var navigationPage = Application.Current.MainPage as NavigationPage;
-                navigationPage.BarBackgroundColor = Colors.Black;
-                navigationPage.BarTextColor = Colors.White;
+                navigationPage.BarBackgroundColor = App.backgroundColor;
+                navigationPage.BarTextColor = App.normalTextColor;
             }
 
-            background_frame = new Frame() { BackgroundColor = App.backgroundColor, Opacity = 0.3 };
+            background_frame = new Frame() { BackgroundColor = App.backgroundColor, BorderColor = Colors.Transparent, Opacity = 0.3 };
 
             border = new Border
             {
@@ -142,7 +145,7 @@ namespace SportNow.Views
                 {
                     CornerRadius = 5 * (float)App.screenHeightAdapter,
                 },
-                BackgroundColor = Color.FromRgb(200, 200, 200),
+                BackgroundColor = Color.FromRgb(180, 180, 180),
                 Opacity = 0.1,
                 Padding = new Thickness(0, 0, 0, 0),
                 HeightRequest = 80 * App.screenHeightAdapter,
@@ -150,8 +153,12 @@ namespace SportNow.Views
                 VerticalOptions = LayoutOptions.Center,
             };
             //new Microsoft.Maui.Controls.StackLayout() { BackgroundColor = Color.FromRgb(200,200,200), Opacity = 0.3, HeightRequest = 80 * App.screenHeightAdapter, WidthRequest = 160 * App.screenWidthAdapter };
-            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true,  }; 
-            
+#if ANDROID
+            loading = new Image() { Source = "loading.gif", IsAnimationPlaying = true };
+#elif IOS
+            loading = new GifImage() { Asset = "loading.gif", WidthRequest = 70 * App.screenHeightAdapter, HeightRequest = 70 * App.screenHeightAdapter}; 
+#endif
+
             //indicator = new ActivityIndicator() { Color = App.topColor, HeightRequest = 100, WidthRequest = 100, MinimumHeightRequest = 100, MinimumWidthRequest = 100};
         }
 

@@ -10,7 +10,8 @@ namespace SportNow.Views.Technical
 	{
 		protected override void OnAppearing()
 		{
-		}
+            base.OnAppearing();
+        }
 
 		protected override void OnDisappearing()
 		{

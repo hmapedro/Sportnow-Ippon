@@ -17,7 +17,8 @@ namespace SportNow.Views
 
 		protected override void OnAppearing()
 		{
-			App.screenWidth = Application.Current.MainPage.Width;//DeviceDisplay.MainDisplayInfo.Width;
+            base.OnAppearing();
+            App.screenWidth = Application.Current.MainPage.Width;//DeviceDisplay.MainDisplayInfo.Width;
 			App.screenHeight = Application.Current.MainPage.Height; //DeviceDisplay.MainDisplayInfo.Height;
 			Debug.Print("ScreenWidth = "+ App.screenWidth + " ScreenHeight = " + App.screenHeight);
 		}

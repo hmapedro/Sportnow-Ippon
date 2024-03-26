@@ -4,6 +4,8 @@ using SportNow.Model;
 using Plugin.DeviceOrientation.Abstractions;
 using Plugin.DeviceOrientation;
 using System.Windows.Input;
+using Plugin.BetterFirebasePushNotification;
+using SportNow.Services.Data.JSON;
 
 namespace SportNow
 {
@@ -15,7 +17,7 @@ namespace SportNow
         public static Member member;
 
         public static string VersionNumber = "3.0.0";
-        public static string BuildNumber = "62";
+        public static string BuildNumber = "63";
 
         public static Competition competition;
 
@@ -44,8 +46,8 @@ namespace SportNow
          public static Color normalTextColor = Colors.White;
         public static Color oppositeTextColor = Colors.Black;
 
-        public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
-        public static double screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density - 20 * App.screenWidthAdapter);
+        public static double screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+        public static double screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density - 10 * App.screenWidthAdapter);
 
         private DeviceOrientationService _deviceOrientationService;
         private string _orientationLockState = "Unlocked";
@@ -147,9 +149,9 @@ namespace SportNow
 
         protected void startNotifications()
         {
-            /*-- CrossFirebasePushNotification.Current.Subscribe("General");
+            BetterFirebasePushNotification.Current.Subscribe("General");
 
-             CrossFirebasePushNotification.Current.OnTokenRefresh += async (s, p) =>
+            BetterFirebasePushNotification.Current.OnTokenRefresh += async (s, p) =>
              {
                  Debug.WriteLine($"TOKEN : {p.Token}");
                  Debug.Print("App.original_member = " + App.original_member + ". App.token =" + App.token + ". p.Token=" + p.Token);
@@ -161,13 +163,13 @@ namespace SportNow
                  App.token = p.Token;
              };
 
-             CrossFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
+            BetterFirebasePushNotification.Current.OnNotificationReceived += (s, p) =>
              {
                  Debug.Print("OnNotificationReceived Cross");
                  App.notification = "OnNotificationReceived";
              };
 
-             CrossFirebasePushNotification.Current.OnNotificationOpened += async (s, p) =>
+            BetterFirebasePushNotification.Current.OnNotificationOpened += async (s, p) =>
              {
                  Debug.Print("OnNotificationOpened Cross");
 
@@ -180,7 +182,7 @@ namespace SportNow
                      System.Diagnostics.Debug.WriteLine($"ActionID: {p.Identifier}");
                  }
 
-             };*/
+             };
             }
 
          protected override async void OnStart()
@@ -282,8 +284,8 @@ namespace SportNow
                 App.screenHeightAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 850;
                 App.screenWidthAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 400;
 
-                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenHeightAdapter; 
-                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenHeightAdapter; 
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
 
                 App.ItemWidth = (int)(120 * App.screenHeightAdapter);
                 App.ItemHeight = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
@@ -300,8 +302,8 @@ namespace SportNow
                 //App.screenWidth = Application.Current.MainPage.Width;
                 App.screenWidthAdapter = ((mainDisplayInfo.Width) / mainDisplayInfo.Density) / 400;
                 App.screenHeightAdapter = ((mainDisplayInfo.Height) / mainDisplayInfo.Density) / 850;
-                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenWidthAdapter;
-                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 20 * App.screenHeightAdapter;
+                App.screenWidth = (DeviceDisplay.MainDisplayInfo.Width / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenWidthAdapter;
+                App.screenHeight = (DeviceDisplay.MainDisplayInfo.Height / DeviceDisplay.MainDisplayInfo.Density) - 10 * App.screenHeightAdapter;
 
                 App.ItemWidth = (int)(App.screenWidth / 2 - 10 * App.screenWidthAdapter); //(int)(155 * App.screenWidthAdapter);
                 App.ItemHeight = (int)(120 * App.screenHeightAdapter);

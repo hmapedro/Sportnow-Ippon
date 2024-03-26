@@ -1,5 +1,9 @@
-﻿using Microsoft.Extensions.Logging;
+﻿using System.Diagnostics;
+using Microsoft.Extensions.Logging;
+using Microsoft.Maui.LifecycleEvents;
+using Plugin.BetterFirebasePushNotification;
 using Syncfusion.Maui.Core.Hosting;
+
 
 namespace SportNow;
 
@@ -26,6 +30,57 @@ public static class MauiProgram
       
 #endif
         Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mjk4MzIzN0AzMjM0MmUzMDJlMzBLSEZ0a3U0Rlk3UVNjZWxBWmNtclJkOW5jVG1tWm52aGlUNng2THJsWkhnPQ==");
+
+
+        builder.ConfigureLifecycleEvents(events => {
+#if IOS
+            events.AddiOS(iOS => iOS.WillFinishLaunching((_, options) =>
+            {
+                var usercategories = new NotificationUserCategory[]
+            {
+                new NotificationUserCategory("StillAlive", new List<NotificationUserAction>
+                {
+                    new NotificationUserAction("Yes","Yes", NotificationActionType.Foreground),
+                    new NotificationUserAction("No","No", NotificationActionType.Foreground)
+
+                })
+               
+
+            };
+                //If you dont want useractions call one of the other initialize options
+                FirebasePushNotificationManager.Initialize(options, usercategories, true);
+                return false;
+            }));
+           
+#elif ANDROID
+            var usercategories = new NotificationUserCategory[]
+            {
+                new NotificationUserCategory("StillAlive", new List<NotificationUserAction>
+                {
+                    new NotificationUserAction("Yes","Yes", NotificationActionType.Foreground),
+                    new NotificationUserAction("No","No", NotificationActionType.Foreground)
+
+                })
+
+
+            };
+
+
+            events.AddAndroid(android => android.OnCreate((activity, bundle) => {
+                Firebase.FirebaseApp.InitializeApp(activity);
+            }));
+
+            Debug.Print("AQUIIIIIIIII");
+
+            /*events.AddAndroid(android => android.OnCreate((activity, _) =>
+            //If you dont want useractions call one of the other initialize options
+            FirebasePushNotificationManager.Initialize(usercategories, true, false, true)
+
+            ));*/
+#endif
+        });
+        builder.Services.AddSingleton<IPushNotificationHandler, DefaultPushNotificationHandler>();
+
 
         return builder.Build();
 	}

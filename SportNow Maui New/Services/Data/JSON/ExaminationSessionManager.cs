@@ -100,7 +100,7 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<List<Examination>> GetExamination_SessionCall(string examinationsessionid)
 		{
-			Debug.Print("GetExamination_SessionCall");
+			Debug.Print("GetExamination_SessionCall - " + Constants.RestUrl_GetExamination_SessionCall + "?examinationsessionid=" + examinationsessionid);
 			Uri uri = new Uri(string.Format(Constants.RestUrl_GetExamination_SessionCall + "?examinationsessionid=" + examinationsessionid, string.Empty));
 			try {
 				HttpResponseMessage response = await client.GetAsync(uri);
@@ -126,8 +126,8 @@ namespace SportNow.Services.Data.JSON
 
 		public async Task<ObservableCollection<Examination>> GetExamination_SessionCall_obs(string examinationsessionid)
 		{
-			Debug.Print("GetExamination_SessionCall");
-			ObservableCollection<Examination> examinations_obs = new ObservableCollection<Examination>();
+            Debug.Print("GetExamination_SessionCall_obs - " + Constants.RestUrl_GetExamination_SessionCall + "?examinationsessionid=" + examinationsessionid);
+            ObservableCollection<Examination> examinations_obs = new ObservableCollection<Examination>();
 			Uri uri = new Uri(string.Format(Constants.RestUrl_GetExamination_SessionCall + "?examinationsessionid=" + examinationsessionid, string.Empty));
 			try
 			{
@@ -137,7 +137,7 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					Debug.Print("content=" + content);
+					Debug.Print("GetExamination_SessionCall_obs content=" + content);
 					examinations_obs = JsonConvert.DeserializeObject<ObservableCollection<Examination>>(content);
 				}
 				else

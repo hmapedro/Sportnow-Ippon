@@ -22,7 +22,7 @@ namespace SportNow.Views
 		protected async override void OnAppearing()
 		{
             base.OnAppearing();
-            //CrossDeviceOrientation.Current.UnlockOrientation();
+			//CrossDeviceOrientation.Current.UnlockOrientation();
 
 #if ANDROID
             var currentActivity = ActivityStateManager.Default.GetCurrentActivity();
@@ -31,12 +31,17 @@ namespace SportNow.Views
                 currentActivity.RequestedOrientation = (Android.Content.PM.ScreenOrientation)DisplayOrientation.Unknown;
 
             }
-#elif IOS
-            this.LockOrientation(DisplayOrientation.Unknown);
-#endif
-			await initSpecificLayout();
 
-            AdaptScreen();
+            /*DeviceOrientationService deviceOrientationService = new DeviceOrientationService();
+
+            deviceOrientationService.UnlockOrientationInterface();*/
+#elif IOS
+            this.LockOrientation(DisplayOrientation.Landscape);
+#endif
+            
+            await initSpecificLayout();
+
+            
 		}
 		//during page close setting back to portrait
 		protected override void OnDisappearing()
@@ -63,7 +68,9 @@ namespace SportNow.Views
 		ScrollView scrollView;
         AbsoluteLayout absoluteLayoutExamination;
 
-		public void initLayout()
+        double Xindex;
+
+        public void initLayout()
 		{
 			Title = "AVALIAÇÃO EXAMES";
 		}
@@ -71,15 +78,25 @@ namespace SportNow.Views
 
 		public async Task<int> initSpecificLayout()
 		{
-			cleanExaminations();
 
-			await CreateExamination_Result();
+
+            cleanExaminations();
+
+            /*absoluteLayout = new AbsoluteLayout
+            {
+                Margin = new Thickness(5 * App.screenWidthAdapter)
+            };
+            Content = absoluteLayout;*/
+
+
+            await CreateExamination_Result();
 			examination_resultCollection = new Examination_ResultCollection();
 			examination_resultCollection.Items = examination_results;
-			return 0;
+			
 			//	CreateExamination_SessionCallColletionView();
-			//CreateExamination_SessionCallView();
-		}
+			CreateExamination_SessionCallView();
+            return 0;
+        }
 
 		public void cleanExaminations()
 		{
@@ -98,16 +115,16 @@ namespace SportNow.Views
 
 		public async void CreateExamination_SessionCallView()
 		{
-
+            AdaptScreen();
             absoluteLayoutExamination = new AbsoluteLayout
 			{
-				Margin = new Thickness(10)
+				Margin = new Thickness(1 * sizeAdapter)
 			};
 
 			Debug.Print("currentExaminationIndex = "+ currentExaminationIndex);
 
 			int examinationResultIndex = 0;
-			double Xindex = 0;
+			
 			while (examinationResultIndex < numberExaminationsToShow)
 			{
 				Examination_Result examination_Result = examination_results[examinationResultIndex + currentExaminationIndex];
@@ -133,14 +150,20 @@ namespace SportNow.Views
 					TextColor = Color.FromRgb(246, 220, 178),
 					Text = examination_Result.evaluation//Math.Round(double.Parse(examination_Result.evaluation), 2).ToString()
 				};
+				Debug.Print("Xindex = " + Xindex);
+				double Yindex = 5 * sizeAdapter;
+#if ANDROID
+                 Yindex = (5 * sizeAdapter);				
+#endif
 
-				absoluteLayoutExamination.Add(memberNameLabel);
-                absoluteLayoutExamination.SetLayoutBounds(memberNameLabel, new Rect(Xindex, 0, App.screenWidth / 5 * 4, 40 * App.screenHeightAdapter));
+
+                absoluteLayoutExamination.Add(memberNameLabel);
+                absoluteLayoutExamination.SetLayoutBounds(memberNameLabel, new Rect(Xindex, Yindex, screenwidth / 5 * 4, 40 * sizeAdapter));
 
 				absoluteLayoutExamination.Add(evaluationLabel);
-                absoluteLayoutExamination.SetLayoutBounds(evaluationLabel, new Rect(Xindex + (screenwidth / 5 * 4), 0, App.screenWidth / 5, 40 * App.screenHeightAdapter));
+                absoluteLayoutExamination.SetLayoutBounds(evaluationLabel, new Rect(Xindex + (screenwidth / 5 * 4), Yindex, screenwidth / 5, 40 * sizeAdapter));
 
-				double Yindex = (40 * App.screenHeightAdapter);
+				Yindex = Yindex + (40 * sizeAdapter);
 				var evaluationList = new List<string>();
 				evaluationList.Add("0");
 				evaluationList.Add("1");
@@ -185,7 +208,7 @@ namespace SportNow.Views
 						};
 
                         absoluteLayoutExamination.Add(technicTypeLabel);
-                        absoluteLayoutExamination.SetLayoutBounds(technicTypeLabel, new Rect(Xindex, Yindex, App.screenWidth / 5 * 4, 40 * App.screenHeightAdapter));
+                        absoluteLayoutExamination.SetLayoutBounds(technicTypeLabel, new Rect(Xindex, Yindex, screenwidth / 5 * 4, 40 * sizeAdapter));
 
 						Yindex = Yindex + 40 * App.screenHeightAdapter;
 						currentTechnicType = examination_Technic_Result.type;
@@ -212,7 +235,8 @@ namespace SportNow.Views
 					technicNameLabel.GestureRecognizers.Add(tapGestureRecognizer);
 					var evaluationPicker = new Picker
 					{
-						Title = "",//examination_Technic_Result.name,
+                        FontFamily = "futuracondensedmedium",
+                        Title = "",//examination_Technic_Result.name,
 						TitleColor = Colors.White,
 						BackgroundColor = Colors.Transparent,
 						HorizontalTextAlignment = TextAlignment.Center,
@@ -250,17 +274,17 @@ namespace SportNow.Views
 						}
 					};
                     absoluteLayoutExamination.Add(technicNameLabel);
-                    absoluteLayoutExamination.SetLayoutBounds(technicNameLabel, new Rect(Xindex, Yindex, App.screenWidth / 5 * 4, 40 * App.screenHeightAdapter));
+                    absoluteLayoutExamination.SetLayoutBounds(technicNameLabel, new Rect(Xindex, Yindex, screenwidth / 5 * 4, 40 * sizeAdapter));
 
 
                     absoluteLayoutExamination.Children.Add(evaluationPicker);
-                    absoluteLayoutExamination.SetLayoutBounds(evaluationPicker, new Rect(Xindex + (App.screenWidth / 5 * 4), Yindex, App.screenWidth / 5, 40 * App.screenHeightAdapter));
+                    absoluteLayoutExamination.SetLayoutBounds(evaluationPicker, new Rect(Xindex + (screenwidth / 5 * 4), Yindex, screenwidth / 5, 40 * sizeAdapter));
 
 					Yindex = Yindex + 40 * App.screenHeightAdapter;
 				}
 
 
-				RoundButton confirmButton = new RoundButton("TERMINAR EXAME", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
+				RoundButton confirmButton = new RoundButton("TERMINAR EXAME", screenwidth - 20 * sizeAdapter, 50 * sizeAdapter);
                 confirmButton.button.Clicked += async (sender, ea) =>
 				{
 					Debug.Print("Examination to Close: examinationResultIndex = " + examinationResultIndex + " currentExaminationIndex = " + currentExaminationIndex);
@@ -268,9 +292,9 @@ namespace SportNow.Views
 					_ = await openDescriptionExaminationResultWindow(examination_Result);
 				};
 
-
+				
                 absoluteLayoutExamination.Add(confirmButton);
-                absoluteLayoutExamination.SetLayoutBounds(confirmButton, new Rect(Xindex, getMaxYIndex() + 5 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+                absoluteLayoutExamination.SetLayoutBounds(confirmButton, new Rect(Xindex, getMaxYIndex() + 5 * sizeAdapter, screenwidth - 20 * sizeAdapter, 50 * sizeAdapter));
 
 
 
@@ -278,35 +302,58 @@ namespace SportNow.Views
 				Xindex = Xindex + screenwidth;
 			}
 
+			Debug.Print("getMaxYIndex() = " + getMaxYIndex());
 
+#if ANDROID
+            scrollView = new ScrollView
+            {
+                //BackgroundColor = Colors.Green,
+                //Content = absoluteLayout,
+                Orientation = ScrollOrientation.Vertical,
+                WidthRequest = App.screenHeight,
+                HeightRequest = App.screenWidth - 100 * App.screenWidthAdapter,
+                MinimumWidthRequest = App.screenHeight,
+                MinimumHeightRequest = App.screenWidth - 100 * App.screenWidthAdapter,
+                VerticalOptions = LayoutOptions.FillAndExpand
+            };
+#elif IOS
 			scrollView = new ScrollView
 			{
 				//BackgroundColor = Colors.Green,
 				//Content = absoluteLayout,
 				Orientation = ScrollOrientation.Vertical,
-				WidthRequest = screenwidth * numberExaminationsToShow,
-				HeightRequest = screenheight,
-				MinimumWidthRequest = screenwidth * numberExaminationsToShow,
-				MinimumHeightRequest = screenheight,
+				WidthRequest = App.screenHeight,
+				HeightRequest = App.screenWidth - 100 * App.screenWidthAdapter,
+				MinimumWidthRequest = App.screenHeight,
+				MinimumHeightRequest = App.screenWidth - 100 * App.screenWidthAdapter,
 				VerticalOptions = LayoutOptions.FillAndExpand
 			};
+#endif
 
-			
-			scrollView.Content = absoluteLayoutExamination;
 
-            absoluteLayout.Remove(scrollView);
+
+            scrollView.Content = absoluteLayoutExamination;
+
+			//absoluteLayout.Remove(scrollView);
+			Debug.Print("AQUIIIII COLOCA SCROLLVIEW");
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth* numberExaminationsToShow, App.screenHeight));
+
+#if ANDROID
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, -50 * App.screenWidthAdapter, App.screenHeight, App.screenWidth));
+#elif IOS
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, - 50 * App.screenWidthAdapter, App.screenHeight, App.screenWidth));
+#endif
 
 
-			Content = scrollView;
+            //Content = scrollView;
 
-			if (numberExaminationsToShow == 1) {
+            /*if (numberExaminationsToShow == 1) {
 				var leftSwipeGesture = new SwipeGestureRecognizer { Direction = SwipeDirection.Left };
 				leftSwipeGesture.Swiped += async (sender, e) => {
 					Debug.Print("Swipe left");
 					if (currentExaminationIndex < (examination_results.Count - 1))
 					{
+						Xindex = 0;
 						currentExaminationIndex++;
 						if (scrollView != null)
 						{
@@ -321,7 +368,8 @@ namespace SportNow.Views
 					Debug.Print("Swipe right");
 					if (currentExaminationIndex > 0)
 					{
-						currentExaminationIndex--;
+                        Xindex = 0;
+                        currentExaminationIndex--;
 						if (scrollView != null)
 						{
 							absoluteLayout.Remove(scrollView);
@@ -333,11 +381,11 @@ namespace SportNow.Views
 				};
 				scrollView.GestureRecognizers.Add(leftSwipeGesture);
 				scrollView.GestureRecognizers.Add(rightSwipeGesture);
-			}
+			}*/
 
-		}
+        }
 
-		public double getMaxYIndex()
+        public double getMaxYIndex()
 		{
 			int examinationResultIndex = 0;
 			double Yindex_Max = 0; // (40 * sizeAdapter);
@@ -350,10 +398,15 @@ namespace SportNow.Views
 				}
 				examinationResultIndex++;
 			}
+#if ANDROID
+            return Yindex_Max + (40 * App.screenHeightAdapter);
+#elif IOS
 			return Yindex_Max + (40 * App.screenHeightAdapter);
-		}
+#endif
 
-		public async void openDescriptionWindow(Examination_Technic_Result examination_Technic_Result)
+        }
+
+        public async void openDescriptionWindow(Examination_Technic_Result examination_Technic_Result)
 		{
 
             var input = await DisplayPromptAsync("Comentários", "Adicione Comentários sobre esta Técnica", "Ok", "Cancelar", initialValue: examination_Technic_Result.description, keyboard: Keyboard.Text);
@@ -454,7 +507,7 @@ namespace SportNow.Views
 			DeviceDisplay.Current.MainDisplayInfoChanged += (sender, args) =>
             //CrossDeviceOrientation.Current.OrientationChanged += (sender, args) =>
 			{
-				AdaptScreen();
+				//AdaptScreen();
 			};
 		}
 
@@ -463,12 +516,14 @@ namespace SportNow.Views
 			var mainDisplayInfo = DeviceDisplay.MainDisplayInfo;
 			Debug.Print("Orientation = " + DeviceDisplay.Current.MainDisplayInfo.Orientation);
 			Debug.Print("Height = " + (mainDisplayInfo.Height / mainDisplayInfo.Density) + " Width = " + (mainDisplayInfo.Width / mainDisplayInfo.Density));
-			if (DeviceDisplay.Current.MainDisplayInfo.Orientation.ToString() == "Portrait")
+            Debug.Print("Height = " + App.screenHeight + " Width = " + App.screenWidth);
+            /*if (DeviceDisplay.Current.MainDisplayInfo.Orientation.ToString() == "Portrait")
 			{
-				numberExaminationsToShow = 1;
-				screenwidth = (mainDisplayInfo.Width - 20) / mainDisplayInfo.Density;
-				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density - 100 * App.screenHeightAdapter;
-				sizeAdapter = screenwidth / 400.0;
+				Xindex = 0;
+                numberExaminationsToShow = 1;
+				screenwidth = App.screenWidth;
+				screenheight = App.screenHeight - 100 * App.screenHeightAdapter;
+                sizeAdapter = App.screenHeightAdapter;
 				Debug.Print("sizeAdapter =" + sizeAdapter);
 				if (scrollView != null)
 				{
@@ -479,7 +534,7 @@ namespace SportNow.Views
 						absoluteLayout = null;
                         absoluteLayout = new AbsoluteLayout
                         {
-                            Margin = new Thickness(5 * App.screenWidthAdapter)
+                            Margin = new Thickness(1 * App.screenWidthAdapter)
                         };
                     }
 
@@ -490,14 +545,32 @@ namespace SportNow.Views
 				CreateExamination_SessionCallView();
 			}
 			else
-			{
-				currentExaminationIndex = 0;
+			{*/
+#if ANDROID
+                Xindex = 0 * App.screenHeightAdapter;
+#elif IOS
+				Xindex = 0 * App.screenHeightAdapter;
+#endif
+
+                currentExaminationIndex = 0;
 				numberExaminationsToShow = examination_results.Count;
 
-				screenwidth = ((mainDisplayInfo.Width-(80 * App.screenWidthAdapter)) / mainDisplayInfo.Density) / numberExaminationsToShow;
-				screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density - 100 * App.screenHeightAdapter;
-				sizeAdapter = screenwidth / 400.0;
-				if (scrollView != null)
+                //screenwidth = (((mainDisplayInfo.Width) / mainDisplayInfo.Density) / numberExaminationsToShow) - (10 * App.screenWidthAdapter * numberExaminationsToShow);
+                //screenwidth = ((mainDisplayInfo.Width-(80 * App.screenWidthAdapter)) / mainDisplayInfo.Density) / numberExaminationsToShow;
+				//screenheight = mainDisplayInfo.Height / mainDisplayInfo.Density - 100 * App.screenHeightAdapter;
+
+                screenwidth = (App.screenHeight - 60 * App.screenHeightAdapter) / numberExaminationsToShow;
+				screenheight = App.screenWidth + 50 * App.screenHeightAdapter;
+/*#if ANDROID
+            screenheight = App.screenWidth - 45 * App.screenHeightAdapter;
+#elif IOS
+				screenheight = App.screenWidth;
+#endif*/
+				sizeAdapter = App.screenHeightAdapter;
+				
+
+                //sizeAdapter = screenwidth / 400.0;
+               /* if (scrollView != null)
 				{
 					Content = null;
 					if (absoluteLayout != null)
@@ -506,15 +579,15 @@ namespace SportNow.Views
 						absoluteLayout = null;
                         absoluteLayout = new AbsoluteLayout
                         {
-                            Margin = new Thickness(5 * App.screenWidthAdapter)
+                            Margin = new Thickness(1 * App.screenWidthAdapter)
                         };
                     }
                     absoluteLayoutExamination = null;
 					scrollView = null;
 					initLayout();
 				}
-				CreateExamination_SessionCallView();
-			}
+				CreateExamination_SessionCallView();*/
+			//}
 		}
 
 		async Task<int> CreateExamination_Result()
