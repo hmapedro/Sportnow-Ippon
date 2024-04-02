@@ -214,7 +214,7 @@ namespace SportNow.Views
 
 
             absoluteLayout.Add(doExaminationButton);
-            absoluteLayout.SetLayoutBounds(doExaminationButton, new Rect(0, App.screenHeight - 155 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(doExaminationButton, new Rect(0, App.screenHeight - 100 - 55 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 		}
 
 		public ExaminationEvaluationCallPageCS(Examination_Session examination_session)

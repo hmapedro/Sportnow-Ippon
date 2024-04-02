@@ -129,7 +129,7 @@ namespace SportNow.Views
 			{
                 FontFamily = "futuracondensedmedium",
 				Title = "",
-				TitleColor = Colors.White,
+				TitleColor = App.normalTextColor,
 				BackgroundColor = Colors.Transparent,
 				TextColor = Color.FromRgb(246, 220, 178),
 				HorizontalTextAlignment = TextAlignment.Center,
@@ -206,10 +206,10 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(periodLabel);
-            absoluteLayout.SetLayoutBounds(periodLabel, new Rect(0, 0, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(periodLabel, new Rect(0, 0, App.screenWidth, 40 * App.entryHeightAdapter));
 
 			absoluteLayout.Add(periodPicker);
-            absoluteLayout.SetLayoutBounds(periodPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(periodPicker, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.entryHeightAdapter));
 
 		}
 
@@ -497,7 +497,7 @@ namespace SportNow.Views
                 return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(classesCollectionView);
-            absoluteLayout.SetLayoutBounds(classesCollectionView, new Rect(3 * App.screenWidthAdapter, 80 * App.screenHeightAdapter + ((App.screenHeight - 180 * App.screenHeightAdapter) * 3 / 5), App.screenWidth - (0 * App.screenWidthAdapter), ((App.screenHeight - 180 * App.screenHeightAdapter) * 2 / 5)));
+            absoluteLayout.SetLayoutBounds(classesCollectionView, new Rect(3 * App.screenWidthAdapter, 80 * App.screenHeightAdapter + ((App.screenHeight - 180 * App.screenHeightAdapter) * 3 / 5), App.screenWidth - (0 * App.screenWidthAdapter), ((App.screenHeight - 180 * App.screenHeightAdapter) * 2 / 5) - 30));
 		}
 
 		public AttendanceStatsPageCS()

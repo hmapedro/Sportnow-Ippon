@@ -17,15 +17,15 @@ namespace SportNow
         public static Member member;
 
         public static string VersionNumber = "3.0.0";
-        public static string BuildNumber = "63";
+        public static string BuildNumber = "64";
 
         public static Competition competition;
 
          public static Competition_Participation competition_participation;
          public static Event_Participation event_participation;
 
-        public static double screenWidthAdapter = 1, screenHeightAdapter = 1;
-         public static int consentFontSize = 0, bigTitleFontSize = 0, titleFontSize = 0, menuButtonFontSize = 0, formLabelFontSize = 0, formValueFontSize = 0, itemTitleFontSize = 0, itemTextFontSize = 0, smallTextFontSize = 0, formValueSmallFontSize = 0;
+        public static double screenWidthAdapter = 1, screenHeightAdapter = 1, entryHeightAdapter = 1;
+        public static int consentFontSize = 0, bigTitleFontSize = 0, titleFontSize = 0, menuButtonFontSize = 0, formLabelFontSize = 0, formValueFontSize = 0, itemTitleFontSize = 0, itemTextFontSize = 0, smallTextFontSize = 0, formValueSmallFontSize = 0;
 
          public static int ItemWidth = 0, ItemHeight = 0;
 
@@ -314,6 +314,16 @@ namespace SportNow
                 }
 
             }
+
+            if (App.screenHeightAdapter < 1)
+            {
+                App.entryHeightAdapter = 1;
+            }
+            else
+            {
+                App.entryHeightAdapter = App.screenHeightAdapter;
+            }
+
             App.bigTitleFontSize = (int)(26 * fontresize);
             App.titleFontSize = (int)(18 * fontresize);
             App.menuButtonFontSize = (int)(14 * fontresize);

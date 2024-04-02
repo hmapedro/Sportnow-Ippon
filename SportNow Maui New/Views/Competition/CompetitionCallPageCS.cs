@@ -264,13 +264,13 @@ namespace SportNow.Views
 
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 210 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 100 - 110 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
 				cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 cancelButton.button.Clicked += OnCancelButtonClicked;
 
 				absoluteLayout.Add(cancelButton);
-                absoluteLayout.SetLayoutBounds(cancelButton, new Rect(0, App.screenHeight - 155 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(cancelButton, new Rect(0, App.screenHeight - 100 - 55 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
 			}
 			else if ((competition.participationconfirmed == "cancelado") & (registrationOpened == 0))
@@ -288,7 +288,7 @@ namespace SportNow.Views
 
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 155 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 100 - 55 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
 
         }

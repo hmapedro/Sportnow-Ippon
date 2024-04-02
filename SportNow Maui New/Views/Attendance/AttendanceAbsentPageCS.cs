@@ -127,7 +127,7 @@ namespace SportNow.Views
                 return itemabsoluteLayout;
 			});
 			absoluteLayout.Add(studentAbsentCollectionView);
-            absoluteLayout.SetLayoutBounds(studentAbsentCollectionView, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
+            absoluteLayout.SetLayoutBounds(studentAbsentCollectionView, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - (80 * App.screenHeightAdapter)));
 		}
 
 		public AttendanceAbsentPageCS()

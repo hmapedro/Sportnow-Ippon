@@ -198,31 +198,31 @@ namespace SportNow.Views
 			if ((examination_session.participationconfirmed == "confirmado") | (examination_session.participationconfirmed == null) | (registrationOpened == false))
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 100 * App.screenHeightAdapter));
 			}
 			else if (examination_session.participationconfirmed == "convocado")
 			{
 
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 170 * App.screenHeightAdapter));
 
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 registerButton.button.Clicked += OnRegisterButtonClicked;
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 112 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 100 - 112 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
 				cancelButton = new CancelButton("NÃO POSSO IR :(", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 cancelButton.button.Clicked += OnCancelButtonClicked;
 
 				absoluteLayout.Add(cancelButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(cancelButton, new Rect(0, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
 			else if (examination_session.participationconfirmed == "cancelado")
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 70 * App.screenHeightAdapter));
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 registerButton.button.Clicked += OnRegisterButtonClicked;

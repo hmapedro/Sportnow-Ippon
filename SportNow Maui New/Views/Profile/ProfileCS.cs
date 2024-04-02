@@ -100,6 +100,7 @@ namespace SportNow.Views.Profile
 			var toolbarItem = new ToolbarItem
 			{
                 IconImageSource = "exit.png",
+				
 			};
 			toolbarItem.Clicked += OnLogoutButtonClicked;
 			ToolbarItems.Add(toolbarItem);
@@ -116,7 +117,7 @@ namespace SportNow.Views.Profile
             scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter };
 
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 325 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 100 - 325 * App.screenHeightAdapter));
 
             CreatePhoto();			
 			CreateGraduacao();

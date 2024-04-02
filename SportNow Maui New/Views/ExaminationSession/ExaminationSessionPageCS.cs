@@ -67,7 +67,7 @@ namespace SportNow.Views
 
 		public async void initSpecificLayout()
 		{
-			gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+			gridCompetiton = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter };
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
@@ -403,7 +403,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(gridCompetiton);
-            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(gridCompetiton, new Rect(0, 0, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 100));
 
 		}
 

@@ -51,7 +51,7 @@ namespace SportNow.Views
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				HeightRequest = 300,
+				HeightRequest = 300 * App.screenHeightAdapter,
 				FontSize = 30
 			};
 
@@ -67,15 +67,16 @@ namespace SportNow.Views
 
 		public void createMBPaymentLayout() {
 			gridMBPayment= new Microsoft.Maui.Controls.Grid { Padding = 10, HorizontalOptions = LayoutOptions.FillAndExpand, VerticalOptions = LayoutOptions.FillAndExpand };
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 100 });
-			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 });
+			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 200 * App.screenHeightAdapter });
+			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = 20 * App.screenHeightAdapter });
 			gridMBPayment.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridMBPayment.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto
 			gridMBPayment.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
 			Label competitionParticipationNameLabel = new Label
 			{
-				Text = "Para confirmares a tua presença no\n " + event_participation.evento_name + "\n efetua o pagamento no MB com os dados apresentados em baixo",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para confirmares a tua presença no\n " + event_participation.evento_name + "\n efetua o pagamento no MB com os dados apresentados em baixo",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -93,7 +94,8 @@ namespace SportNow.Views
 
 			Label referenciaMBLabel = new Label
 			{
-				Text = "Pagamento por\n Multibanco",
+                FontFamily = "futuracondensedmedium",
+                Text = "Pagamento por\n Multibanco",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -128,7 +130,8 @@ namespace SportNow.Views
 
 			Label entityLabel = new Label
 			{
-				Text = "Entidade:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Entidade:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -136,7 +139,8 @@ namespace SportNow.Views
 			};
 			Label referenceLabel = new Label
 			{
-				Text = "Referência:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Referência:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -144,7 +148,8 @@ namespace SportNow.Views
 			};
 			Label valueLabel = new Label
 			{
-				Text = "Valor:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Valor:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -153,7 +158,8 @@ namespace SportNow.Views
 
 			Label entityValue = new Label
 			{
-				Text = payments[0].entity,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].entity,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = Colors.White,
@@ -161,7 +167,8 @@ namespace SportNow.Views
 			};
 			Label referenceValue = new Label
 			{
-				Text = payments[0].reference,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].reference,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = Colors.White,
@@ -169,7 +176,8 @@ namespace SportNow.Views
 			};
 			Label valueValue = new Label
 			{
-				Text = String.Format("{0:0.00}", payments[0].value) + "€",
+                FontFamily = "futuracondensedmedium",
+                Text = String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = Colors.White,

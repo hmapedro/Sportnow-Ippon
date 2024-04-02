@@ -50,7 +50,7 @@ namespace SportNow.CustomViews
 
             this.Padding = new Thickness(0,0,0,0);
             
-            this.HeightRequest = 45 * App.screenHeightAdapter;
+            this.HeightRequest = 45 * App.entryHeightAdapter;
 
             //USERNAME ENTRY
             entry = new Entry

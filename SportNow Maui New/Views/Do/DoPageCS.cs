@@ -706,8 +706,9 @@ namespace SportNow.Views
 			palmaresButton.deactivate();
 			participacoesEventosButton.deactivate();
 
-			absoluteLayout.Add(premiosrelativeLayout);
-            absoluteLayout.SetLayoutBounds(premiosrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
+            absoluteLayout.Remove(premiosrelativeLayout);
+            absoluteLayout.Add(premiosrelativeLayout);
+            absoluteLayout.SetLayoutBounds(premiosrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - (80 * App.screenHeightAdapter)));
 
 			absoluteLayout.Remove(graduacoesrelativeLayout);
 			absoluteLayout.Remove(palmaresrelativeLayout);
@@ -728,7 +729,8 @@ namespace SportNow.Views
 
 			absoluteLayout.Remove(graduacoesrelativeLayout);
             absoluteLayout.Add(graduacoesrelativeLayout);
-            absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
+
+            absoluteLayout.SetLayoutBounds(graduacoesrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - (80 * App.screenHeightAdapter)));
 			absoluteLayout.Remove(premiosrelativeLayout);
             absoluteLayout.Remove(palmaresrelativeLayout);
             absoluteLayout.Remove(collectionViewParticipacoesEventos);
@@ -746,8 +748,9 @@ namespace SportNow.Views
 			palmaresButton.activate();
 			participacoesEventosButton.deactivate();
 
-			absoluteLayout.Add(palmaresrelativeLayout);
-            absoluteLayout.SetLayoutBounds(palmaresrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - (80 * App.screenHeightAdapter)));
+            absoluteLayout.Remove(palmaresrelativeLayout);
+            absoluteLayout.Add(palmaresrelativeLayout);
+            absoluteLayout.SetLayoutBounds(palmaresrelativeLayout, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - (80 * App.screenHeightAdapter)));
 
             absoluteLayout.Remove(premiosrelativeLayout);
 			absoluteLayout.Remove(graduacoesrelativeLayout);
@@ -766,8 +769,9 @@ namespace SportNow.Views
 			palmaresButton.deactivate();
 			participacoesEventosButton.activate();
 
-			absoluteLayout.Add(collectionViewParticipacoesEventos);
-            absoluteLayout.SetLayoutBounds(collectionViewParticipacoesEventos, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - (250 * App.screenHeightAdapter)));
+            absoluteLayout.Remove(collectionViewParticipacoesEventos);
+            absoluteLayout.Add(collectionViewParticipacoesEventos);
+            absoluteLayout.SetLayoutBounds(collectionViewParticipacoesEventos, new Rect(5 * App.screenWidthAdapter, 80 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, App.screenHeight - 130 - (150 * App.screenHeightAdapter)));
 
 			absoluteLayout.Remove(premiosrelativeLayout);
 			absoluteLayout.Remove(graduacoesrelativeLayout);

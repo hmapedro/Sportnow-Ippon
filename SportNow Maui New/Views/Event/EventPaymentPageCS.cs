@@ -84,7 +84,8 @@ namespace SportNow.Views
 		{
 			Label inscricaoOKLabel = new Label
 			{
-				Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
+                FontFamily = "futuracondensedmedium",
+                Text = "A tua Inscrição no Evento \n " + event_participation.evento_name + " \n está Confirmada. \n\n BOA SORTE\n e nunca te esqueças de te divertir!",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -113,7 +114,8 @@ namespace SportNow.Views
 
 			Label selectPaymentModeLabel = new Label
 			{
-				Text = "Escolhe o modo de pagamento pretendido:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Escolhe o modo de pagamento pretendido:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,

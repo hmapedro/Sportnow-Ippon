@@ -50,13 +50,14 @@ namespace SportNow.Views
 
 			Label eventParticipationNameLabel = new Label
 			{
-				Text = "Para confirmares a tua presença no(a) " + event_participation.evento_name + " efetua o pagamento de "+ event_participation.valor + "€.",
+                Text = "Para confirmares a tua presença no(a) " + event_participation.evento_name + " efetua o pagamento de "+ event_participation.valor + "€.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
 				//LineBreakMode = LineBreakMode.NoWrap,
-				FontSize = App.bigTitleFontSize
-			};
+				FontSize = App.bigTitleFontSize,
+                FontFamily = "futuracondensedmedium",
+            };
 
 			absoluteLayout.Add(eventParticipationNameLabel);
             absoluteLayout.SetLayoutBounds(eventParticipationNameLabel, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 160 * App.screenHeightAdapter));
@@ -74,14 +75,15 @@ namespace SportNow.Views
 
 			Label phoneNumberLabel = new Label
 			{
-				Text = "Confirma o teu número de telefone",
+                Text = "Confirma o teu número de telefone",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				HeightRequest = 50 * App.screenHeightAdapter,
-				FontSize = App.bigTitleFontSize
-			};
+				FontSize = App.bigTitleFontSize,
+                FontFamily = "futuracondensedmedium",
+            };
 
 			absoluteLayout.Add(phoneNumberLabel);
             absoluteLayout.SetLayoutBounds(phoneNumberLabel, new Rect(0, 290 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
@@ -92,14 +94,14 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(phoneValueEdit);
-            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 340 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 350 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
 
 			payButton = new RegisterButton("PAGAR", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             payButton.button.Clicked += OnPayButtonClicked;
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 100 - 50 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
         }
 
 

@@ -54,12 +54,12 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 0 };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
-			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
-            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
+            gridLogin.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
             //gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
             gridLogin.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth - 10 * App.screenWidthAdapter}); //GridLength.Auto 
 
@@ -120,7 +120,7 @@ namespace SportNow.Views
                 TextColor = Colors.Black,
 				HorizontalOptions = LayoutOptions.Center,
                 WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
-                HeightRequest = 45 * App.screenHeightAdapter,
+                HeightRequest = 45 * App.entryHeightAdapter,
                 FontFamily = "futuracondensedmedium",
 				FontSize = App.titleFontSize
 			};
@@ -139,8 +139,8 @@ namespace SportNow.Views
 				HorizontalOptions = LayoutOptions.Center,
 				VerticalOptions = LayoutOptions.Center,
 				WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter,
-                HeightRequest = 45 * App.screenWidthAdapter
-			};
+                HeightRequest = 45 * App.entryHeightAdapter
+            };
 			
 			frame_loginButton.Content = loginButton;
 
@@ -159,7 +159,7 @@ namespace SportNow.Views
 			{
 				Text = "Recuperar palavra-passe",
 				TextColor = Colors.White,
-				FontSize = 20,
+				FontSize = App.titleFontSize,
 				HorizontalTextAlignment = TextAlignment.Center,
 				VerticalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium"
@@ -181,7 +181,7 @@ namespace SportNow.Views
             {
                 Text = "Novo Sócio",
                 TextColor = Colors.White,
-                FontSize = 20,
+                FontSize = App.titleFontSize,
                 HorizontalTextAlignment = TextAlignment.Center,
                 VerticalTextAlignment = TextAlignment.Center,
                 FontFamily = "futuracondensedmedium"
@@ -212,7 +212,7 @@ namespace SportNow.Views
                 TextColor = App.normalTextColor,
                 HorizontalTextAlignment = TextAlignment.End,
                 VerticalTextAlignment = TextAlignment.End,
-                FontSize = 10 * App.screenHeightAdapter,
+                FontSize = App.formValueSmallFontSize,
                 FontFamily = "futuracondensedmedium",
             };
 

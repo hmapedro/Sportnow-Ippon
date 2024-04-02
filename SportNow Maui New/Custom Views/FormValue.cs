@@ -21,7 +21,7 @@ namespace SportNow.CustomViews
 
         public FormValue(string text)
         {
-            createFormValue(text, 45 * App.screenHeightAdapter);
+            createFormValue(text, 45 * App.entryHeightAdapter);
         }
 
         public void createFormValue(string text, double height)

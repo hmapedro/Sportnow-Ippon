@@ -18,11 +18,6 @@ namespace SportNow.Views
 			
 		}
 
-		
-		protected override void OnDisappearing()
-		{
-		}
-
 		private Examination_Session examination_Session;
 
 		private Microsoft.Maui.Controls.Grid gridPaymentOptions;
@@ -44,7 +39,8 @@ namespace SportNow.Views
 
 			Label selectPaymentModeLabel = new Label
 			{
-				Text = "Escolhe o modo de pagamento pretendido:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Escolhe o modo de pagamento pretendido:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,

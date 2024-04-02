@@ -83,8 +83,8 @@ namespace SportNow.Views
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 80 });
-			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 120 });
+			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 80 * App.screenHeightAdapter });
+			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = 120 * App.screenHeightAdapter});
 			gridCompetiton.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
 			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
 			gridCompetiton.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth / 5 }); //GridLength.Auto
@@ -265,14 +265,15 @@ namespace SportNow.Views
 				Image convocatoriaImage = new Image
 				{
 					Source = "iconconvocatoria.png",
-					HorizontalOptions = LayoutOptions.End
+					HorizontalOptions = LayoutOptions.End,
+					HeightRequest = 50 * App.screenHeightAdapter
 				};
 
 				Label convocatoriaLabel = new Label
 				{
                     Text = "Convocatória",
 					TextColor = Colors.White,
-					FontSize = 20,
+					FontSize = App.itemTitleFontSize,
 					VerticalTextAlignment = TextAlignment.Center,
 					HorizontalTextAlignment = TextAlignment.Start,
                     FontFamily = "futuracondensedmedium",

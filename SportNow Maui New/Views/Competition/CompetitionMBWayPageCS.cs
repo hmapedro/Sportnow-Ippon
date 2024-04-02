@@ -97,7 +97,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(phoneValueEdit);
-            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 290 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(phoneValueEdit, new Rect(0, 350 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
 
 			payButton = new RegisterButton("PAGAR", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
@@ -105,7 +105,7 @@ namespace SportNow.Views
 
 
 			absoluteLayout.Add(payButton);
-            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 150 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(payButton, new Rect(0, App.screenHeight - 100 - 55 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 		}
 
 

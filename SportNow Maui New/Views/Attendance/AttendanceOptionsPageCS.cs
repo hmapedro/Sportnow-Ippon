@@ -219,7 +219,7 @@ namespace SportNow.Views
 			if (stackPresencasButtons != null)
 			{
                 presencasabsoluteLayout.Add(stackPresencasButtons);
-                presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 20 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
+                presencasabsoluteLayout.SetLayoutBounds(stackPresencasButtons, new Rect(App.screenWidth / 4, 0 * App.screenHeightAdapter, App.screenWidth / 2, App.screenHeight - 300 * App.screenHeightAdapter));
             }
 
 
@@ -233,14 +233,14 @@ namespace SportNow.Views
                 FontFamily = "futuracondensedmedium",
             };
             presencasabsoluteLayout.Add(personalClassesLabel);
-            presencasabsoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 265 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(personalClassesLabel, new Rect(0, App.screenHeight - 100 - 165 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
 
             personalClassesButton = new RoundButton("SABER MAIS!", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
             personalClassesButton.button.BackgroundColor = App.topColor;
             personalClassesButton.button.Clicked += OnPersonalClassesButtonClicked;
 
             presencasabsoluteLayout.Add(personalClassesButton);
-            presencasabsoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 230 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+            presencasabsoluteLayout.SetLayoutBounds(personalClassesButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 100 -130 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
 			/*BoxView separator1 = new BoxView()
             {

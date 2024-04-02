@@ -446,8 +446,9 @@ namespace SportNow.Views
 			minhasGraduacoesButton.deactivate();
 
             absoluteLayout.Remove(collectionViewExaminations);
+            absoluteLayout.Remove(stackProgramasExameButtons);
 
-			absoluteLayout.Add(stackProgramasExameButtons);
+            absoluteLayout.Add(stackProgramasExameButtons);
             absoluteLayout.SetLayoutBounds(stackProgramasExameButtons, new Rect(App.screenWidth / 4, 80 * App.screenHeightAdapter, App.screenWidth / 2, 430 * App.screenHeightAdapter));
 
             Debug.Print("myGradesPageCS.OnProgramasExameButtonClicked End");

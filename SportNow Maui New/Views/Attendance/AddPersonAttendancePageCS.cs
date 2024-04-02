@@ -224,7 +224,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(collectionViewStudents);
-            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 160 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - (260 * App.screenHeightAdapter))));
+            absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 160 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight - 100 - (160 * App.screenHeightAdapter))));
 		}
 
 		public AddPersonAttendancePageCS(Class_Schedule class_Schedule)

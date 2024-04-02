@@ -194,7 +194,7 @@ namespace SportNow.Views
 					registerButton.Clicked += OnRegisterButtonClicked;
 
                     absoluteLayout.Add(registerButton);
-                    absoluteLayout.SetLayoutBounds(registerButton, new Rect(10 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                    absoluteLayout.SetLayoutBounds(registerButton, new Rect(0 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
 
                     /*gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });

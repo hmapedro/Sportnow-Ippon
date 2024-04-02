@@ -12,7 +12,7 @@ namespace SportNow.Views.Profile
 		protected override void OnAppearing()
 		{
             base.OnAppearing();
-            initSpecificLayout();
+            
 		}
 
 		protected override void OnDisappearing()
@@ -40,9 +40,7 @@ namespace SportNow.Views.Profile
 
             var toolbarItem = new ToolbarItem
             {
-                //Text = "Logout",
                 IconImageSource = "iconalunosafaltar.png",
-
             };
             toolbarItem.Clicked += OnPerfilButtonClicked;
             ToolbarItems.Add(toolbarItem);
@@ -54,15 +52,11 @@ namespace SportNow.Views.Profile
 		{
 			Debug.Print("SelectMemberPageCS.CleanScreen");
 			//valida se os objetos já foram criados antes de os remover
-			if (stackButtons != null)
+			if (collectionViewMembers != null)
             {
-				absoluteLayout.Remove(stackButtons);
 				absoluteLayout.Remove(collectionViewMembers);
-
-				stackButtons = null;
 				collectionViewMembers = null;
 			}
-
 		}
 
 		public async void initSpecificLayout()
@@ -86,8 +80,7 @@ namespace SportNow.Views.Profile
                 confirmButton.button.Clicked += OnVoltarOriginalButtonClicked;
 
 				absoluteLayout.Add(confirmButton);
-				absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 160 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
-
+				absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 			}
 		}
 
@@ -120,9 +113,10 @@ namespace SportNow.Views.Profile
 
         public void CreateStudentsColletion()
 		{
-			
+            absoluteLayout.Remove(collectionViewMembers);
+            collectionViewMembers = null;
 
-			Debug.Print("SelectMemberPageCS.CreateStudentsColletion");
+            Debug.Print("SelectMemberPageCS.CreateStudentsColletion");
 			//COLLECTION GRADUACOES
 			collectionViewStudents = new CollectionView
 			{
@@ -147,42 +141,42 @@ namespace SportNow.Views.Profile
 			{
 				AbsoluteLayout itemabsoluteLayout = new AbsoluteLayout
 				{
-					HeightRequest = 30 * App.screenHeightAdapter
+					HeightRequest = 40 * App.screenHeightAdapter
 				};
 
-				FormValue numberLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue numberLabel = new FormValue("", 40 * App.screenHeightAdapter);
 				numberLabel.label.SetBinding(Label.TextProperty, "number_member");
 
 
 				itemabsoluteLayout.Add(numberLabel);
 				itemabsoluteLayout.SetLayoutBounds(numberLabel, new Rect(0,0, 50 * App.screenWidthAdapter, 40 * App.screenHeightAdapter));
 
-				FormValue nicknameLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue nicknameLabel = new FormValue("", 40 * App.screenHeightAdapter);
 				nicknameLabel.label.SetBinding(Label.TextProperty, "nickname");
 
 
 				itemabsoluteLayout.Add(nicknameLabel);
 				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
 
-				FormValue dojoLabel = new FormValue("", 30 * App.screenHeightAdapter);
+				FormValue dojoLabel = new FormValue("", 40 * App.screenHeightAdapter);
 				dojoLabel.label.FontSize = App.formValueSmallFontSize;
 
                 dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
 
 				itemabsoluteLayout.Add(dojoLabel);
-				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (0 * App.screenWidthAdapter), 40 * App.screenHeightAdapter));
 
 				return itemabsoluteLayout;
 			});
 			if (App.original_member.id != App.member.id)
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 280 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth , App.screenHeight - 100 - 180 * App.screenHeightAdapter));
 			}
 			else
 			{
 				absoluteLayout.Add(collectionViewStudents);
-                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 220 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewStudents, new Rect(0, 110 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 120 * App.screenHeightAdapter));
             }
 
 		}
@@ -191,9 +185,10 @@ namespace SportNow.Views.Profile
 		{
 			Debug.WriteLine("SelectStudentPageCS");
 			this.initLayout();
-			//this.initSpecificLayout();
+            initSpecificLayout();
+            //this.initSpecificLayout();
 
-		}
+        }
 
 
 		async Task<List<Member>> GetMemberStudents()
