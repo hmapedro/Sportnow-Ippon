@@ -1,8 +1,8 @@
-﻿/*--using CommunityToolkit.Maui.Markup;
-using CommunityToolkit.Maui.Behaviors;*/
-
-
+﻿//using CommunityToolkit.Maui.Behaviors;
+using CommunityToolkit.Maui.Behaviors;
 using Microsoft.Maui.Controls.Shapes;
+//using Syncfusion.Maui.Inputs;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace SportNow.CustomViews
 {
@@ -63,23 +63,38 @@ public class FormValueEditDate : Border
 
             entry = new Entry
             {
-                 //Padding = new Thickness(5,0,5,0),
-                 Placeholder = "AAAA-MM-DD",
-                 Keyboard = Keyboard.Numeric,
-                 Text = Text,
-                 HorizontalTextAlignment = TextAlignment.Start,
-                 //VerticalTextAlignment = TextAlignment.Center,
-                 TextColor = App.normalTextColor,
-                 BackgroundColor = App.backgroundColor,
-                 FontSize = App.formValueFontSize,
-                 //HeightRequest = 30
-                 FontFamily = "futuracondensedmedium",
+                //Padding = new Thickness(5,0,5,0),
+                Placeholder = "AAAA-MM-DD",
+                Keyboard = Keyboard.Numeric,
+                //Mask = "XXXX-XX-XX",
+                //MaskType = MaskedEntryMaskType.Simple,
+                Text = Text,
+                HorizontalTextAlignment = TextAlignment.Start,
+                TextColor = App.normalTextColor,
+                BackgroundColor = App.backgroundColor,
+                FontSize = App.formValueFontSize,
+                //HeightRequest = 30
+                FontFamily = "futuracondensedmedium",
             };
-            
+
+            var behavior = new MaskedBehavior
+            {
+                UnmaskedCharacter = 'X',
+                Mask = "XXXX-XX-XX"
+            };
+#if ANDROID
+            entry.TextChanged += OnTextChanged;
+#endif
+            entry.Behaviors.Add(behavior);
             this.Content = entry;
 
-            /*--MaskedBehavior maskedBehavior = new MaskedBehavior() { Mask = "XXXX-XX-XX" };
-            entry.Behaviors.Add(maskedBehavior);*/
+
         }
-     }
+#if ANDROID
+        protected void OnTextChanged(object sender, EventArgs e)
+        {
+           (sender as Entry).CursorPosition = (sender as Entry).Text.Length;
+        }
+#endif
+    }
 }

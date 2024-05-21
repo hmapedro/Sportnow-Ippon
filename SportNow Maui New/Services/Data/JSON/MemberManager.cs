@@ -644,7 +644,7 @@ namespace SportNow.Services.Data.JSON
             try
             {
                 //HttpClient client = new HttpClient();
-                client.BaseAddress = new Uri("https://" + Constants.server);
+                //client.BaseAddress = new Uri("https://" + Constants.server);
                 //client.BaseAddress = new Uri(Constants.server);
                 MultipartFormDataContent form = new MultipartFormDataContent();
                 StreamContent content = new StreamContent(stream);

@@ -1,4 +1,6 @@
 ﻿using System.Diagnostics;
+using CommunityToolkit.Maui;
+using CommunityToolkit.Maui.Markup;
 using Microsoft.Extensions.Logging;
 using Microsoft.Maui.LifecycleEvents;
 using Plugin.BetterFirebasePushNotification;
@@ -13,7 +15,22 @@ public static class MauiProgram
 	{
         Microsoft.Maui.Hosting.MauiAppBuilder builder = Microsoft.Maui.Hosting.MauiApp.CreateBuilder();
 		builder
-			.UseMauiApp<App>()
+#if DEBUG
+            .UseMauiCommunityToolkit(options =>
+            {
+                options.SetShouldEnableSnackbarOnWindows(true);
+            })
+#else
+			.UseMauiCommunityToolkit(options =>
+			{
+				options.SetShouldEnableSnackbarOnWindows(true);
+				options.SetShouldSuppressExceptionsInConverters(true);
+				options.SetShouldSuppressExceptionsInBehaviors(true);
+				options.SetShouldSuppressExceptionsInAnimations(true);
+			})
+#endif
+            .UseMauiCommunityToolkitMarkup()//.UseMauiCommunityToolkitMarkup()
+            .UseMauiApp<App>()
             .ConfigureSyncfusionCore()
             .ConfigureFonts(fonts =>
 			{
@@ -65,12 +82,9 @@ public static class MauiProgram
 
             };
 
-
             events.AddAndroid(android => android.OnCreate((activity, bundle) => {
                 Firebase.FirebaseApp.InitializeApp(activity);
             }));
-
-            Debug.Print("AQUIIIIIIIII");
 
             /*events.AddAndroid(android => android.OnCreate((activity, _) =>
             //If you dont want useractions call one of the other initialize options
@@ -81,8 +95,11 @@ public static class MauiProgram
         });
         builder.Services.AddSingleton<IPushNotificationHandler, DefaultPushNotificationHandler>();
 
+        builder.Services.AddTransient<IImageService, ImageService>();
 
         return builder.Build();
 	}
+
+
 }
 

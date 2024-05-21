@@ -3,6 +3,7 @@ using SportNow.Services.Data.JSON;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
 using Microsoft.Maui.Controls.Shapes;
+using SportNow.CustomViews;
 
 namespace SportNow.Views
 {
@@ -32,7 +33,7 @@ namespace SportNow.Views
 
 		Picker dojoPicker;
 
-		Button approveAllButton;
+		RegisterButton approveAllButton;
 
 		public void initLayout()
 		{
@@ -260,12 +261,12 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 170 * App.screenHeightAdapter));
 		}
 
 		public void createApproveButtons()
 		{
-			/*approveSelectedButton = new Button
+            /*approveSelectedButton = new Button
 			{
 				Text = "APROVAR SELECCIONADOS",
 				BackgroundColor = Color.FromRgb(96, 182, 89),
@@ -301,31 +302,14 @@ namespace SportNow.Views
 				heightConstraint: )50)
 			);*/
 
-			approveAllButton = new Button
-			{
-				Text = "APROVAR TODOS",
-				BackgroundColor = Color.FromRgb(96, 182, 89),
-				TextColor = Colors.White,
-				FontSize = App.itemTitleFontSize,
-				WidthRequest = 100,
-				HeightRequest = 50
-			};
 
-			Frame frame_approveAllButton = new Frame
-			{
-				BorderColor = Color.FromRgb(96, 182, 89),
-				WidthRequest = 100,
-				HeightRequest = 50,
-				CornerRadius = 10,
-				IsClippedToBounds = true,
-				Padding = 0
-			};
+            approveAllButton = new RegisterButton("APROVAR TODOS", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 
-			frame_approveAllButton.Content = approveAllButton;
-			approveAllButton.Clicked += approveAllButtonClicked;
+            approveAllButton.button.Clicked += approveAllButtonClicked;
 
-			absoluteLayout.Add(frame_approveAllButton);
-            absoluteLayout.SetLayoutBounds(frame_approveAllButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+
+			absoluteLayout.Add(approveAllButton);
+            absoluteLayout.SetLayoutBounds(approveAllButton, new Rect(5 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 		}
 
 		public MonthFeeListPageCS()

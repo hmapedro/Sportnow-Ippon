@@ -13,6 +13,7 @@ namespace SportNow.Views
 		protected override void OnAppearing()
 		{
             base.OnAppearing();
+			App.AdaptScreen();
             initSpecificLayout();
 		}
 
@@ -56,7 +57,7 @@ namespace SportNow.Views
 		{
 			Debug.Print("SelectMemberPageCS.initSpecificLayout");
 
-			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = Color.FromRgb(246, 220, 178), LineBreakMode = LineBreakMode.WordWrap };
+			Label titleLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.itemTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 			titleLabel.Text = "O seu email tem vários sócios associados.\n Escolhe o sócio que pretende utilizar:";
 
 
@@ -110,13 +111,13 @@ namespace SportNow.Views
 
 
 				itemabsoluteLayout.Add(nicknameLabel);
-				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, App.screenWidth - 55 * App.screenWidthAdapter, 30 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(nicknameLabel, new Rect(55 * App.screenWidthAdapter, 0, (App.screenWidth - 55 * App.screenWidthAdapter) / 2, 30 * App.screenHeightAdapter));
 
 				FormValue dojoLabel = new FormValue("", 30 * App.screenHeightAdapter);
 				dojoLabel.label.SetBinding(Label.TextProperty, "dojo");
 
 				itemabsoluteLayout.Add(dojoLabel);
-				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))), 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 30 * App.screenHeightAdapter));
+				itemabsoluteLayout.SetLayoutBounds(dojoLabel, new Rect((((App.screenWidth) - ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2))) + 5 * App.screenWidthAdapter, 0, ((App.screenWidth - (55 * App.screenWidthAdapter)) / 2) - (5 * App.screenWidthAdapter), 30 * App.screenHeightAdapter));
 
 				return itemabsoluteLayout;
 			});

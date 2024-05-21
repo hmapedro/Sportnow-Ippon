@@ -80,7 +80,7 @@ namespace SportNow.Views
 				{
 					competition_participation.estadoTextColor = Color.FromRgb(96, 182, 89) ;
 				}
-				if (competition_participation.estado == "cancelado")
+				else if (competition_participation.estado == "cancelado")
 				{
 					competition_participation.estadoTextColor = Color.FromRgb(233, 93, 85);
 				}
@@ -247,17 +247,17 @@ namespace SportNow.Views
 			if ((competition.participationconfirmed == "confirmado") | (competition.participationconfirmed == null))
 			{
 				absoluteLayout.Add(collectionViewCompetitionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 100 * App.screenHeightAdapter));
 			}
 			else if ((competition.participationconfirmed == "convocado") & (registrationOpened == 0))
 			{
 				absoluteLayout.Add(collectionViewCompetitionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 100 * App.screenHeightAdapter));
 			}
 			else if ((competition.participationconfirmed == "convocado") & (registrationOpened == 1))
 			{
 				absoluteLayout.Add(collectionViewCompetitionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 315 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 215 * App.screenHeightAdapter));
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 registerButton.button.Clicked += OnRegisterButtonClicked;
@@ -276,12 +276,12 @@ namespace SportNow.Views
 			else if ((competition.participationconfirmed == "cancelado") & (registrationOpened == 0))
 			{
 				absoluteLayout.Add(collectionViewCompetitionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 65 * App.screenHeightAdapter));
 			}
 			else if ((competition.participationconfirmed == "cancelado") & (registrationOpened == 1))
 			{
 				absoluteLayout.Add(collectionViewCompetitionCall);
-				absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 160 * App.screenHeightAdapter));
+				absoluteLayout.SetLayoutBounds(collectionViewCompetitionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 60 * App.screenHeightAdapter));
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 registerButton.button.Clicked += OnRegisterButtonClicked;

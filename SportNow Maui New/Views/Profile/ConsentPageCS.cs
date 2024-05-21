@@ -61,7 +61,7 @@ namespace SportNow.Views.Profile
             scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical };
 
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 110 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(10 * App.screenWidthAdapter, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter));
 
 
 			Microsoft.Maui.Controls.Grid gridConsent = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
@@ -105,8 +105,8 @@ namespace SportNow.Views.Profile
 
 		public ConsentPageCS()
 		{
-            this.initLayout();
-            this.initSpecificLayout();
+            //this.initLayout();
+            //this.initSpecificLayout();
         }
 
 		async void confirmConsentButtonClicked(object sender, EventArgs e)
@@ -123,8 +123,24 @@ namespace SportNow.Views.Profile
 
 			App.member = new Member();
 			App.member.consentimento_regulamento = "1";// Convert.ToInt32(checkBoxRegulamentoInterno.IsChecked).ToString();				
+			App.member.wasCreated = false;
+			App.member.name = "HUGO MANEUL";
+            App.member.member_type = "praticante";
+            App.member.gender = "female";
+			App.member.birthdate = "1999-01-01";
+			App.member.cc_number = "12321312312";
+			App.member.nif = "123123213";
+			App.member.email = "hmap@hotmail.com";
+            App.member.phone = "92312312312";
+            App.member.address = "Rua";
+            App.member.city = "Lisboa";
+            App.member.postalcode = "1500-001";
+            App.member.emergencyContact = "Mae";
+            App.member.emergencyPhone = "912312312";
+//            App.member.email = "hmap@hotmail.com";
 
-			//var result = await memberManager.Update_Member_Authorizations(App.member.id, App.member.consentimento_regulamento);
+
+            //var result = await memberManager.Update_Member_Authorizations(App.member.id, App.member.consentimento_regulamento);
             hideActivityIndicator();
             Debug.Print("App.member.member_type = " + App.member.member_type);
 

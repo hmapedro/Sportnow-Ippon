@@ -61,7 +61,8 @@ namespace SportNow.Views
 
 			Label competitionParticipationNameLabel = new Label
 			{
-				Text = "Para efetuares o pagamento da tua " + monthFee.name + " - "+ payments[0].value + "€ usa os dados indicados em baixo.",
+                FontFamily = "futuracondensedmedium",
+                Text = "Para efetuares o pagamento da tua " + monthFee.name + " - "+ payments[0].value + "€ usa os dados indicados em baixo.",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -78,7 +79,8 @@ namespace SportNow.Views
 
 			Label referenciaMBLabel = new Label
 			{
-				Text = "Pagamento por\n Multibanco",
+                FontFamily = "futuracondensedmedium",
+                Text = "Pagamento por\n Multibanco",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Center,
 				TextColor = Colors.White,
@@ -96,7 +98,8 @@ namespace SportNow.Views
 
 			Label entityLabel = new Label
 			{
-				Text = "Entidade:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Entidade:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -104,7 +107,8 @@ namespace SportNow.Views
 			};
 			Label referenceLabel = new Label
 			{
-				Text = "Referência:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Referência:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -112,7 +116,8 @@ namespace SportNow.Views
 			};
 			Label valueLabel = new Label
 			{
-				Text = "Valor:",
+                FontFamily = "futuracondensedmedium",
+                Text = "Valor:",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.Start,
 				TextColor = Colors.White,
@@ -121,7 +126,8 @@ namespace SportNow.Views
 
 			Label entityValue = new Label
 			{
-				Text = payments[0].entity,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].entity,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = Colors.White,
@@ -129,7 +135,8 @@ namespace SportNow.Views
 			};
 			Label referenceValue = new Label
 			{
-				Text = payments[0].reference,
+                FontFamily = "futuracondensedmedium",
+                Text = payments[0].reference,
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
 				TextColor = Colors.White,
@@ -137,6 +144,7 @@ namespace SportNow.Views
 			};
 			Label valueValue = new Label
 			{
+                FontFamily = "futuracondensedmedium",
                 Text = String.Format("{0:0.00}", payments[0].value) + "€",
 				VerticalTextAlignment = TextAlignment.Center,
 				HorizontalTextAlignment = TextAlignment.End,
@@ -154,8 +162,8 @@ namespace SportNow.Views
 			gridMBDataPayment.Add(valueLabel, 0, 2);
 			gridMBDataPayment.Add(valueValue, 1, 2);
 
-			gridMBDataPayment.Add(referenceLabel, 0, 1);
-			gridMBDataPayment.Add(valueLabel, 0, 2);
+/*			gridMBDataPayment.Add(referenceLabel, 0, 1);
+			gridMBDataPayment.Add(valueLabel, 0, 2);*/
 
 			gridMBPayment.Add(competitionParticipationNameLabel, 0, 0);
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(competitionParticipationNameLabel, 2);

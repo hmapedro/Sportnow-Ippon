@@ -69,7 +69,8 @@ namespace SportNow.Views.Profile
 
 		FormValueEdit nameValue;
 		FormValue emailValue;
-		FormValueEdit phoneValue;
+		FormValue instagramValue;
+        FormValueEdit phoneValue;
 		FormValueEdit addressValue;
 		FormValueEdit cityValue;
 		FormValueEdit postalcodeValue;
@@ -114,10 +115,10 @@ namespace SportNow.Views.Profile
             LogManager logManager = new LogManager();
             await logManager.writeLog(App.original_member.id, App.member.id, "PROFILE VISIT", "Visit Profile Page");
 
-            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 350 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter };
+            scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical, MaximumHeightRequest = (App.screenHeight) - 325 * App.screenHeightAdapter, MaximumWidthRequest = App.screenWidth - 20 * App.screenWidthAdapter };
 
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 100 - 325 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 325 * App.screenHeightAdapter, App.screenWidth, (App.screenHeight) - 100 - 375 * App.screenHeightAdapter));
 
             CreatePhoto();			
 			CreateGraduacao();
@@ -527,13 +528,13 @@ namespace SportNow.Views.Profile
 
 		public void CreateGridGeral() {
 
-			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, HorizontalOptions = LayoutOptions.FillAndExpand, RowSpacing = 5 * App.screenHeightAdapter };
+			gridGeral = new Microsoft.Maui.Controls.Grid { Padding = 0, ColumnSpacing = 5 * App.screenWidthAdapter, RowSpacing = 5 * App.screenHeightAdapter };
+            gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-			gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
+			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			//gridGeral.RowDefinitions.Add(new RowDefinition { Height = 1 });
 			gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto
 			gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
@@ -642,7 +643,10 @@ namespace SportNow.Views.Profile
 			FormLabel emailLabel = new FormLabel { Text = "EMAIL" };
 			emailValue = new FormValue(App.member.email);
 
-			FormLabel phoneLabel = new FormLabel { Text = "TELEFONE" };
+			FormLabel instagramLabel = new FormLabel { Text = "INSTAGRAM" };
+            instagramValue = new FormValue(App.member.instagram);
+
+            FormLabel phoneLabel = new FormLabel { Text = "TELEFONE" };
 			phoneValue = new FormValueEdit(App.member.phone);
 
 			FormLabel addressLabel = new FormLabel { Text = "MORADA" };
@@ -1069,88 +1073,45 @@ namespace SportNow.Views.Profile
 
         async void OpenGalleryTapped()
         {
-            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-            {
-                Title = "Por favor escolha uma foto"
-            });
+            showActivityIndicator();
+
+            ImageService imageService = new ImageService();
+            var result = await imageService.PickPhotoAsync();
+
 
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform != DevicePlatform.iOS)
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
-                }
-                else
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 90);
-                }
-
                 MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
-            }
+                await memberManager.Upload_Member_Photo(stream);
 
+            }
+            hideActivityIndicator();
         }
+
 
         async void TakeAPhotoTapped()
         {
-            var result = await MediaPicker.CapturePhotoAsync();
+            showActivityIndicator();
+            ImageService imageService = new ImageService();
+            var result = await imageService.CapturePhotoAsync();
+
 
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform == DevicePlatform.iOS)
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
-                }
-                else
-                {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
-                }
 
                 MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
+                await memberManager.Upload_Member_Photo(stream);
             }
 
-        }
-
-        public Stream RotateBitmap(Stream _stream, int angle)
-        {
-            Stream streamlocal = null;
-            SKBitmap bitmap = SKBitmap.Decode(_stream);
-            SKBitmap rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
-            if (angle != 0)
-            {
-                using (var surface = new SKCanvas(rotatedBitmap))
-                {
-                    surface.Translate(rotatedBitmap.Width, 0);
-                    surface.RotateDegrees(angle);
-                    surface.DrawBitmap(bitmap, 0, 0);
-                }
-            }
-            else
-            {
-                rotatedBitmap = bitmap;
-            }
-
-            using (MemoryStream memStream = new MemoryStream())
-            using (SKManagedWStream wstream = new SKManagedWStream(memStream))
-            {
-                rotatedBitmap.Encode(wstream, SKEncodedImageFormat.Jpeg, 40);
-                byte[] data = memStream.ToArray();
-                streamlocal = new MemoryStream(data);
-            }
-            return streamlocal;
+            hideActivityIndicator();
 
         }
     }

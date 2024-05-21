@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading.Tasks;
+using Microsoft.Maui.Graphics.Platform;
 using SportNow.Model;
 
 namespace SportNow
@@ -683,6 +685,33 @@ namespace SportNow
                 }
             }
             return key;
+        }
+
+        public static async Task<Stream> ResizePhotoStream(FileResult photo)
+        {
+            byte[] result = null;
+
+            using (var stream = await photo.OpenReadAsync())
+            {
+                if (stream.Length > 512)
+                {
+                    var image = PlatformImage.FromStream(stream);
+                    if (image != null)
+                    {
+                        var newImage = image.Downsize(512, true);
+                        result = newImage.AsBytes();
+                    }
+                }
+                else
+                {
+                    using (var binaryReader = new BinaryReader(stream))
+                    {
+                        result = binaryReader.ReadBytes((int)stream.Length);
+                    }
+                }
+            }
+
+            return new MemoryStream(result);
         }
     }
 }

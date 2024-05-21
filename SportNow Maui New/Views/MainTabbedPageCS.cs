@@ -234,11 +234,11 @@ namespace SportNow.Views
             Children.RemoveAt(0);
             Children.Add(new DoPageCS() { Title = "HISTÓRICO", IconImageSource = "icondo.png" });
             Children.Add(new AttendanceOptionsPageCS() { Title = "AULAS", IconImageSource = "presencasicon.png" });
-            Children.Add(new MainPageCS() { Title = "PRINCIPAL", IconImageSource = "logo_aksl_icon.png" });
+            Children.Add(new MainPageCS() { Title = "HOME", IconImageSource = "logo_aksl_icon.png" });
             Children.Add(new AllEventsPageCS() { Title = "EVENTOS", IconImageSource = "eventos.png" });
             Children.Add(new EquipamentTypePageCS() { Title = "EQUIPAMENTOS", IconImageSource = "kimono.png" });
             CurrentPage = Children[2];
-            Title = "PRINCIPAL";
+            Title = "IPPON KARATE PORTUGAL";
             //this.BarTextColor = Colors.Red;//App.normalTextColor;//FromRgb(75, 75, 75);
             CurrentPageChanged += CurrentPageHasChanged;
 

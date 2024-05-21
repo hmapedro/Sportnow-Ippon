@@ -30,7 +30,7 @@ namespace SportNow.Views
 
 		private List<Payment> payments;
 
-		Button registerButton;
+        RegisterButton registerButton;
 
 		private Microsoft.Maui.Controls.Grid gridEvent;
 
@@ -144,8 +144,6 @@ namespace SportNow.Views
 				}
 			}
 
-			registerButton = new Button();
-
 			if (event_v.participationconfirmed == "inscrito")
 			{
 				estadoValue = new FormValue("INSCRITO");
@@ -161,45 +159,19 @@ namespace SportNow.Views
 				if (registrationOpened == true)
                 {
 
-					//registerButton = new RoundButton("INSCREVER", 100, 40);
+                    //registerButton = new RoundButton("INSCREVER", 100, 40);
 
-					registerButton = new Button
-					{
-						Text = "INSCREVER",
-                        FontFamily = "futuracondensedmedium",
-                        BackgroundColor = Color.FromRgb(96, 182, 89),
-						TextColor = Colors.White,
-						FontSize = App.itemTitleFontSize,
-						WidthRequest = App.screenWidth,
-						HeightRequest = 50 * App.screenHeightAdapter,
-						VerticalOptions = LayoutOptions.End
-					};
+                    registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
 
-                    Border frame_registerButton = new Border
-					{
-						BackgroundColor = Colors.Transparent,
-						//BorderColor = Color.FromRgb(96, 182, 89),
-						WidthRequest = App.screenWidth,
-						HeightRequest = 50 * App.screenHeightAdapter,
-                        StrokeShape = new RoundRectangle
-                        {
-                            CornerRadius = 5 * (float)App.screenHeightAdapter,
-                        },
-                        Stroke = Color.FromRgb(96, 182, 89),
-                        VerticalOptions = LayoutOptions.End,
-						Padding = 0
-					};
+					registerButton.button.Clicked += OnRegisterButtonClicked;
 
-					frame_registerButton.Content = registerButton;
-					registerButton.Clicked += OnRegisterButtonClicked;
-
-                    absoluteLayout.Add(registerButton);
-                    absoluteLayout.SetLayoutBounds(registerButton, new Rect(0 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                    //absoluteLayout.Add(registerButton);
+                    //absoluteLayout.SetLayoutBounds(registerButton, new Rect(0 * App.screenWidthAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 
 
-                    /*gridEvent.RowDefinitions.Add(new RowDefinition { Height = GridLength.Star });
-					gridEvent.Add(frame_registerButton, 0, 7);
-					Microsoft.Maui.Controls.Grid.SetColumnSpan(frame_registerButton, 2);*/
+                    gridEvent.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter});
+					gridEvent.Add(registerButton, 0, 8);
+					Microsoft.Maui.Controls.Grid.SetColumnSpan(registerButton, 2);
                 }
 
 
@@ -246,7 +218,7 @@ namespace SportNow.Views
 			Microsoft.Maui.Controls.Grid.SetColumnSpan(limitDateLabel, 2);
 
 			absoluteLayout.Add(gridEvent);
-            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(5 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 160 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(gridEvent, new Rect(5 * App.screenWidthAdapter, 5 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100));
 
 		}
 

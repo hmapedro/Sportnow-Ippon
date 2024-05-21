@@ -65,7 +65,7 @@ namespace SportNow.Views.Profile
 				})
 			);*/
 
-			Label labelSucesso = new Label { BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.bigTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
+			Label labelSucesso = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = App.bigTitleFontSize, TextColor = App.normalTextColor, LineBreakMode = LineBreakMode.WordWrap };
 			labelSucesso.Text = "OBRIGADO " + App.member.name.Split(' ')[0].ToUpper() + "!\n\n O teu treinador será avisado que concluíste o processo de registo e logo que ele aprove a tua inscrição poderás começar a utilizar a nossa App.";
 			absoluteLayout.Add(labelSucesso);
 			absoluteLayout.SetLayoutBounds(labelSucesso, new Rect(30 * App.screenHeightAdapter, 40 * App.screenHeightAdapter, App.screenWidth - 60 * App.screenWidthAdapter, 300 * App.screenHeightAdapter));
@@ -84,7 +84,7 @@ namespace SportNow.Views.Profile
             confirmButton.button.Clicked += confirmConsentButtonClicked;
 
 			absoluteLayout.Add(confirmButton);
-			absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
+			absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenHeightAdapter, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, 50 * App.screenHeightAdapter));
 
         }
 

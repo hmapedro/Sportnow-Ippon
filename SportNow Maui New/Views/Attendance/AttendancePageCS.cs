@@ -380,13 +380,16 @@ namespace SportNow.Views
 				Class_Schedule class_schedule = (sender as CollectionView).SelectedItems[0] as Class_Schedule;
 				if (class_schedule.classattendanceid == null)
 				{
+                    string class_attendance_id = await classmanager.CreateClass_Attendance(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
+                    class_schedule.classattendanceid = class_attendance_id;
+					/*
                     Task.Run(async () =>
                     {
                         string class_attendance_id = await classmanager.CreateClass_Attendance(App.member.id, class_schedule.classid, "confirmada", class_schedule.date);
                         class_schedule.classattendanceid = class_attendance_id;
                         return true;
                     });
-                    
+*/                    
 					class_schedule.classattendancestatus = "confirmada";
 					class_schedule.participationimage = "iconcheck.png";
 				}

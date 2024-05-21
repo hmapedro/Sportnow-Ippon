@@ -60,14 +60,22 @@ namespace SportNow.Views
 
 			foreach (Examination examination in examination_sessionCall)
 			{
-				Debug.Print("examination.estado=" + examination.estado);
+				Debug.Print("examination.membername=" + examination.membername+" - "+ examination.estado);
 				if (examination.estado == "confirmado")
 				{
 					examination.estadoTextColor = Color.FromRgb(96, 182, 89);
 				}
-                if (examination.estado == "cancelado")
+                else if (examination.estado == "cancelado")
                 {
                     examination.estadoTextColor = Color.FromRgb(233, 93, 85);
+                }
+                else if (examination.estado == "pendente")
+                {
+					examination.estadoTextColor = Colors.YellowGreen;
+                }
+                else
+                {
+					examination.estadoTextColor = App.normalTextColor;
                 }
                 examination.gradeLabel = Constants.grades[examination.grade];
 			}
@@ -145,7 +153,7 @@ namespace SportNow.Views
 					Margin = new Thickness(3)
 				};
 
-				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, TextColor = Colors.White, LineBreakMode = LineBreakMode.WordWrap };
+				Label nameLabel = new Label { FontFamily = "futuracondensedmedium", BackgroundColor = Colors.Transparent, VerticalTextAlignment = TextAlignment.Center, HorizontalTextAlignment = TextAlignment.Start, FontSize = App.formValueFontSize, LineBreakMode = LineBreakMode.WordWrap };
 				nameLabel.SetBinding(Label.TextProperty, "membername");
 				nameLabel.SetBinding(Label.TextColorProperty, "estadoTextColor");
 
@@ -184,9 +192,9 @@ namespace SportNow.Views
 			DateTime currentTime = DateTime.Now.Date;
 			DateTime registrationbegindate_datetime = DateTime.Parse(examination_session.registrationbegindate).Date;
 			DateTime registrationlimitdate_datetime = DateTime.Parse(examination_session.registrationlimitdate).Date;
-			Debug.Print("event_v.registrationbegindate = " + examination_session.registrationbegindate + " " + registrationbegindate_datetime);
+/*			Debug.Print("event_v.registrationbegindate = " + examination_session.registrationbegindate + " " + registrationbegindate_datetime);
 			Debug.Print("event_v.registrationlimitdate = " + examination_session.registrationlimitdate + " " + registrationlimitdate_datetime);
-			Debug.Print("registrationlimitdate_datetime - currentTime).Days = " + (registrationlimitdate_datetime - currentTime).Days);
+			Debug.Print("registrationlimitdate_datetime - currentTime).Days = " + (registrationlimitdate_datetime - currentTime).Days);*/
 			bool registrationOpened = false;
 
 			if (((currentTime - registrationbegindate_datetime).Days >= 0) & ((registrationlimitdate_datetime - currentTime).Days >= 0))
@@ -195,16 +203,16 @@ namespace SportNow.Views
 			}
 
 			//Já inscrito ou não convocado
-			if ((examination_session.participationconfirmed == "confirmado") | (examination_session.participationconfirmed == null) | (registrationOpened == false))
+			if ((examination_session.participationconfirmed == "confirmado") | (examination_session.participationconfirmed == "pendente") | (examination_session.participationconfirmed == null) | (registrationOpened == false))
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 100 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 120 * App.screenHeightAdapter));
 			}
 			else if (examination_session.participationconfirmed == "convocado")
 			{
 
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 170 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 230 * App.screenHeightAdapter));
 
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
@@ -222,16 +230,15 @@ namespace SportNow.Views
 			else if (examination_session.participationconfirmed == "cancelado")
 			{
 				absoluteLayout.Add(collectionViewExaminationSessionCall);
-                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 70 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(collectionViewExaminationSessionCall, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 170 * App.screenHeightAdapter));
 
 				registerButton = new RegisterButton("INSCREVER", App.screenWidth - 10 * App.screenWidthAdapter, 50 * App.screenHeightAdapter);
                 registerButton.button.Clicked += OnRegisterButtonClicked;
 
 				absoluteLayout.Add(registerButton);
-                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
+                absoluteLayout.SetLayoutBounds(registerButton, new Rect(0, App.screenHeight - 100 - 60 * App.screenHeightAdapter, App.screenWidth, 50 * App.screenHeightAdapter));
 			}
-
-		}
+        }
 
 		public ExaminationSessionCallPageCS(Examination_Session examination_session)
 		{

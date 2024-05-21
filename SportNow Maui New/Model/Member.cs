@@ -13,6 +13,7 @@ namespace SportNow.Model
         public string description { get; set; }
         public string nickname { get; set; }
         public string email { get; set; }
+        public string instagram { get; set; }
         public string phone { get; set; }
         public string grade { get; set; }
         public string dojoid { get; set; }
@@ -79,6 +80,8 @@ namespace SportNow.Model
         public int students_count { get; set; }
 
         public List<Objective> objectives { get; set; }
+
+        public bool wasCreated { get; set; }
 
         public override string ToString()
             {

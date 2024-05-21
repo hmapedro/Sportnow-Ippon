@@ -83,7 +83,8 @@ namespace SportNow.Views
                 FontSize = App.titleFontSize,
                 TextColor = Color.FromRgb(246, 220, 178),
                 BackgroundColor = App.backgroundColor,
-                VerticalOptions = LayoutOptions.Center
+                VerticalOptions = LayoutOptions.Center,
+                HeightRequest = 60 * App.screenHeightAdapter
             };
 
 
@@ -96,8 +97,9 @@ namespace SportNow.Views
 				TextColor = Color.FromRgb(246, 220, 178),
 				WidthRequest = 150,
 				VerticalTextAlignment = TextAlignment.Center,
-				HorizontalTextAlignment = TextAlignment.Center
-			};
+				HorizontalTextAlignment = TextAlignment.Center,
+                HeightRequest = 60 * App.screenHeightAdapter
+            };
 
 			nextMonthButton = new Button()
 			{
@@ -105,8 +107,9 @@ namespace SportNow.Views
 				FontSize = App.titleFontSize,
 				TextColor = Color.FromRgb(246, 220, 178),
 				BackgroundColor = App.backgroundColor,
-				VerticalOptions = LayoutOptions.Center
-			};
+				VerticalOptions = LayoutOptions.Center,
+				HeightRequest = 60 * App.screenHeightAdapter
+            };
 
 			nextMonthButton.Clicked += OnNextButtonClicked;
 
@@ -128,7 +131,7 @@ namespace SportNow.Views
 			};
 
 			absoluteLayout.Add(stackMonthSelector);
-            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 40 * App.screenHeightAdapter, App.screenWidth, 40 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(stackMonthSelector, new Rect(0, 20 * App.screenHeightAdapter, App.screenWidth, 60 * App.screenHeightAdapter));
 
 
 		}
@@ -209,7 +212,7 @@ namespace SportNow.Views
 			});
 
 			absoluteLayout.Add(monthFeesCollectionView);
-            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 100 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 170 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(monthFeesCollectionView, new Rect(0, 80 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 80 * App.screenHeightAdapter));
 
 		}
 

@@ -16,8 +16,8 @@ namespace SportNow
         public static Member original_member;
         public static Member member;
 
-        public static string VersionNumber = "3.0.0";
-        public static string BuildNumber = "64";
+        public static string VersionNumber = "3.0.12";
+        public static string BuildNumber = "76";
 
         public static Competition competition;
 
@@ -57,6 +57,16 @@ namespace SportNow
         public ICommand UnlockOrientationCommand { get; }
 
         public string OrientationLockState;
+
+        protected override Window CreateWindow(IActivationState activationState)
+        {
+            if (this.MainPage == null)
+            {
+                this.MainPage = new MainPage();
+            }
+
+            return base.CreateWindow(activationState);
+        }
 
         public App(bool hasNotification = false, object notificationData = null)
          {

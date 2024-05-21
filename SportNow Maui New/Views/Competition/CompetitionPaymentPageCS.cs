@@ -40,8 +40,9 @@ namespace SportNow.Views
 		{
 
 
-			if (competition_v.value == 0)
-			{
+			if ((competition_v.value == 0) | (competition_v.participationcategory == "Treinador"))
+
+            {
 				createRegistrationConfirmed();
 			}
 			else

@@ -89,8 +89,12 @@ namespace SportNow.Views
 
 			FormLabel gradeLabel = new FormLabel { Text = "EXAME PARA" };
 			FormValue gradeValue;
-			if (examination_session.participationgrade != null)
-			{
+
+			Debug.Print("examination_session.participationconfirmed = " + examination_session.participationconfirmed);
+
+			if ((examination_session.participationgrade != null) & (examination_session.participationconfirmed != "pendente"))
+
+            {
 				gradeValue = new FormValue(Constants.grades[examination_session.participationgrade]);
 			}
 			else
@@ -102,7 +106,7 @@ namespace SportNow.Views
 			FormLabel valueLabel = new FormLabel { Text = "VALOR" };
 
 			FormValue valueValue;
-			if (examination_session.participationvalue != null)
+			if ((examination_session.participationvalue != null) & (examination_session.participationconfirmed != "pendente"))
 			{
 				Debug.Print("examination_session.participationvalue = " + examination_session.participationvalue+".");
 				double participationvalue_double = Double.Parse(examination_session.participationvalue.Replace(',', '.'), CultureInfo.InvariantCulture);

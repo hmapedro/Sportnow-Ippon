@@ -80,7 +80,7 @@ namespace SportNow.Views.Profile
             scrollView = new ScrollView { Orientation = ScrollOrientation.Vertical };
 
             absoluteLayout.Add(scrollView);
-            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 260 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 320 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(scrollView, new Rect(0, 260 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 100 - 330 * App.screenHeightAdapter));
 
             listAllDojos = await GetAllDojos();
 
@@ -180,7 +180,7 @@ namespace SportNow.Views.Profile
             gridGeral.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
             FormLabel nameLabel = new FormLabel { Text = "NOME COMPLETO *", HorizontalTextAlignment = TextAlignment.Start };
-            nameValue = new FormValueEdit("");
+            nameValue = new FormValueEdit(App.member.name);
 
             List<string> gendersList = new List<string>();
             foreach (KeyValuePair<string, string> entry in Constants.genders)
@@ -188,7 +188,7 @@ namespace SportNow.Views.Profile
                 gendersList.Add(entry.Value);
             }
             FormLabel genderLabel = new FormLabel { Text = "GÉNERO *" };
-            genderValue = new FormValueEditPicker("", gendersList);
+            genderValue = new FormValueEditPicker(App.member.gender, gendersList);
 
             List<string> memberTypeList = new List<string>();
             foreach (KeyValuePair<string, string> entry in Constants.memberTypes)
@@ -196,12 +196,12 @@ namespace SportNow.Views.Profile
                 memberTypeList.Add(entry.Value);
             }
             FormLabel memberTypeLabel = new FormLabel { Text = "TIPO SÓCIO *" };
-            memberTypeValue = new FormValueEditPicker("", memberTypeList);
+            memberTypeValue = new FormValueEditPicker(App.member.member_type, memberTypeList);
 
 
             FormLabel dojoLabel = new FormLabel { Text = "DOJO *" };
 
-            dojoValue = new FormValueEditPicker("", dojoList);
+            dojoValue = new FormValueEditPicker(App.member.dojo, dojoList);
 
             /*List<string> countriesList = new List<string>();
             foreach (KeyValuePair<string, string> entry in Constants.countries)
@@ -213,11 +213,11 @@ namespace SportNow.Views.Profile
             
 
             FormLabel birthdateLabel = new FormLabel { Text = "NASCIMENTO *" };
-            birthdateValue = new FormValueEditDate("");
+            birthdateValue = new FormValueEditDate(App.member.birthdate);
 
 
             FormLabel jobLabel = new FormLabel { Text = "PROFISSÃO" };
-            jobValue = new FormValueEdit("");
+            jobValue = new FormValueEdit(App.member.job);
 
 
             gridGeral.Add(nameLabel, 0, 1);
@@ -254,22 +254,16 @@ namespace SportNow.Views.Profile
             gridIdentificacao.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Star }); //GridLength.Auto 
 
             FormLabel cc_numberLabel = new FormLabel { Text = "N. IDENTIFICAÇÃO *" };
-            cc_numberValue = new FormValueEdit("");
+            cc_numberValue = new FormValueEdit(App.member.cc_number);
 
             FormLabel nifLabel = new FormLabel { Text = "NIF *" };
-            nifValue = new FormValueEdit("");
-
-            FormLabel fnkpLabel = new FormLabel { Text = "FNKP" };
-            fnkpValue = new FormValueEdit("");
+            nifValue = new FormValueEdit(App.member.nif);
 
             gridIdentificacao.Add(cc_numberLabel, 0, 0);
             gridIdentificacao.Add(cc_numberValue, 1, 0);
 
             gridIdentificacao.Add(nifLabel, 0, 1);
             gridIdentificacao.Add(nifValue, 1, 1);
-
-            gridIdentificacao.Add(fnkpLabel, 0, 2);
-            gridIdentificacao.Add(fnkpValue, 1, 2);
 
             /*absoluteLayout.Add(gridIdentificacao,
 				xConstraint: )0),
@@ -301,25 +295,25 @@ namespace SportNow.Views.Profile
 
 
             FormLabel emailLabel = new FormLabel { Text = "EMAIL *" };
-            emailValue = new FormValueEdit("", Keyboard.Email);
+            emailValue = new FormValueEdit(App.member.email, Keyboard.Email);
 
             FormLabel phoneLabel = new FormLabel { Text = "TELEFONE *" };
-            phoneValue = new FormValueEdit("", Keyboard.Telephone);
+            phoneValue = new FormValueEdit(App.member.phone, Keyboard.Telephone);
 
             FormLabel addressLabel = new FormLabel { Text = "MORADA *" };
-            addressValue = new FormValueEdit("");
+            addressValue = new FormValueEdit(App.member.address);
 
             FormLabel cityLabel = new FormLabel { Text = "CIDADE *" };
-            cityValue = new FormValueEdit("");
+            cityValue = new FormValueEdit(App.member.city);
 
             FormLabel postalcodeLabel = new FormLabel { Text = "CÓDIGO POSTAL *" };
-            postalcodeValue = new FormValueEdit("");
+            postalcodeValue = new FormValueEdit(App.member.postalcode);
 
             FormLabel emergencyContactLabel = new FormLabel { Text = "CONTACTO EMERG. *" };
-            emergencyContactValue = new FormValueEdit("");
+            emergencyContactValue = new FormValueEdit(App.member.emergencyContact);
 
             FormLabel emergencyPhoneLabel = new FormLabel { Text = "TELEFONE EMERG. *" };
-            emergencyPhoneValue = new FormValueEdit("", Keyboard.Telephone);
+            emergencyPhoneValue = new FormValueEdit(App.member.emergencyPhone, Keyboard.Telephone);
 
 
             gridMorada.Add(emailLabel, 0, 0);
@@ -676,6 +670,7 @@ namespace SportNow.Views.Profile
                 }
             }
             Debug.Print("AQUI 1 "+ App.member.dojoid);
+            Debug.Print("AQUI 2");
             //            App.member.country = Constants.KeyByValue(Constants.countries, countryValue.picker.SelectedItem.ToString());
             App.member.gender = Constants.KeyByValue(Constants.genders, genderValue.picker.SelectedItem.ToString());
             App.member.birthdate = birthdateValue.entry.Text;
@@ -684,12 +679,13 @@ namespace SportNow.Views.Profile
 
             App.member.cc_number = cc_numberValue.entry.Text;
             App.member.nif = nifValue.entry.Text;
-            App.member.number_fnkp = fnkpValue.entry.Text;
 
             App.member.email = emailValue.entry.Text;
             App.member.phone = phoneValue.entry.Text;
             App.member.emergencyContact = emergencyContactValue.entry.Text;
             App.member.emergencyPhone = emergencyPhoneValue.entry.Text;
+
+            Debug.Print("AQUI 3");
 
             App.member.address = addressValue.entry.Text;
             App.member.city = cityValue.entry.Text;
@@ -702,19 +698,25 @@ namespace SportNow.Views.Profile
             App.member.mail_enc2 = EncEducacao2MailValue.entry.Text;
 
             MemberManager memberManager = new MemberManager();
-
+            Debug.Print("AQUI 4");
             showActivityIndicator();
+            string result;
 
-            var result = await memberManager.createNewMember(App.member);
+
+            Debug.Print("App.member.wasCreated = "+ App.member.wasCreated);
+
+            if (App.member.wasCreated == true)
+            {
+                result = await memberManager.UpdateMemberInfo(App.member);
+            }
+            else
+            {
+                result = await memberManager.createNewMember(App.member);
+            }
 
             hideActivityIndicator();
 
-            if (result == "1")
-            {
-                await Navigation.PushAsync(new NewMemberSuccessPageCS());
-
-            }
-            else if (result == "-1")
+            if (result == "-1")
             {
                 await DisplayAlert("DADOS INVÁLIDOS", "Tem de preencher todos os dados obrigatórios", "OK");
 
@@ -724,7 +726,8 @@ namespace SportNow.Views.Profile
                 await DisplayAlert("SÓCIO JÁ EXISTE", "Já existe um sócio no nosso sistema com este Número de Identificação.", "OK");
 
             }
-            else {
+            else if (result == "-3")
+            {
                 Application.Current.MainPage = new NavigationPage(new LoginPageCS("Verifique a sua ligação à Internet e tente novamente."))
                 {
                     BarBackgroundColor = Color.FromRgb(15, 15, 15),
@@ -732,9 +735,23 @@ namespace SportNow.Views.Profile
                 };
                 return "-1";
             }
+            else
+            {
+                if (App.member.wasCreated == false)
+                {
+                    App.member.id = result;
+                    App.member.wasCreated = true;
+                }
+
+                showActivityIndicator();
+                await memberManager.Upload_Member_Photo(stream);
+                hideActivityIndicator();
+                await Navigation.PushAsync(new NewMemberSuccessPageCS());
+            }
 
 
-            
+
+
             return result;
         }
 
@@ -753,7 +770,7 @@ namespace SportNow.Views.Profile
             confirmButton.button.Clicked += OnConfirmButtonClicked;
 
             absoluteLayout.Add(confirmButton);
-            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenWidthAdapter, (App.screenHeight) - (60 * App.screenHeightAdapter), (App.screenWidth - 20 * App.screenHeightAdapter), 50 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(confirmButton, new Rect(10 * App.screenWidthAdapter, (App.screenHeight) - 100 - (60 * App.screenHeightAdapter), (App.screenWidth - 20 * App.screenHeightAdapter), 50 * App.screenHeightAdapter));
 
         }
 
@@ -789,82 +806,42 @@ namespace SportNow.Views.Profile
 
         async void OpenGalleryTapped()
         {
-            var result = await MediaPicker.PickPhotoAsync(new MediaPickerOptions
-            {
-                Title = "Por favor escolhe uma foto"
-            });
+            showActivityIndicator();
+
+            ImageService imageService = new ImageService();
+            var result = await imageService.PickPhotoAsync();
+
 
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                if (DeviceInfo.Platform != DevicePlatform.iOS)
-                {
-                    memberPhotoImage.Rotation = 0;
-                    stream = RotateBitmap(stream_aux, 0);
-                }
-                else
-                {
-                    memberPhotoImage.Rotation = 90;
-                    stream = RotateBitmap(stream_aux, 90);
-                }
 
-                MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
                 imageloaded = true;
             }
+            hideActivityIndicator();
         }
 
         async void TakeAPhotoTapped()
         {
-            var result = await MediaPicker.CapturePhotoAsync();
+            showActivityIndicator();
+
+            ImageService imageService = new ImageService();
+            var result = await imageService.CapturePhotoAsync();
 
             if (result != null)
             {
-                Stream stream_aux = await result.OpenReadAsync();
-                Stream localstream = await result.OpenReadAsync();
+                stream = await Constants.ResizePhotoStream(result); //result.OpenReadAsync();
+                Stream localstream = await Constants.ResizePhotoStream(result);  //await result.OpenReadAsync();
 
                 memberPhotoImage.Source = ImageSource.FromStream(() => localstream);
-                memberPhotoImage.Rotation = 90;
-                stream = RotateBitmap(stream_aux, 90);
 
-                MemberManager memberManager = new MemberManager();
-                memberManager.Upload_Member_Photo(stream);
                 imageloaded = true;
-            }
 
-        }
-
-        public Stream RotateBitmap(Stream _stream, int angle)
-        {
-            Stream streamlocal = null;
-            SKBitmap bitmap = SKBitmap.Decode(_stream);
-            SKBitmap rotatedBitmap = new SKBitmap(bitmap.Height, bitmap.Width);
-            if (angle != 0)
-            {
-                using (var surface = new SKCanvas(rotatedBitmap))
-                {
-                    surface.Translate(rotatedBitmap.Width, 0);
-                    surface.RotateDegrees(angle);
-                    surface.DrawBitmap(bitmap, 0, 0);
-                }
             }
-            else
-            {
-                rotatedBitmap = bitmap;
-            }
-
-            using (MemoryStream memStream = new MemoryStream())
-            using (SKManagedWStream wstream = new SKManagedWStream(memStream))
-            {
-                rotatedBitmap.Encode(wstream, SKEncodedImageFormat.Jpeg, 40);
-                byte[] data = memStream.ToArray();
-                streamlocal = new MemoryStream(data);
-            }
-            return streamlocal;
-
+            hideActivityIndicator();
         }
 
         public static int CountWords(string test)
