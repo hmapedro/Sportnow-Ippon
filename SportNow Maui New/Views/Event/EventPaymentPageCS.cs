@@ -91,7 +91,7 @@ namespace SportNow.Views
 				TextColor = Colors.White,
 				//LineBreakMode = LineBreakMode.NoWrap,
 				HeightRequest = 300,
-				FontSize = 30
+				FontSize = App.bigTitleFontSize
 			};
 
 			absoluteLayout.Add(inscricaoOKLabel);
