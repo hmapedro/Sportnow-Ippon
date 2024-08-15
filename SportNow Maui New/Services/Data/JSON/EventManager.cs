@@ -64,7 +64,8 @@ namespace SportNow.Services.Data.JSON
 				{
 					//return true;
 					string content = await response.Content.ReadAsStringAsync();
-					events = JsonConvert.DeserializeObject<List<Event>>(content);
+                    Debug.WriteLine("content=" + content);
+                    events = JsonConvert.DeserializeObject<List<Event>>(content);
 				}
 				return events;
 			}

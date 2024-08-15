@@ -154,7 +154,10 @@ namespace SportNow.Views
 					{
 						proximosOutrosEventos.Add(event_i);
 					}
+
+					Debug.Print("event_i.name = " + event_i.name+ "event_i.imagemNome = " + event_i.imagemNome + "event_i.imagemSource = " + event_i.imagemSource);
 				}
+
 			}
 
 			List<Competition> proximasCompeticoesAll = await GetFutureCompetitions();
@@ -340,7 +343,7 @@ namespace SportNow.Views
 				categoryLabel.SetBinding(Label.TextProperty, "participationcategory");
 
 				itemabsoluteLayout.Add(categoryLabel);
-				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2), App.ItemWidth - (6 * App.screenWidthAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
+				itemabsoluteLayout.SetLayoutBounds(categoryLabel, new Rect(3 * App.screenWidthAdapter, ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 2) + 5 * App.screenHeightAdapter, App.ItemWidth - (6 * App.screenWidthAdapter), ((App.ItemHeight - (15 * App.screenHeightAdapter)) / 4)));
 
 				Label dateLabel = new Label { FontFamily = "futuracondensedmedium", VerticalTextAlignment = TextAlignment.Start, HorizontalTextAlignment = TextAlignment.Center, FontSize = 12 * App.screenWidthAdapter, TextColor = Colors.White, LineBreakMode = LineBreakMode.NoWrap };
 				dateLabel.SetBinding(Label.TextProperty, "detailed_date");

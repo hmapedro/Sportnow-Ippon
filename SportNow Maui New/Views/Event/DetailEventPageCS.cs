@@ -37,6 +37,7 @@ namespace SportNow.Views
 		public void initLayout()
 		{
 			Title = event_v.name;
+			Debug.Print("event_v.type = " + event_v.type);
 		}
 
 		public void CleanScreen()

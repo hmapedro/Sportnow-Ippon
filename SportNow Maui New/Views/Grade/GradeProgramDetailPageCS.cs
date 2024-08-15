@@ -66,7 +66,7 @@ namespace SportNow.Views
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
             //gridDetail.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
-            gridDetail.ColumnDefinitions.Add(new ColumnDefinition { Width = WidthRequest = App.screenWidth });
+            gridDetail.ColumnDefinitions.Add(new ColumnDefinition { Width = WidthRequest = App.screenWidth - 20 * App.screenWidthAdapter});
 
 			Label kihonHeaderLabel, kihonLabel, kataHeaderLabel, kataLabel, kumiteHeaderLabel, kumiteLabel, shiaikumiteHeaderLabel, shiaikumiteLabel, youtubeLabel;
 
@@ -114,7 +114,7 @@ namespace SportNow.Views
 			grid.SetColumnSpan(gridDetail, 2);
 
 			absoluteLayout.Add(grid);
-            absoluteLayout.SetLayoutBounds(grid, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth, App.screenHeight - 160 * App.screenHeightAdapter));
+            absoluteLayout.SetLayoutBounds(grid, new Rect(0, 10 * App.screenHeightAdapter, App.screenWidth - 20 * App.screenWidthAdapter, App.screenHeight - 160 * App.screenHeightAdapter));
         }
 
 			

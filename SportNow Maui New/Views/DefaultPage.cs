@@ -1,6 +1,4 @@
 ﻿using Microsoft.Maui.Devices;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
 using System.Diagnostics;
 using System.Windows.Input;
 using Microsoft.Maui.Controls.Shapes;

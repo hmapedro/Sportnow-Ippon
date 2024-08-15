@@ -198,7 +198,7 @@ namespace SportNow.Views
 					{
 						Children =
 							{
-								new Label { Text = "Não existem Aulas agendadas nesta semana.", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.White, FontSize = 20 },
+								new Label { FontFamily = "futuracondensedmedium", Text = "Não existem Aulas agendadas nesta semana.", HorizontalTextAlignment = TextAlignment.Center, TextColor = Colors.White, FontSize = 20 },
 							}
 					}
 				}

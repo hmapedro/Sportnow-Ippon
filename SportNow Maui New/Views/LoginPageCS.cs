@@ -51,7 +51,7 @@ namespace SportNow.Views
 		public void initSpecificLayout()
 		{
 
-			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 0 };
+			Microsoft.Maui.Controls.Grid gridLogin = new Microsoft.Maui.Controls.Grid { Padding = 0, RowSpacing = 10 * App.screenHeightAdapter };
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = GridLength.Auto });
 			gridLogin.RowDefinitions.Add(new RowDefinition { Height = 50 * App.entryHeightAdapter });

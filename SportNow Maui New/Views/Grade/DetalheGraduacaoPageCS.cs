@@ -58,19 +58,18 @@ namespace SportNow.Views
 		public async Task initSpecificLayout()
 		{
 
-			gridGrade = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.FillAndExpand };
+			gridGrade = new Microsoft.Maui.Controls.Grid { Padding = 0, HorizontalOptions = LayoutOptions.Center, RowSpacing = 10 * App.screenHeightAdapter};
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 60 * App.screenHeightAdapter });
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 140 * App.screenHeightAdapter });
-			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
-			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 50 * App.screenHeightAdapter });
+			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 100 * App.screenHeightAdapter });
 			gridGrade.RowDefinitions.Add(new RowDefinition { Height = 250 * App.screenHeightAdapter });
 			
-			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = GridLength.Auto }); //GridLength.Auto 
+			gridGrade.ColumnDefinitions.Add(new ColumnDefinition { Width = App.screenWidth }); //GridLength.Auto 
 
 			Label gradeLabel = new Label
 			{
 				Text = Constants.grades[examination.grade],
-				TextColor = Colors.White,
+				TextColor = App.normalTextColor,
 				HorizontalTextAlignment = TextAlignment.Center,
 				FontSize = 30 * App.screenHeightAdapter,
                 FontFamily = "futuracondensedmedium"
@@ -84,14 +83,15 @@ namespace SportNow.Views
 				Source = examination.image.ToLower(),
 			};
 
-			var textdategrade = examination.place + " | " + examination.date + " | " + examination.examiner;
+			var textdategrade = examination.place + " \n " + examination.date + " \n " + examination.examiner;
 			Label dategradeLabel = new Label
 			{
                 FontFamily = "futuracondensedmedium",
                 Text = textdategrade,
-				TextColor = Colors.White,
+				TextColor = App.normalTextColor,
 				HorizontalTextAlignment = TextAlignment.Center,
-				FontSize = App.titleFontSize
+				FontSize = App.titleFontSize,
+				LineBreakMode = LineBreakMode.WordWrap,
 			};
 
 
@@ -140,9 +140,9 @@ namespace SportNow.Views
 
 			gridGrade.Add(gradeImage, 0, 1);
 
-			gridGrade.Add(dategradeLabel, 0, 3);
+			gridGrade.Add(dategradeLabel, 0, 2);
 
-			gridGrade.Add(browser, 0, 4);
+			gridGrade.Add(browser, 0, 3);
 
 			List<Payment> payments = await GetExamination_Payment(examination.id);
 
@@ -166,12 +166,12 @@ namespace SportNow.Views
 					};
 					invoiceLabel.GestureRecognizers.Add(invoiceLabel_tap);
 					gridGrade.RowDefinitions.Add(new RowDefinition { Height = 80 * App.screenHeightAdapter });
-					gridGrade.Add(invoiceLabel, 0, 5);
+					gridGrade.Add(invoiceLabel, 0, 4);
 				}
 			}
 
 			absoluteLayout.Add(gridGrade);
-            absoluteLayout.SetLayoutBounds(gridGrade, new Rect((App.screenWidth/ 2) - 143.5 * App.screenHeightAdapter, 0, App.screenWidth, App.screenHeight));
+            absoluteLayout.SetLayoutBounds(gridGrade, new Rect(0, 0, App.screenWidth, App.screenHeight));
 		}
 
 		public DetalheGraduacaoPageCS(Member member, Examination examination)

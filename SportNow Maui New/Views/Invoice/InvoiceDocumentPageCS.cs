@@ -20,7 +20,7 @@ namespace SportNow.Views
         {
             Title = "Fatura";
 
-            var toolbarItem = new ToolbarItem
+            var toolbarItem = new Microsoft.Maui.Controls.ToolbarItem
             {
                 //Text = "Logout",
                 IconImageSource = "iconshare.png",

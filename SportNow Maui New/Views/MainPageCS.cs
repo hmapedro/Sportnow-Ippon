@@ -1,23 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using Microsoft.Maui;
-using SportNow.Model;
+﻿using SportNow.Model;
 using SportNow.Services.Data.JSON;
-using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Collections.ObjectModel;
-using System.Globalization;
-using System.Linq;
 using SportNow.ViewModel;
-using Microsoft.Maui;
-using Plugin.DeviceOrientation;
-using Plugin.DeviceOrientation.Abstractions;
 using SportNow.Views.Profile;
 using SportNow.CustomViews;
 using SportNow.Views.Personal;
-using System.Xml;
 using Microsoft.Maui.Controls.Shapes;
-using System.Runtime.CompilerServices;
 
 namespace SportNow.Views
 {
